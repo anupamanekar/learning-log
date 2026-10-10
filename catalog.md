@@ -4,7 +4,7 @@
 
 ## 📊 Vault Statistics
 - **Total Documented Learnings**: 5
-- **Showcase Content Pieces**: 3
+- **Showcase Content Pieces**: 4
 - **Distinct Tags**: 29
 
 ### 📁 Distribution by Category
@@ -37,6 +37,7 @@
 
 | Title | Medium | Status | Source Entry / Topic | Link |
 | :--- | :--- | :--- | :--- | :--- |
+| **Dev Log: Why AI Agents Conflate Feature Flags with Subscription Plans** | `BLOGS` | `Published` | `plans-vs-features-schema-modeling` | [View Draft](showcase/blogs/plans-vs-features-schema-design.md) |
 | **Dev Log: Auditing Date Leaks & Invariant Violations in LLM Ingestion** | `BLOGS` | `Published` | `llm-zero-hallucination-verification-ledger` | [View Draft](showcase/blogs/market-signals-temporal-causality-audit.md) |
 | **Dev Log: Replacing react-player with Native Embeds in Vite** | `BLOGS` | `Published` | `vite-esm-react-player-breakage` | [View Draft](showcase/blogs/vite-esm-video-player-case-study.md) |
 | **Why 100% Green Tests Aren't Enough: Reviewing AI Agent Code** | `VLOGS` | `Ready for Recording` | `human-review-checklist-for-agentic-code` | [View Draft](showcase/vlogs/agentic-code-slop-review-script.md) |

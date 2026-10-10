@@ -1,6 +1,6 @@
 {
   "total_entries": 5,
-  "total_showcases": 3,
+  "total_showcases": 4,
   "categories": {
     "mistakes-and-pitfalls": 1,
     "testing-and-quality": 1,
@@ -148,6 +148,25 @@
     }
   ],
   "showcases": [
+    {
+      "title": "Dev Log: Why AI Agents Conflate Feature Flags with Subscription Plans",
+      "slug": "feature-flags-vs-subscription-plans-schema",
+      "topic": "plans-vs-features-schema-modeling",
+      "date": "2026-07-12",
+      "status": "Published",
+      "tags": [
+        "database-design",
+        "fastapi",
+        "sqlalchemy",
+        "agentic-coding",
+        "dev-log"
+      ],
+      "references": "",
+      "- \"ai-directed-learning/backend/app/adapters/api/payments.py": "57-90\"",
+      "- \"Antigravity Session": "35ab7246-ca33-40c7-8979-52f734e2fa97\"",
+      "rel_path": "showcase/blogs/plans-vs-features-schema-design.md",
+      "type": "blogs"
+    },
     {
       "title": "Dev Log: Auditing Date Leaks & Invariant Violations in LLM Ingestion",
       "slug": "auditing-date-leaks-llm-ingestion",

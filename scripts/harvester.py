@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """
-harvester.py — Intelligence extractor across DevWorkspace projects.
-Scans git commits, documentation folders, bugfixes, and session logs to extract
-learning points, mistakes, architectural insights, and quality metrics.
+harvester.py — Intelligence extractor across DevWorkspace projects and Antigravity sessions.
+Scans:
+  1. Git commits and PR branches
+  2. Documentation directories and audit ledgers
+  3. Antigravity conversation transcripts (~/.gemini/antigravity/brain/*/transcript.jsonl)
 """
 
 import os
@@ -15,6 +17,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 CONFIG_PATH = BASE_DIR / "config.json"
+BRAIN_DIR = Path.home() / ".gemini" / "antigravity" / "brain"
 
 
 def load_config():
@@ -35,8 +38,76 @@ def run_git(cmd, cwd):
             check=True
         )
         return res.stdout.strip()
-    except Exception as e:
+    except Exception:
         return ""
+
+
+def search_transcripts(keyword=None, project_filter=None, max_results=10):
+    print(f"\n🧠 Searching Antigravity conversation transcripts in {BRAIN_DIR}...")
+    if not BRAIN_DIR.exists():
+        print(f"Directory {BRAIN_DIR} does not exist.")
+        return []
+
+    results = []
+    for session_dir in BRAIN_DIR.iterdir():
+        if not session_dir.is_dir():
+            continue
+        transcript = session_dir / ".system_generated" / "logs" / "transcript.jsonl"
+        if not transcript.exists():
+            continue
+
+        try:
+            with open(transcript, "r", encoding="utf-8") as f:
+                user_prompts = []
+                files_touched = set()
+                session_has_project = False
+                for line in f:
+                    data = json.loads(line)
+                    src = data.get("source")
+                    tp = data.get("type")
+                    content = data.get("content", "")
+
+                    if project_filter and project_filter.lower() in content.lower():
+                        session_has_project = True
+
+                    # Extract tools / files edited
+                    if "tool_calls" in data:
+                        for tc in data.get("tool_calls", []):
+                            args = tc.get("args", {})
+                            for k in ["TargetFile", "AbsolutePath", "path", "file_path"]:
+                                if k in args and isinstance(args[k], str):
+                                    files_touched.add(args[k])
+
+                    if src == "USER_EXPLICIT" and tp == "USER_INPUT":
+                        clean_content = content.replace("<USER_REQUEST>", "").replace("</USER_REQUEST>", "").strip()
+                        if keyword:
+                            if keyword.lower() in clean_content.lower():
+                                user_prompts.append(clean_content)
+                        else:
+                            user_prompts.append(clean_content)
+
+                if project_filter and not session_has_project:
+                    continue
+
+                if user_prompts:
+                    results.append({
+                        "session_id": session_dir.name,
+                        "prompts": user_prompts,
+                        "files": list(files_touched)
+                    })
+        except Exception:
+            continue
+
+    print(f"Found {len(results)} matching conversation sessions.")
+    for res in results[:max_results]:
+        print(f"\n[Session: {res['session_id'][:8]}...]")
+        for p in res["prompts"][:3]:
+            print(f"  🗣️  User: {p[:120].replace(chr(10), ' ')}...")
+        if res["files"]:
+            print(f"  📁 Files modified/viewed: {len(res['files'])} files")
+            for fl in res["files"][:3]:
+                print(f"     - {Path(fl).name}")
+    return results
 
 
 def scan_radar(base_path):
@@ -60,7 +131,6 @@ def scan_radar(base_path):
                     "mtime": mtime
                 })
 
-    # Sort by recent modification
     projects.sort(key=lambda x: x["mtime"], reverse=True)
     print("\nRecent Project Activity:")
     print(f"{'Project':<35} {'Last Commit Date & Message':<50}")
@@ -70,48 +140,12 @@ def scan_radar(base_path):
         print(f"{p['name']:<35} {commit_info[:50]:<50}")
 
 
-def inspect_project(project_path, project_name):
-    print(f"\n🔍 Deep inspecting project: {project_name} at {project_path}")
-    p = Path(project_path)
-    if not p.exists():
-        print(f"Error: path {project_path} not found.")
-        return
-
-    # 1. Git stats
-    commits = run_git(["log", "-n", "10", "--pretty=format:%h|%ad|%s", "--date=short"], p)
-    print("\n[Recent Git Commits]")
-    for line in commits.splitlines()[:5]:
-        print(f"  • {line}")
-
-    # 2. Key Docs Search
-    doc_extensions = [".md", ".rst"]
-    found_docs = []
-    for root, dirs, files in os.walk(p):
-        dirs[:] = [d for d in dirs if d not in [".git", "node_modules", ".venv", "venv", "__pycache__"]]
-        for f in files:
-            if any(f.endswith(ext) for ext in doc_extensions):
-                full_path = Path(root) / f
-                rel_path = full_path.relative_to(p)
-                found_docs.append(rel_path)
-
-    print(f"\n[Documentation Files Found: {len(found_docs)}]")
-    for doc in found_docs[:10]:
-        print(f"  📄 {doc}")
-
-    # Check for specific high-value patterns
-    high_value_patterns = ["BUGFIX", "FIX", "AUDIT", "ADR", "ARCHITECTURE", "PHASE", "CHECKLIST", "GUIDELINES"]
-    notable = [d for d in found_docs if any(pat in d.name.upper() for pat in high_value_patterns)]
-    if notable:
-        print("\n[High-Value Knowledge Assets]:")
-        for n in notable:
-            print(f"  ⭐ {n}")
-
-
 def main():
-    parser = argparse.ArgumentParser(description="Harvest learnings from active projects")
+    parser = argparse.ArgumentParser(description="Harvest learnings from active projects & Antigravity sessions")
     parser.add_argument("--radar", action="store_true", help="Scan DevWorkspace radar for active projects")
     parser.add_argument("--project", type=str, help="Specific project ID to inspect")
-    parser.add_argument("--all", action="store_true", help="Inspect all registered projects in config.json")
+    parser.add_argument("--conversations", action="store_true", help="Search Antigravity conversation sessions")
+    parser.add_argument("--keyword", type=str, help="Search keyword in conversations")
     args = parser.parse_args()
 
     cfg = load_config()
@@ -119,17 +153,8 @@ def main():
 
     if args.radar:
         scan_radar(base_ws)
-    elif args.project:
-        active = {p["id"]: p for p in cfg.get("active_projects", [])}
-        if args.project in active:
-            proj = active[args.project]
-            inspect_project(proj["path"], proj["id"])
-        else:
-            custom_path = Path(base_ws) / args.project
-            inspect_project(custom_path, args.project)
-    elif args.all:
-        for p in cfg.get("active_projects", []):
-            inspect_project(p["path"], p["id"])
+    elif args.conversations or args.keyword:
+        search_transcripts(keyword=args.keyword, project_filter=args.project)
     else:
         parser.print_help()
 
