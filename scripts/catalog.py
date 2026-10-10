@@ -26,24 +26,41 @@ def parse_frontmatter(content):
     raw_yaml = parts[1]
     body = parts[2]
     meta = {}
+    current_key = None
     for line in raw_yaml.strip().splitlines():
-        line = line.strip()
-        if not line or line.startswith("#"):
+        trimmed = line.strip()
+        if not trimmed or trimmed.startswith("#"):
             continue
-        if ":" in line:
-            key, val = line.split(":", 1)
+        if trimmed.startswith("- ") and current_key:
+            item = trimmed[2:].strip().strip("\"'")
+            if isinstance(meta.get(current_key), list):
+                meta[current_key].append(item)
+            else:
+                meta[current_key] = [item]
+            continue
+        if ":" in trimmed:
+            key, val = trimmed.split(":", 1)
             key = key.strip()
             val = val.strip()
+            current_key = key
             # Basic parsing of lists or quoted strings
             if val.startswith("[") and val.endswith("]"):
                 items = [i.strip(" '\"") for i in val[1:-1].split(",") if i.strip()]
                 meta[key] = items
+                current_key = None
             elif val.startswith('"') and val.endswith('"'):
                 meta[key] = val[1:-1]
+                current_key = None
             elif val.startswith("'") and val.endswith("'"):
                 meta[key] = val[1:-1]
+                current_key = None
+            elif not val:
+                meta[key] = []
             else:
                 meta[key] = val
+                current_key = None
+        else:
+            current_key = None
     return meta, body
 
 
@@ -87,8 +104,9 @@ def index_vault():
                     meta["type"] = file_path.parent.name
                     showcases.append(meta)
 
-    # Sort entries by date descending
+    # Sort entries and showcases by date descending
     entries.sort(key=lambda x: str(x.get("date", "")), reverse=True)
+    showcases.sort(key=lambda x: str(x.get("date", "")), reverse=True)
 
     # Generate Markdown
     md_lines = [

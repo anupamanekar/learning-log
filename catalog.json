@@ -1,16 +1,16 @@
 {
-  "total_entries": 6,
-  "total_showcases": 6,
+  "total_entries": 7,
+  "total_showcases": 7,
   "categories": {
     "mistakes-and-pitfalls": 1,
     "testing-and-quality": 1,
     "performance-and-infra": 2,
-    "architecture-and-design": 1,
+    "architecture-and-design": 2,
     "ai-and-agentic-engineering": 1
   },
   "projects": {
     "ai-directed-learning": 2,
-    "market-signals-platform": 3,
+    "market-signals-platform": 4,
     "all-projects": 1
   },
   "tags": {
@@ -26,13 +26,13 @@
     "knowledge-graph": 1,
     "pipeline": 1,
     "temporal-logic": 1,
-    "runpod": 2,
+    "runpod": 3,
     "claude": 1,
     "cost-optimization": 1,
     "infrastructure": 1,
     "environment-config": 1,
     "gpu": 1,
-    "embeddings": 1,
+    "embeddings": 2,
     "serverless": 1,
     "fastapi": 1,
     "performance": 1,
@@ -41,6 +41,12 @@
     "ux": 1,
     "authorization": 1,
     "frontend-architecture": 1,
+    "rag": 1,
+    "vector-search": 1,
+    "nomic": 1,
+    "pgvector": 1,
+    "sqlite-vec": 1,
+    "ollama": 1,
     "agentic-coding": 1,
     "antigravity": 1,
     "code-review": 1,
@@ -66,10 +72,11 @@
       "severity_or_impact": "High",
       "showcase_potential": "Blog",
       "status": "Synthesized",
-      "source_references": "",
-      "- \"market-signals-platform/backend/app/engine/llm/provider.py": "367-381\"",
-      "- \"market-signals-platform/docs/RUNPOD_SETUP_GUIDE.md": "21-52\"",
-      "- \"market-signals-platform/commit": "bdf9f27\"",
+      "source_references": [
+        "market-signals-platform/backend/app/engine/llm/provider.py:367-381",
+        "market-signals-platform/docs/RUNPOD_SETUP_GUIDE.md:21-52",
+        "market-signals-platform/commit:bdf9f27"
+      ],
       "rel_path": "entries/performance-and-infra/claude-vs-runpod-cost-and-provider-switch.md"
     },
     {
@@ -90,9 +97,38 @@
       "severity_or_impact": "High",
       "showcase_potential": "Blog",
       "status": "Synthesized",
-      "source_references": "",
-      "- \"market-signals-platform/commit": "178842e\"",
+      "source_references": [
+        "market-signals-platform/docs/RUNPOD_SETUP_GUIDE.md",
+        "market-signals-platform/commit:ccb2de4",
+        "market-signals-platform/commit:178842e"
+      ],
       "rel_path": "entries/performance-and-infra/runpod-gpu-embedding-orchestration.md"
+    },
+    {
+      "id": "vector-embedding-model-selection-and-migration",
+      "title": "Vector Embedding Model Selection & Migration: Transitioning from Gemini text-embedding-004 to Asymmetric Nomic Embeddings",
+      "project": "market-signals-platform",
+      "date": "2026-10-10",
+      "category": "architecture-and-design",
+      "tags": [
+        "embeddings",
+        "rag",
+        "vector-search",
+        "nomic",
+        "pgvector",
+        "sqlite-vec",
+        "runpod",
+        "ollama"
+      ],
+      "severity_or_impact": "High",
+      "showcase_potential": "Blog",
+      "status": "Showcase Drafted",
+      "source_references": [
+        "market-signals-platform/backend/utils/embeddings.py:18-42",
+        "market-signals-platform/backend/scripts/build_rag_store.py:38-65",
+        "market-signals-platform/backend/agents/query_agent.py:82-105"
+      ],
+      "rel_path": "entries/architecture-and-design/vector-embedding-model-selection-and-migration.md"
     },
     {
       "id": "llm-zero-hallucination-verification-ledger",
@@ -111,7 +147,10 @@
       "severity_or_impact": "Critical",
       "showcase_potential": "Blog",
       "status": "Synthesized",
-      "source_references": "",
+      "source_references": [
+        "market-signals-platform/docs/INGESTION_QUALITY_AUDIT_REPORT.md",
+        "market-signals-platform/backend/ingestion/wikipedia_parser.py"
+      ],
       "rel_path": "entries/testing-and-quality/llm-zero-hallucination-verification-ledger.md"
     },
     {
@@ -131,7 +170,10 @@
       "severity_or_impact": "Critical",
       "showcase_potential": "Blog",
       "status": "Synthesized",
-      "source_references": "",
+      "source_references": [
+        "Antigravity Transcript Session 59d10f65-2918-4abc-b8e2-bb5f71fab080",
+        "market-signals-platform/docs/CODING_GUIDELINES.md"
+      ],
       "rel_path": "entries/ai-and-agentic-engineering/human-review-checklist-for-agentic-code.md"
     },
     {
@@ -151,7 +193,10 @@
       "severity_or_impact": "High",
       "showcase_potential": "Blog",
       "status": "Synthesized",
-      "source_references": "",
+      "source_references": [
+        "ai-directed-learning/documentation/VIDEO_PLAYER_FIX_COMPLETE.md",
+        "ai-directed-learning/frontend/src/components/VideoPlayer.tsx"
+      ],
       "rel_path": "entries/mistakes-and-pitfalls/vite-esm-react-player-breakage.md"
     },
     {
@@ -170,28 +215,34 @@
       "severity_or_impact": "High",
       "showcase_potential": "Snippet",
       "status": "Synthesized",
-      "source_references": "",
+      "source_references": [
+        "ai-directed-learning/documentation/BUGFIX_LESSON_VIEW_BUTTON.md",
+        "ai-directed-learning/frontend/src/pages/CourseDetailPage.tsx"
+      ],
       "rel_path": "entries/architecture-and-design/rbac-ui-action-separation-invariant.md"
     }
   ],
   "showcases": [
     {
-      "title": "Dev Log: Why AI Agents Conflate Feature Flags with Subscription Plans",
-      "slug": "feature-flags-vs-subscription-plans-schema",
-      "topic": "plans-vs-features-schema-modeling",
-      "date": "2026-07-12",
+      "title": "Dev Log: Fixing Semantic Collapse in Nomic Embeddings",
+      "slug": "vector-embedding-model-evolution",
+      "topic": "vector-embedding-model-selection-and-migration",
+      "date": "2026-10-10",
       "status": "Published",
       "tags": [
-        "database-design",
-        "fastapi",
-        "sqlalchemy",
-        "agentic-coding",
+        "embeddings",
+        "rag",
+        "vector-search",
+        "ollama",
+        "nomic",
         "dev-log"
       ],
-      "references": "",
-      "- \"ai-directed-learning/backend/app/adapters/api/payments.py": "57-90\"",
-      "- \"Antigravity Session": "35ab7246-ca33-40c7-8979-52f734e2fa97\"",
-      "rel_path": "showcase/blogs/plans-vs-features-schema-design.md",
+      "references": [
+        "market-signals-platform/backend/utils/embeddings.py:18-42",
+        "market-signals-platform/backend/scripts/build_rag_store.py:38-65",
+        "market-signals-platform/backend/agents/query_agent.py:82-105"
+      ],
+      "rel_path": "showcase/blogs/vector-embedding-model-evolution.md",
       "type": "blogs"
     },
     {
@@ -210,48 +261,12 @@
         "ingestion",
         "dev-log"
       ],
-      "references": "",
-      "- \"market-signals-platform/backend/app/engine/llm/provider.py": "216-296\"",
-      "- \"market-signals-platform/docs/ARCHITECTURE.md": "70-78\"",
-      "- \"market-signals-platform/commit": "bdf9f27\"",
+      "references": [
+        "market-signals-platform/backend/app/engine/llm/provider.py:216-296",
+        "market-signals-platform/docs/ARCHITECTURE.md:70-78",
+        "market-signals-platform/commit:bdf9f27"
+      ],
       "rel_path": "showcase/blogs/ingestion-model-inference-benchmarks.md",
-      "type": "blogs"
-    },
-    {
-      "title": "Dev Log: Auditing Date Leaks & Invariant Violations in LLM Ingestion",
-      "slug": "auditing-date-leaks-llm-ingestion",
-      "topic": "llm-zero-hallucination-verification-ledger",
-      "date": "2026-10-09",
-      "status": "Published",
-      "tags": [
-        "data-quality",
-        "llm",
-        "python",
-        "fastapi",
-        "sqlalchemy",
-        "dev-log"
-      ],
-      "references": "",
-      "- \"market-signals-platform/.agents/skills/ingestion-quality-auditor/scripts/audit_ingestion.py": "96-116\"",
-      "rel_path": "showcase/blogs/market-signals-temporal-causality-audit.md",
-      "type": "blogs"
-    },
-    {
-      "title": "Dev Log: Replacing react-player with Native Embeds in Vite",
-      "slug": "replacing-react-player-native-embeds-vite",
-      "topic": "vite-esm-react-player-breakage",
-      "date": "2026-02-08",
-      "status": "Published",
-      "tags": [
-        "react",
-        "vite",
-        "bundling",
-        "frontend",
-        "dev-log"
-      ],
-      "references": "",
-      "- \"ai-directed-learning/frontend/src/components/common/VideoPlayer.tsx": "177-226\"",
-      "rel_path": "showcase/blogs/vite-esm-video-player-case-study.md",
       "type": "blogs"
     },
     {
@@ -269,10 +284,11 @@
         "ollama",
         "dev-log"
       ],
-      "references": "",
-      "- \"market-signals-platform/docs/RUNPOD_SETUP_GUIDE.md": "21-52\"",
-      "- \"market-signals-platform/docs/ARCHITECTURE.md": "70-78\"",
-      "- \"market-signals-platform/docs/PHASE_13.md": "100-103\"",
+      "references": [
+        "market-signals-platform/docs/RUNPOD_SETUP_GUIDE.md:21-52",
+        "market-signals-platform/docs/ARCHITECTURE.md:70-78",
+        "market-signals-platform/docs/PHASE_13.md:100-103"
+      ],
       "rel_path": "showcase/blogs/gpu-infrastructure-cost-comparison.md",
       "type": "blogs"
     },
@@ -293,6 +309,69 @@
       ],
       "rel_path": "showcase/vlogs/agentic-code-slop-review-script.md",
       "type": "vlogs"
+    },
+    {
+      "title": "Dev Log: Auditing Date Leaks & Invariant Violations in LLM Ingestion",
+      "slug": "auditing-date-leaks-llm-ingestion",
+      "topic": "llm-zero-hallucination-verification-ledger",
+      "date": "2026-10-09",
+      "status": "Published",
+      "tags": [
+        "data-quality",
+        "llm",
+        "python",
+        "fastapi",
+        "sqlalchemy",
+        "dev-log"
+      ],
+      "references": [
+        "market-signals-platform/.agents/skills/ingestion-quality-auditor/scripts/audit_ingestion.py:96-116",
+        "market-signals-platform/docs/INGESTION_QUALITY_AUDIT_REPORT.md"
+      ],
+      "rel_path": "showcase/blogs/market-signals-temporal-causality-audit.md",
+      "type": "blogs"
+    },
+    {
+      "title": "Dev Log: Why AI Agents Conflate Feature Flags with Subscription Plans",
+      "slug": "feature-flags-vs-subscription-plans-schema",
+      "topic": "plans-vs-features-schema-modeling",
+      "date": "2026-07-12",
+      "status": "Published",
+      "tags": [
+        "database-design",
+        "fastapi",
+        "sqlalchemy",
+        "agentic-coding",
+        "dev-log"
+      ],
+      "references": [
+        "ai-directed-learning/backend/app/adapters/api/payments.py:57-90",
+        "ai-directed-learning/backend/app/domain/models/plan.py",
+        "Antigravity Session: 35ab7246-ca33-40c7-8979-52f734e2fa97"
+      ],
+      "rel_path": "showcase/blogs/plans-vs-features-schema-design.md",
+      "type": "blogs"
+    },
+    {
+      "title": "Dev Log: Replacing react-player with Native Embeds in Vite",
+      "slug": "replacing-react-player-native-embeds-vite",
+      "topic": "vite-esm-react-player-breakage",
+      "date": "2026-02-08",
+      "status": "Published",
+      "tags": [
+        "react",
+        "vite",
+        "bundling",
+        "frontend",
+        "dev-log"
+      ],
+      "references": [
+        "ai-directed-learning/frontend/src/components/common/VideoPlayer.tsx:22-40",
+        "ai-directed-learning/frontend/src/components/common/VideoPlayer.tsx:177-226",
+        "ai-directed-learning/documentation/VIDEO_PLAYER_FIX_COMPLETE.md"
+      ],
+      "rel_path": "showcase/blogs/vite-esm-video-player-case-study.md",
+      "type": "blogs"
     }
   ]
 }
