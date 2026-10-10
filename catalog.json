@@ -1,6 +1,6 @@
 {
   "total_entries": 5,
-  "total_showcases": 4,
+  "total_showcases": 6,
   "categories": {
     "mistakes-and-pitfalls": 1,
     "testing-and-quality": 1,
@@ -168,6 +168,28 @@
       "type": "blogs"
     },
     {
+      "title": "Dev Log: Inference Performance & Model Benchmarks in Batch Ingestion",
+      "slug": "ingestion-model-inference-benchmarks",
+      "project": "market-signals-platform",
+      "date": "2026-10-10",
+      "status": "Published",
+      "tags": [
+        "llm-benchmarks",
+        "ollama",
+        "claude",
+        "gemini",
+        "fastapi",
+        "ingestion",
+        "dev-log"
+      ],
+      "references": "",
+      "- \"market-signals-platform/backend/app/engine/llm/provider.py": "216-296\"",
+      "- \"market-signals-platform/docs/ARCHITECTURE.md": "70-78\"",
+      "- \"market-signals-platform/commit": "bdf9f27\"",
+      "rel_path": "showcase/blogs/ingestion-model-inference-benchmarks.md",
+      "type": "blogs"
+    },
+    {
       "title": "Dev Log: Auditing Date Leaks & Invariant Violations in LLM Ingestion",
       "slug": "auditing-date-leaks-llm-ingestion",
       "topic": "llm-zero-hallucination-verification-ledger",
@@ -202,6 +224,27 @@
       "references": "",
       "- \"ai-directed-learning/frontend/src/components/common/VideoPlayer.tsx": "177-226\"",
       "rel_path": "showcase/blogs/vite-esm-video-player-case-study.md",
+      "type": "blogs"
+    },
+    {
+      "title": "Dev Log: GPU Infrastructure Cost Comparison for Batch Ingestion",
+      "slug": "gpu-infrastructure-cost-comparison-batch-ingestion",
+      "project": "market-signals-platform",
+      "date": "2026-10-10",
+      "status": "Published",
+      "tags": [
+        "runpod",
+        "gpu",
+        "infrastructure",
+        "cost-optimization",
+        "ollama",
+        "dev-log"
+      ],
+      "references": "",
+      "- \"market-signals-platform/docs/RUNPOD_SETUP_GUIDE.md": "21-52\"",
+      "- \"market-signals-platform/docs/ARCHITECTURE.md": "70-78\"",
+      "- \"market-signals-platform/docs/PHASE_13.md": "100-103\"",
+      "rel_path": "showcase/blogs/gpu-infrastructure-cost-comparison.md",
       "type": "blogs"
     },
     {
