@@ -1,16 +1,16 @@
 {
-  "total_entries": 5,
+  "total_entries": 6,
   "total_showcases": 6,
   "categories": {
     "mistakes-and-pitfalls": 1,
     "testing-and-quality": 1,
-    "performance-and-infra": 1,
+    "performance-and-infra": 2,
     "architecture-and-design": 1,
     "ai-and-agentic-engineering": 1
   },
   "projects": {
     "ai-directed-learning": 2,
-    "market-signals-platform": 2,
+    "market-signals-platform": 3,
     "all-projects": 1
   },
   "tags": {
@@ -20,13 +20,17 @@
     "esm": 1,
     "video-player": 1,
     "frontend": 1,
-    "llm": 1,
+    "llm": 2,
     "hallucination": 1,
     "data-quality": 1,
     "knowledge-graph": 1,
     "pipeline": 1,
     "temporal-logic": 1,
-    "runpod": 1,
+    "runpod": 2,
+    "claude": 1,
+    "cost-optimization": 1,
+    "infrastructure": 1,
+    "environment-config": 1,
     "gpu": 1,
     "embeddings": 1,
     "serverless": 1,
@@ -45,6 +49,29 @@
     "best-practices": 1
   },
   "entries": [
+    {
+      "id": "claude-vs-runpod-cost-and-provider-switch",
+      "title": "Claude API vs RunPod Self-Hosted GPU: Cost-per-Profile Analysis and .env Provider Switching",
+      "project": "market-signals-platform",
+      "date": "2026-10-10",
+      "category": "performance-and-infra",
+      "tags": [
+        "runpod",
+        "claude",
+        "cost-optimization",
+        "llm",
+        "infrastructure",
+        "environment-config"
+      ],
+      "severity_or_impact": "High",
+      "showcase_potential": "Blog",
+      "status": "Synthesized",
+      "source_references": "",
+      "- \"market-signals-platform/backend/app/engine/llm/provider.py": "367-381\"",
+      "- \"market-signals-platform/docs/RUNPOD_SETUP_GUIDE.md": "21-52\"",
+      "- \"market-signals-platform/commit": "bdf9f27\"",
+      "rel_path": "entries/performance-and-infra/claude-vs-runpod-cost-and-provider-switch.md"
+    },
     {
       "id": "runpod-gpu-embedding-orchestration",
       "title": "Orchestrating Serverless GPU Embeddings on RunPod with Resilient Error Handling",
@@ -171,6 +198,7 @@
       "title": "Dev Log: Inference Performance & Model Benchmarks in Batch Ingestion",
       "slug": "ingestion-model-inference-benchmarks",
       "project": "market-signals-platform",
+      "topic": "claude-vs-runpod-cost-and-provider-switch",
       "date": "2026-10-10",
       "status": "Published",
       "tags": [
@@ -230,6 +258,7 @@
       "title": "Dev Log: GPU Infrastructure Cost Comparison for Batch Ingestion",
       "slug": "gpu-infrastructure-cost-comparison-batch-ingestion",
       "project": "market-signals-platform",
+      "topic": "claude-vs-runpod-cost-and-provider-switch",
       "date": "2026-10-10",
       "status": "Published",
       "tags": [

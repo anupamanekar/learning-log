@@ -2,6 +2,7 @@
 title: "Dev Log: Inference Performance & Model Benchmarks in Batch Ingestion"
 slug: "ingestion-model-inference-benchmarks"
 project: "market-signals-platform"
+topic: "claude-vs-runpod-cost-and-provider-switch"
 date: "2026-10-10"
 status: "Published"
 tags: ["llm-benchmarks", "ollama", "claude", "gemini", "fastapi", "ingestion", "dev-log"]

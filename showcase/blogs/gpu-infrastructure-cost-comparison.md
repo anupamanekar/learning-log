@@ -2,6 +2,7 @@
 title: "Dev Log: GPU Infrastructure Cost Comparison for Batch Ingestion"
 slug: "gpu-infrastructure-cost-comparison-batch-ingestion"
 project: "market-signals-platform"
+topic: "claude-vs-runpod-cost-and-provider-switch"
 date: "2026-10-10"
 status: "Published"
 tags: ["runpod", "gpu", "infrastructure", "cost-optimization", "ollama", "dev-log"]
