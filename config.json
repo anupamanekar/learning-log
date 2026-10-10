@@ -1,0 +1,33 @@
+{
+  "vault_name": "Learning Log & Tech Showcase",
+  "author": "Anup Manekar",
+  "base_workspace_path": "/Users/anupmanekar/DevWorkspace",
+  "active_projects": [
+    {
+      "id": "market-signals-platform",
+      "path": "/Users/anupmanekar/DevWorkspace/market-signals-platform",
+      "description": "Financial market intelligence & planetary ephemeris signal correlation platform with multi-stage ingestion, RunPod GPUs, and React UI.",
+      "primary_stacks": ["Python", "FastAPI", "React", "TypeScript", "RunPod", "Swiss Ephemeris", "SQLite/PostgreSQL", "SentenceTransformers"],
+      "doc_paths": ["docs", "README.md", ".agents/skills"]
+    },
+    {
+      "id": "ai-directed-learning",
+      "path": "/Users/anupmanekar/DevWorkspace/ai-directed-learning",
+      "description": "Full-stack adaptive educational platform with AI tutoring, video lessons, quiz generators, Sarvam services, and role-based workflows.",
+      "primary_stacks": ["Python", "FastAPI", "React", "TypeScript", "Docker", "Sarvam AI", "TailwindCSS"],
+      "doc_paths": ["documentation", "PROJECT_CHECKLIST.md", "README.md", "REQUIREMENTS.md", ".claude"]
+    }
+  ],
+  "categories": [
+    "mistakes-and-pitfalls",
+    "architecture-and-design",
+    "ai-and-agentic-engineering",
+    "performance-and-infra",
+    "testing-and-quality"
+  ],
+  "showcase_channels": {
+    "blog": "showcase/blogs",
+    "vlog": "showcase/vlogs",
+    "snippets": "showcase/snippets"
+  }
+}

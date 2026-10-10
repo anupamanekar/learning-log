@@ -1,0 +1,188 @@
+{
+  "total_entries": 5,
+  "total_showcases": 2,
+  "categories": {
+    "mistakes-and-pitfalls": 1,
+    "testing-and-quality": 1,
+    "performance-and-infra": 1,
+    "architecture-and-design": 1,
+    "ai-and-agentic-engineering": 1
+  },
+  "projects": {
+    "ai-directed-learning": 2,
+    "market-signals-platform": 2,
+    "all-projects": 1
+  },
+  "tags": {
+    "react": 2,
+    "vite": 1,
+    "bundling": 1,
+    "esm": 1,
+    "video-player": 1,
+    "frontend": 1,
+    "llm": 1,
+    "hallucination": 1,
+    "data-quality": 1,
+    "knowledge-graph": 1,
+    "pipeline": 1,
+    "temporal-logic": 1,
+    "runpod": 1,
+    "gpu": 1,
+    "embeddings": 1,
+    "serverless": 1,
+    "fastapi": 1,
+    "performance": 1,
+    "retry-logic": 1,
+    "rbac": 1,
+    "ux": 1,
+    "authorization": 1,
+    "frontend-architecture": 1,
+    "agentic-coding": 1,
+    "antigravity": 1,
+    "code-review": 1,
+    "business-invariants": 1,
+    "quality-engineering": 1,
+    "best-practices": 1
+  },
+  "entries": [
+    {
+      "id": "runpod-gpu-embedding-orchestration",
+      "title": "Orchestrating Serverless GPU Embeddings on RunPod with Resilient Error Handling",
+      "project": "market-signals-platform",
+      "date": "2026-10-10",
+      "category": "performance-and-infra",
+      "tags": [
+        "runpod",
+        "gpu",
+        "embeddings",
+        "serverless",
+        "fastapi",
+        "performance",
+        "retry-logic"
+      ],
+      "severity_or_impact": "High",
+      "showcase_potential": "Blog",
+      "status": "Synthesized",
+      "source_references": "",
+      "- \"market-signals-platform/commit": "178842e\"",
+      "rel_path": "entries/performance-and-infra/runpod-gpu-embedding-orchestration.md"
+    },
+    {
+      "id": "llm-zero-hallucination-verification-ledger",
+      "title": "Preventing Date Leaks & Hallucinations in LLM Knowledge Extraction Pipelines",
+      "project": "market-signals-platform",
+      "date": "2026-10-09",
+      "category": "testing-and-quality",
+      "tags": [
+        "llm",
+        "hallucination",
+        "data-quality",
+        "knowledge-graph",
+        "pipeline",
+        "temporal-logic"
+      ],
+      "severity_or_impact": "Critical",
+      "showcase_potential": "Blog",
+      "status": "Synthesized",
+      "source_references": "",
+      "rel_path": "entries/testing-and-quality/llm-zero-hallucination-verification-ledger.md"
+    },
+    {
+      "id": "human-review-checklist-for-agentic-code",
+      "title": "The Human Review Checklist for Agentic Code & Preventing Code Slop",
+      "project": "all-projects",
+      "date": "2026-06-02",
+      "category": "ai-and-agentic-engineering",
+      "tags": [
+        "agentic-coding",
+        "antigravity",
+        "code-review",
+        "business-invariants",
+        "quality-engineering",
+        "best-practices"
+      ],
+      "severity_or_impact": "Critical",
+      "showcase_potential": "Blog",
+      "status": "Synthesized",
+      "source_references": "",
+      "rel_path": "entries/ai-and-agentic-engineering/human-review-checklist-for-agentic-code.md"
+    },
+    {
+      "id": "vite-esm-react-player-breakage",
+      "title": "Why react-player Broke in Vite and How Native Embeds Solved It",
+      "project": "ai-directed-learning",
+      "date": "2026-02-08",
+      "category": "mistakes-and-pitfalls",
+      "tags": [
+        "react",
+        "vite",
+        "bundling",
+        "esm",
+        "video-player",
+        "frontend"
+      ],
+      "severity_or_impact": "High",
+      "showcase_potential": "Blog",
+      "status": "Synthesized",
+      "source_references": "",
+      "rel_path": "entries/mistakes-and-pitfalls/vite-esm-react-player-breakage.md"
+    },
+    {
+      "id": "rbac-ui-action-separation-invariant",
+      "title": "The UI Action Separation Pitfall: Why Tutors Could Edit Lessons but Students Couldn't View Them",
+      "project": "ai-directed-learning",
+      "date": "2026-02-08",
+      "category": "architecture-and-design",
+      "tags": [
+        "rbac",
+        "react",
+        "ux",
+        "authorization",
+        "frontend-architecture"
+      ],
+      "severity_or_impact": "High",
+      "showcase_potential": "Snippet",
+      "status": "Synthesized",
+      "source_references": "",
+      "rel_path": "entries/architecture-and-design/rbac-ui-action-separation-invariant.md"
+    }
+  ],
+  "showcases": [
+    {
+      "title": "Stop Using Heavy Video Player Libraries in Modern Vite & React Projects",
+      "slug": "stop-using-heavy-video-player-libraries-in-vite",
+      "topic": "vite-esm-react-player-breakage",
+      "date": "2026-10-10",
+      "target_medium": "Dev.to / Hashnode / Personal Tech Blog",
+      "status": "Draft Ready",
+      "tags": [
+        "react",
+        "vite",
+        "webdev",
+        "performance",
+        "frontend",
+        "javascript"
+      ],
+      "rel_path": "showcase/blogs/vite-esm-video-player-case-study.md",
+      "type": "blogs"
+    },
+    {
+      "title": "Why 100% Green Tests Aren't Enough: Reviewing AI Agent Code",
+      "slug": "reviewing-ai-agent-code-human-checklist",
+      "topic": "human-review-checklist-for-agentic-code",
+      "date": "2026-10-10",
+      "target_medium": "YouTube Video / Vlog / Tech Reel",
+      "estimated_duration": "5-6 minutes",
+      "status": "Ready for Recording",
+      "tags": [
+        "ai-coding",
+        "antigravity",
+        "software-engineering",
+        "code-review",
+        "vlog-script"
+      ],
+      "rel_path": "showcase/vlogs/agentic-code-slop-review-script.md",
+      "type": "vlogs"
+    }
+  ]
+}
