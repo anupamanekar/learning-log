@@ -1,33 +1,31 @@
-# AGENTS.md — Learning Log & Showcase Curator Operating Rules
+# AGENTS.md — Developer Learning Log & Showcase Curator
 
-You are operating inside the **Learning Log Vault** (`/Users/anupmanekar/DevWorkspace/learning-log`). Your role is to act as the **Chief Technical Knowledge Curator and Content Producer**.
-
----
-
-## 🎯 Core Responsibilities
-
-1. **Harvest Systematically**: When requested to extract learnings from active projects (such as `market-signals-platform` or `ai-directed-learning`), gather concrete facts, code diffs, root causes, architectural trade-offs, and metrics. Avoid generic summaries.
-2. **Atomic Organization**: Store every distinct learning as an individual Markdown file in `entries/<category>/` using the standardized YAML frontmatter schema.
-3. **Showcase Preparation**: When curating content for blogs, vlogs, or sites, bridge real-world development pain points to high-value educational narratives.
-4. **Index Maintenance**: Whenever entries are created or updated, run or update `catalog.md` so references remain instantly searchable.
+Operating inside the **Learning Log Vault** (`/Users/anupmanekar/DevWorkspace/learning-log`).
 
 ---
 
-## 🏷️ Standard Entry Frontmatter Schema
+## 🎯 Voice & Tone Guidelines
 
-Every entry in `entries/` must follow this structure:
+- **Style**: Real developer running log / dev journal. Not an AI marketing article or generic tutorial.
+- **Tone**: Succinct, direct, code-first. Zero hype, zero verbose introductions, no dramatic storytelling.
+- **Code References (Mandatory)**: Always include exact file paths, line ranges, or commit hashes where the issue occurred or was fixed (e.g. `frontend/src/components/common/VideoPlayer.tsx:22-40`, `commit:ccb2de4`).
+- **No Agent Fluff**: Never use AI boilerplate ("In today's fast-paced landscape...", "Imagine a world...", "In conclusion..."). Jump directly to the technical problem, root cause, code fix, and key takeaway.
+
+---
+
+## 🏷️ Standard Entry Schema (`entries/<category>/<slug>.md`)
 
 ```markdown
 ---
 id: "<kebab-case-slug>"
-title: "<Concise, Informative Title>"
+title: "<Concise Technical Title>"
 project: "market-signals-platform" | "ai-directed-learning" | "<other-project>"
 date: "YYYY-MM-DD"
 category: "mistakes-and-pitfalls" | "architecture-and-design" | "ai-and-agentic-engineering" | "performance-and-infra" | "testing-and-quality"
-tags: ["<tag1>", "<tag2>", "<tag3>"]
+tags: ["<tag1>", "<tag2>"]
 severity_or_impact: "Low" | "Medium" | "High" | "Critical"
-showcase_potential: "Blog" | "Vlog" | "Snippet" | "Case Study"
-status: "Raw" | "Synthesized" | "Showcase Drafted" | "Published"
+showcase_potential: "Blog" | "Vlog" | "Snippet"
+status: "Raw" | "Synthesized" | "Showcase Drafted"
 source_references:
   - "path/to/source/file:line"
   - "commit:<sha>"
@@ -35,49 +33,29 @@ source_references:
 
 # <Title>
 
-## 🔍 Context & Scenario
-What problem was being solved? What was the context?
+## Problem
+What broke or needed solving. Include exact error message or failing behavior.
 
-## 💥 The Incident / Mistake / Observation
-What went wrong or what notable behavior occurred? Include error messages, failing behaviors, or surprising trade-offs.
+## Root Cause
+The technical reason it failed (bundler behavior, race condition, missing permission).
 
-## 🛠️ Root Cause Analysis
-Why did this occur? What underlying architectural, dependency, or algorithmic factor caused it?
+## Solution & Code
+The fix with direct code snippets and file references.
 
-## 💡 The Solution & Key Takeaways
-How was it resolved? What code, pattern, or policy was implemented?
-Include code snippets or before/after diffs where applicable.
-
-## 🎬 Showcase Angle (For Blog / Vlog)
-- **Hook**: How to frame this for an audience.
-- **Visuals / Diagrams**: What diagrams, terminal recordings, or UI screenshots to show.
-- **Key Lesson**: The universal takeaway applicable to other developers.
+## Key Takeaway
+1-2 bullet points of practical advice.
 ```
 
 ---
 
-## 📂 Category Directories
+## 📝 Running Dev Log Format (`showcase/blogs/<slug>.md`)
 
-- `entries/mistakes-and-pitfalls/`: Breaking changes, dependency bugs, silent failures, tricky edge cases.
-- `entries/architecture-and-design/`: ADRs, schema patterns, domain modeling, state management, API boundaries.
-- `entries/ai-and-agentic-engineering/`: Agent prompting, automated review checklists, hallucination audits, subagent delegation patterns.
-- `entries/performance-and-infra/`: Docker compose setups, RunPod GPU worker orchestration, embedding model updates, caching layers.
-- `entries/testing-and-quality/`: End-to-end verification, data quality ledgers, regression testing.
+Blogs in this vault are published as **developer running logs** (concise, high-signal field notes).
 
----
-
-## 🎥 Showcase Formats
-
-1. **Blog Posts (`showcase/blogs/`)**:
-   - Compelling title with SEO and technical authority
-   - Problem statement + "Why standard approaches fail"
-   - Deep dive with code snippets and diagrams (Mermaid)
-   - Benchmark or verification metrics
-   - Actionable checklist for readers
-
-2. **Vlogs & Video Scripts (`showcase/vlogs/`)**:
-   - `[0:00 - 0:45]` Hook & Pain Point: Show the broken state / error
-   - `[0:45 - 2:00]` The Investigation: Tracing root causes
-   - `[2:00 - 4:30]` The Solution & Code Walkthrough: Clean implementation
-   - `[4:30 - 6:00]` Pro-Tips & Architecture Lessons: What to avoid
-   - Includes shot-by-shot visual directions (Screen, Facecam, Diagram)
+### Standard Structure:
+1. **Title**: Direct problem/solution title.
+2. **Context & Source**: Repo, exact file references, and date.
+3. **What Happened**: 2-3 sentences explaining the failure + exact error or symptom.
+4. **Why It Failed**: Technical root cause.
+5. **The Code / Diff**: Actual code with file path and line references.
+6. **Notes & Edge Cases**: Quick bulleted caveats or lessons learned.

@@ -1,6 +1,6 @@
 {
   "total_entries": 5,
-  "total_showcases": 2,
+  "total_showcases": 3,
   "categories": {
     "mistakes-and-pitfalls": 1,
     "testing-and-quality": 1,
@@ -149,20 +149,39 @@
   ],
   "showcases": [
     {
-      "title": "Stop Using Heavy Video Player Libraries in Modern Vite & React Projects",
-      "slug": "stop-using-heavy-video-player-libraries-in-vite",
+      "title": "Dev Log: Auditing Date Leaks & Invariant Violations in LLM Ingestion",
+      "slug": "auditing-date-leaks-llm-ingestion",
+      "topic": "llm-zero-hallucination-verification-ledger",
+      "date": "2026-10-09",
+      "status": "Published",
+      "tags": [
+        "data-quality",
+        "llm",
+        "python",
+        "fastapi",
+        "sqlalchemy",
+        "dev-log"
+      ],
+      "references": "",
+      "- \"market-signals-platform/.agents/skills/ingestion-quality-auditor/scripts/audit_ingestion.py": "96-116\"",
+      "rel_path": "showcase/blogs/market-signals-temporal-causality-audit.md",
+      "type": "blogs"
+    },
+    {
+      "title": "Dev Log: Replacing react-player with Native Embeds in Vite",
+      "slug": "replacing-react-player-native-embeds-vite",
       "topic": "vite-esm-react-player-breakage",
-      "date": "2026-10-10",
-      "target_medium": "Dev.to / Hashnode / Personal Tech Blog",
-      "status": "Draft Ready",
+      "date": "2026-02-08",
+      "status": "Published",
       "tags": [
         "react",
         "vite",
-        "webdev",
-        "performance",
+        "bundling",
         "frontend",
-        "javascript"
+        "dev-log"
       ],
+      "references": "",
+      "- \"ai-directed-learning/frontend/src/components/common/VideoPlayer.tsx": "177-226\"",
       "rel_path": "showcase/blogs/vite-esm-video-player-case-study.md",
       "type": "blogs"
     },
