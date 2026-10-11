@@ -13,7 +13,7 @@ const diagrams = [
     API -->|Write Job State| FS["Firestore<br/>(Real-time State)"]
     API -->|Publish Task| PS["Google Cloud Pub/Sub"]
     
-    subgraph Isolated Worker Pods
+    subgraph Isolated_Worker_Pods ["Isolated Worker Pods"]
       PS -->|Topic: audio-generation| AW["AudioWorker<br/>(TTS Synthesis)"]
       PS -->|Topic: video-composition| VW["VideoWorker<br/>(FFmpeg Subprocess)"]
     end
@@ -30,7 +30,7 @@ const diagrams = [
     code: `flowchart TD
     Wiki["Source Documents & Web Records"] --> Stage1["Stage 1: Profile & Event Extraction<br/>(scripts/ingest_wikipedia.py)"]
     
-    subgraph Compute Inference
+    subgraph Compute_Inference ["Compute Inference"]
       Stage1 -->|HTTP POST :11434| RunPod["Cloud GPU (RTX 4090)<br/>Ollama llama3.1:8b (4 Parallel)"]
       Stage1 -.->|Burst API Fallback| Claude["Anthropic Claude Haiku API"]
     end
