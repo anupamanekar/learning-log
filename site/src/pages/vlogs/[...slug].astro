@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TagPill from '../../components/TagPill.astro';
+import VideoPlayer from '../../components/VideoPlayer.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const vlogs = await getCollection('vlogs');
+  return vlogs.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<BaseLayout title={`${entry.data.title} — Video Script`} description={entry.data.title}>
+  <div class="mb-8 border-b border-zinc-800 pb-6">
+    <div class="flex items-center gap-2 text-xs font-mono text-sky-400 mb-3">
+      <a href="/vlogs" class="hover:underline">Vlogs</a>
+      <span>/</span>
+      <span class="text-zinc-500 truncate">{entry.slug}</span>
+    </div>
+
+    <div class="flex items-center gap-3 text-xs font-mono text-zinc-400 mb-3">
+      <span class="text-red-400 font-semibold">{entry.data.target_medium}</span>
+      <span>•</span>
+      <span>Est. Duration: {entry.data.estimated_duration}</span>
+    </div>
+
+    <h1 class="text-2xl sm:text-4xl font-bold text-white tracking-tight mb-4">
+      {entry.data.title}
+    </h1>
+
+    <div class="flex flex-wrap gap-1.5 pt-1">
+      {entry.data.tags.map((t) => (
+        <TagPill tag={t} />
+      ))}
+    </div>
+  </div>
+
+  <!-- Video Player Preview Container -->
+  <VideoPlayer title={entry.data.title} />
+
+  <!-- Script & Cues Content -->
+  <article class="prose prose-invert prose-zinc max-w-none prose-headings:scroll-mt-20 prose-pre:border prose-pre:border-zinc-800 prose-pre:bg-zinc-950 prose-code:font-mono prose-code:text-sky-300">
+    <Content />
+  </article>
+
+  <div class="mt-16 pt-6 border-t border-zinc-800 flex items-center justify-between">
+    <a href="/vlogs" class="text-xs font-mono text-sky-400 hover:text-sky-300">
+      ← Back to All Scripts
+    </a>
+    <a href="#" class="text-xs font-mono text-zinc-500 hover:text-zinc-300">
+      ↑ Back to Top
+    </a>
+  </div>
+</BaseLayout>

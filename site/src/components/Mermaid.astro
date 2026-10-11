@@ -1,0 +1,39 @@
+---
+interface Props {
+  code?: string;
+  title?: string;
+}
+
+const { code, title } = Astro.props;
+---
+
+<div class="my-6 rounded-lg border border-zinc-800 bg-zinc-900/50 p-4 overflow-hidden">
+  {title && (
+    <div class="mb-3 flex items-center justify-between border-b border-zinc-800 pb-2 text-xs font-mono text-zinc-400">
+      <span>📐 {title}</span>
+      <span class="text-[10px] text-zinc-500">Mermaid Diagram</span>
+    </div>
+  )}
+  <div class="mermaid flex justify-center overflow-x-auto py-2">
+    {code ? code : <slot />}
+  </div>
+</div>
+
+<script>
+  import mermaid from 'mermaid';
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    themeVariables: {
+      darkMode: true,
+      background: '#18181b',
+      primaryColor: '#0284c7',
+      primaryTextColor: '#f4f4f5',
+      primaryBorderColor: '#38bdf8',
+      lineColor: '#71717a',
+      secondaryColor: '#1e1b4b',
+      tertiaryColor: '#064e3b',
+    },
+    fontFamily: 'JetBrains Mono, monospace',
+  });
+</script>

@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectBadge from '../../components/ProjectBadge.astro';
+import TagPill from '../../components/TagPill.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const blogs = await getCollection('blogs');
+  return blogs.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<BaseLayout title={`${entry.data.title} — Dev Log`} description={entry.data.title}>
+  <div class="mb-8 border-b border-zinc-800 pb-6">
+    <div class="flex items-center gap-2 text-xs font-mono text-sky-400 mb-3">
+      <a href="/blogs" class="hover:underline">Dev Logs</a>
+      <span>/</span>
+      <span class="text-zinc-500 truncate">{entry.slug}</span>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-3 mb-4">
+      <ProjectBadge project={entry.data.project} size="md" />
+      <time class="text-xs font-mono text-zinc-400">
+        {new Date(entry.data.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+      </time>
+    </div>
+
+    <h1 class="text-2xl sm:text-4xl font-bold text-white tracking-tight mb-4 leading-tight">
+      {entry.data.title}
+    </h1>
+
+    {entry.data.references && entry.data.references.length > 0 && (
+      <div class="rounded-lg border border-sky-900/40 bg-sky-950/20 p-3.5 mb-4">
+        <div class="text-[11px] font-mono uppercase tracking-wider text-sky-400 font-semibold mb-2 flex items-center gap-1.5">
+          <span>🔍</span>
+          <span>Verified Source References</span>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          {entry.data.references.map((ref) => (
+            <code class="text-xs font-mono text-sky-200 bg-sky-950/60 border border-sky-800/50 rounded px-2.5 py-1 w-fit">
+              {ref}
+            </code>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <div class="flex flex-wrap gap-1.5 pt-2">
+      {entry.data.tags.map((t) => (
+        <TagPill tag={t} />
+      ))}
+    </div>
+  </div>
+
+  <article class="prose prose-invert prose-zinc max-w-none prose-headings:scroll-mt-20 prose-pre:border prose-pre:border-zinc-800 prose-pre:bg-zinc-950 prose-code:font-mono prose-code:text-sky-300">
+    <Content />
+  </article>
+
+  <div class="mt-16 pt-6 border-t border-zinc-800 flex items-center justify-between">
+    <a href="/blogs" class="text-xs font-mono text-sky-400 hover:text-sky-300">
+      ← Back to All Logs
+    </a>
+    <a href="#" class="text-xs font-mono text-zinc-500 hover:text-zinc-300">
+      ↑ Back to Top
+    </a>
+  </div>
+</BaseLayout>

@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Mermaid from '../../components/Mermaid.astro';
+import ProjectBadge from '../../components/ProjectBadge.astro';
+
+const diagrams = [
+  {
+    title: 'ContentGen Media Workers Decoupling & Queue Architecture',
+    project: 'ai-directed-learning',
+    description: 'Decoupling heavy FFmpeg video stitching and Pillow canvas rendering from the FastAPI web server into standalone autoscaled container entrypoints.',
+    code: `graph LR
+    User["Client App"] -->|REST / POST| API["FastAPI Web Server<br/>(Lightweight, Port 8001)"]
+    API -->|Write Job State| FS["Firestore<br/>(Real-time State)"]
+    API -->|Publish Task| PS["Google Cloud Pub/Sub"]
+    
+    subgraph Isolated Worker Pods
+      PS -->|Topic: audio-generation| AW["AudioWorker<br/>(Sarvam / Google TTS)"]
+      PS -->|Topic: video-composition| VW["VideoWorker<br/>(FFmpeg Subprocess)"]
+    end
+
+    AW -->|Audio Stream| GCS["Google Cloud Storage<br/>(ad1-video-content)"]
+    VW -->|Rendered MP4| GCS
+    User -.->|Listen Progress| FS
+    User -->|Stream MP4| GCS`,
+  },
+  {
+    title: 'Market Signals Multi-Stage Ingestion & RunPod GPU Offload',
+    project: 'market-signals-platform',
+    description: 'Multi-stage ingestion pipeline offloading heavy LLM biography extraction and 768-dim vector embeddings to RunPod RTX 4090 Cloud GPU instances.',
+    code: `flowchart TD
+    Wiki["Wikipedia Raw HTML/Markdown"] --> Stage1["Stage 1: Profile & Event Extraction<br/>(backend/scripts/ingest_wikipedia.py)"]
+    
+    subgraph Compute Inference
+      Stage1 -->|HTTP POST :11434| RunPod["RunPod Cloud GPU (RTX 4090)<br/>Ollama llama3.1:8b (4 Parallel)"]
+      Stage1 -.->|Burst API Fallback| Claude["Anthropic Claude Haiku API"]
+    end
+
+    RunPod --> Stage2["Stage 2: Deterministic Audit Validation<br/>(audit_ingestion.py)"]
+    Stage2 -->|Zero Date Leaks| DB[("SQLite / PostgreSQL<br/>SQLPublicProfile & Events")]
+    
+    DB --> Stage5["Stage 5: Vector RAG Indexing<br/>(build_rag_store.py)"]
+    Stage5 -->|search_document: prefix| Nomic["nomic-embed-text (768-dim)"]
+    Nomic --> VecDB[("sqlite-vec / pgvector<br/>HNSW Indexes")]`,
+  },
+  {
+    title: 'Plans vs Feature Flags Schema Architecture',
+    project: 'ai-directed-learning',
+    description: 'Relational boundary between application-level capability toggles (features) and time-bounded commercial products (plans) with cumulative expiration stacking.',
+    code: `erDiagram
+    USERS ||--o{ USER_PLANS : purchases
+    PLANS ||--o{ USER_PLANS : links
+    FEATURES ||--o{ PLANS : specifies
+    
+    USERS {
+      int id PK
+      string email
+      string role
+    }
+    
+    FEATURES {
+      int id PK
+      string code UK "e.g. creator_studio"
+      boolean is_active
+      string description
+    }
+    
+    PLANS {
+      int id PK
+      string feature_code FK
+      int duration_days "30 or 365"
+      int price_cents
+    }
+    
+    USER_PLANS {
+      int id PK
+      int user_id FK
+      int plan_id FK
+      datetime expires_at "Cumulative stacked expiry"
+    }`,
+  },
+];
+---
+
+<BaseLayout title="Architecture Diagrams — dev.journal" description="Interactive architectural diagrams and system models.">
+  <div class="mb-8 border-b border-zinc-800 pb-6">
+    <div class="flex items-center gap-2 text-xs font-mono text-sky-400 mb-2">
+      <a href="/" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-zinc-500">Diagrams</span>
+    </div>
+    <h1 class="text-3xl font-bold text-white mb-2">Architecture Diagrams & Models</h1>
+    <p class="text-sm text-zinc-400">Interactive system architecture diagrams, state machines, and relational models harvested from active codebases.</p>
+  </div>
+
+  <div class="space-y-12">
+    {diagrams.map((d) => (
+      <section class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+          <ProjectBadge project={d.project} size="md" />
+          <span class="text-xs font-mono text-zinc-500">Interactive Model</span>
+        </div>
+
+        <h2 class="text-xl font-semibold text-white mb-2">{d.title}</h2>
+        <p class="text-sm text-zinc-400 mb-4">{d.description}</p>
+
+        <Mermaid code={d.code} title={d.title} />
+      </section>
+    ))}
+  </div>
+</BaseLayout>

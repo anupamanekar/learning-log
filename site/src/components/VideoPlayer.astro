@@ -1,0 +1,64 @@
+---
+interface Props {
+  url?: string;
+  youtubeId?: string;
+  title?: string;
+}
+
+const { url, youtubeId, title = 'Video Player' } = Astro.props;
+
+let embedUrl: string | null = null;
+let isDirectVideo = false;
+
+if (youtubeId) {
+  embedUrl = `https://www.youtube.com/embed/${youtubeId}?rel=0`;
+} else if (url) {
+  const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+  if (ytMatch) {
+    embedUrl = `https://www.youtube.com/embed/${ytMatch[1]}?rel=0`;
+  } else if (url.includes('vimeo.com')) {
+    const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
+    if (vimeoMatch) {
+      embedUrl = `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+    }
+  } else {
+    isDirectVideo = true;
+    embedUrl = url;
+  }
+}
+---
+
+<div class="my-6 rounded-xl border border-zinc-800 bg-black overflow-hidden shadow-2xl">
+  {title && (
+    <div class="flex items-center justify-between border-b border-zinc-800/80 bg-zinc-900/60 px-4 py-2 text-xs font-mono text-zinc-400">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+        <span>{title}</span>
+      </div>
+      <span class="text-[10px] text-zinc-500">1080p Embed</span>
+    </div>
+  )}
+
+  <div class="relative w-full aspect-video bg-zinc-950 flex items-center justify-center">
+    {embedUrl && !isDirectVideo ? (
+      <iframe
+        src={embedUrl}
+        title={title}
+        class="absolute inset-0 w-full h-full border-0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    ) : isDirectVideo && embedUrl ? (
+      <video controls class="w-full h-full">
+        <source src={embedUrl} />
+        Your browser does not support the video tag.
+      </video>
+    ) : (
+      <div class="text-center p-6 text-zinc-500 font-mono text-xs">
+        <p class="text-2xl mb-2">🎬</p>
+        <p>Video Recording Placeholder / Direct File Embed</p>
+        <p class="text-[10px] mt-1 text-zinc-600">Sync with local recordings in vault</p>
+      </div>
+    )}
+  </div>
+</div>
