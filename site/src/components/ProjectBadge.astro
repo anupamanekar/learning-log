@@ -37,7 +37,7 @@ const badge = styles[project] || {
 const sizeClasses = size === 'sm' ? 'px-2 py-0.5 text-[11px]' : 'px-2.5 py-1 text-xs';
 ---
 
-<span class={`inline-flex items-center gap-1 font-mono font-medium rounded border ${badge.bg} ${badge.text} ${badge.border} ${sizeClasses}`}>
+<span class={`inline-flex items-center gap-1.5 font-mono font-medium rounded-full border ${badge.bg} ${badge.text} ${badge.border} ${sizeClasses}`}>
   <span class="inline-block w-1.5 h-1.5 rounded-full bg-current opacity-75"></span>
   {badge.label}
 </span>

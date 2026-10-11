@@ -82,26 +82,32 @@ const diagrams = [
 ---
 
 <BaseLayout title="Architecture Diagrams — dev.journal" description="Interactive architectural diagrams and system models.">
-  <div class="mb-8 border-b border-zinc-800 pb-6">
-    <div class="flex items-center gap-2 text-xs font-mono text-sky-400 mb-2">
+  <div class="mb-10 border-b border-zinc-800/80 pb-8">
+    <div class="flex items-center gap-2 text-xs font-mono text-sky-400 mb-3">
       <a href="/" class="hover:underline">Home</a>
-      <span>/</span>
-      <span class="text-zinc-500">Diagrams</span>
+      <span class="text-zinc-600">/</span>
+      <span class="text-zinc-400">Architecture Diagrams</span>
     </div>
-    <h1 class="text-3xl font-bold text-white mb-2">Architecture Diagrams & Models</h1>
-    <p class="text-sm text-zinc-400">Interactive system architecture diagrams, state machines, and relational models harvested from active codebases.</p>
+    <h1 class="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-white mb-2.5">
+      Architecture Diagrams & Models
+    </h1>
+    <p class="text-sm sm:text-base text-zinc-300 max-w-3xl leading-relaxed">
+      Interactive system architecture diagrams, state machines, and relational models harvested from active codebases.
+    </p>
   </div>
 
-  <div class="space-y-12">
+  <div class="space-y-10">
     {diagrams.map((d) => (
-      <section class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-6">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+      <section class="rounded-2xl border border-zinc-800/80 bg-zinc-900/40 backdrop-blur-sm p-6 sm:p-8 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-4">
           <ProjectBadge project={d.project} size="md" />
-          <span class="text-xs font-mono text-zinc-500">Interactive Model</span>
+          <span class="text-xs font-mono text-zinc-500 bg-zinc-900/60 border border-zinc-800/80 rounded-full px-3 py-1">
+            Interactive Model
+          </span>
         </div>
 
-        <h2 class="text-xl font-semibold text-white mb-2">{d.title}</h2>
-        <p class="text-sm text-zinc-400 mb-4">{d.description}</p>
+        <h2 class="text-xl sm:text-2xl font-display font-bold text-white mb-2.5 leading-snug">{d.title}</h2>
+        <p class="text-sm sm:text-base text-zinc-300 mb-6 leading-relaxed max-w-4xl">{d.description}</p>
 
         <Mermaid code={d.code} title={d.title} />
       </section>

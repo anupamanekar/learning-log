@@ -22,33 +22,37 @@ const categoryKeys = Array.from(new Set(entries.map((e) => e.data.category || 'g
 ---
 
 <BaseLayout title="Engineering Logs — dev.journal" description="Curated technical field notes, postmortems, and architectural decisions.">
-  <div class="mb-8 border-b border-zinc-800 pb-6">
-    <div class="flex items-center gap-2 text-xs font-mono text-sky-400 mb-2">
+  <div class="mb-10 border-b border-zinc-800/80 pb-8">
+    <div class="flex items-center gap-2 text-xs font-mono text-sky-400 mb-3">
       <a href="/" class="hover:underline">Home</a>
-      <span>/</span>
-      <span class="text-zinc-500">Engineering Logs</span>
+      <span class="text-zinc-600">/</span>
+      <span class="text-zinc-400">Engineering Logs</span>
     </div>
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
       <div>
-        <h1 class="text-3xl font-bold text-white mb-2">Engineering Logs & Field Notes</h1>
-        <p class="text-sm text-zinc-400">Battle-tested architectural decisions, production bugs, and code observations harvested directly from active codebases.</p>
+        <h1 class="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-white mb-2.5">
+          Engineering Logs & Field Notes
+        </h1>
+        <p class="text-sm sm:text-base text-zinc-300 max-w-3xl leading-relaxed">
+          Battle-tested architectural decisions, production bugs, and code observations harvested directly from active codebases.
+        </p>
       </div>
-      <div class="text-xs font-mono text-zinc-400 bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-lg whitespace-nowrap self-start sm:self-auto">
+      <div class="text-xs font-mono text-zinc-300 bg-zinc-900/50 backdrop-blur border border-zinc-800/80 px-4 py-2 rounded-full whitespace-nowrap self-start sm:self-auto shadow-sm">
         <span>Total: </span>
-        <strong class="text-white">{entries.length} Curated Logs</strong>
+        <strong class="text-white font-semibold">{entries.length} Curated Logs</strong>
       </div>
     </div>
   </div>
 
   <!-- Interactive Category Filter Bar -->
-  <div class="mb-8 flex flex-wrap gap-2 text-xs font-mono" id="filter-bar">
-    <button class="filter-btn active rounded-lg border border-sky-500/50 bg-sky-950/40 px-3 py-1.5 text-sky-300 transition-colors" data-filter="all">
+  <div class="mb-8 flex flex-wrap gap-2 text-xs" id="filter-bar">
+    <button class="filter-btn active rounded-full border border-sky-500/30 bg-sky-500/15 px-4 py-1.5 font-medium text-sky-300 transition-all shadow-sm" data-filter="all">
       All ({entries.length})
     </button>
     {categoryKeys.map((catKey) => {
       const count = entries.filter((e) => e.data.category === catKey).length;
       return (
-        <button class="filter-btn rounded-lg border border-zinc-800 bg-zinc-900/60 px-3 py-1.5 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200 transition-colors" data-filter={catKey}>
+        <button class="filter-btn rounded-full border border-zinc-800 bg-zinc-900/50 px-4 py-1.5 font-medium text-zinc-400 hover:border-zinc-700 hover:text-white transition-all" data-filter={catKey}>
           {formatCategory(catKey)} ({count})
         </button>
       );
@@ -59,17 +63,17 @@ const categoryKeys = Array.from(new Set(entries.map((e) => e.data.category || 'g
   <div class="space-y-4" id="logs-list">
     {entries.map((log) => (
       <article
-        class="log-card group flex flex-col justify-between rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-5 hover:border-zinc-700 hover:bg-zinc-900/80 transition-all shadow-sm"
+        class="log-card group flex flex-col justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 backdrop-blur-sm p-6 hover:border-zinc-700/80 hover:bg-zinc-900/70 hover:shadow-xl hover:shadow-sky-500/5 transition-all duration-200"
         data-category={log.data.category || 'general'}
       >
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-3.5">
           <div class="flex flex-wrap items-center gap-2">
             <ProjectBadge project={log.data.project} size="sm" />
-            <span class="text-[11px] font-mono text-zinc-300 bg-zinc-900 border border-zinc-800 px-2 py-0.5 rounded">
+            <span class="text-[11px] font-sans font-medium text-zinc-300 bg-zinc-900/90 border border-zinc-800 rounded-full px-2.5 py-0.5">
               {formatCategory(log.data.category || 'general')}
             </span>
             {log.data.severity_or_impact && (
-              <span class="text-[11px] font-mono text-amber-400/90 bg-amber-950/40 border border-amber-800/50 px-2 py-0.5 rounded">
+              <span class="text-[10px] font-mono text-amber-300 bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded-full">
                 Impact: {log.data.severity_or_impact}
               </span>
             )}
@@ -79,14 +83,14 @@ const categoryKeys = Array.from(new Set(entries.map((e) => e.data.category || 'g
           </time>
         </div>
 
-        <a href={`/logs/${log.slug}`} class="block mb-3">
-          <h2 class="text-base sm:text-lg font-semibold text-zinc-100 group-hover:text-sky-400 transition-colors leading-snug">
+        <a href={`/logs/${log.slug}`} class="block mb-3.5">
+          <h2 class="text-lg sm:text-xl font-display font-semibold text-zinc-100 group-hover:text-sky-300 transition-colors leading-snug">
             {log.data.title}
           </h2>
         </a>
 
         {log.data.source_references && log.data.source_references.length > 0 && (
-          <div class="mb-4 flex items-center gap-1.5 text-[11px] font-mono text-zinc-400 bg-zinc-950/70 border border-zinc-800/80 rounded px-2.5 py-1.5 overflow-x-auto">
+          <div class="mb-4 flex items-center gap-2 text-[11px] font-mono text-zinc-400 bg-zinc-950/70 border border-zinc-800/80 rounded-xl px-3 py-2 overflow-x-auto">
             <span class="text-sky-400">📄</span>
             <span class="truncate">{log.data.source_references[0]}</span>
             {log.data.source_references.length > 1 && (
@@ -95,13 +99,13 @@ const categoryKeys = Array.from(new Set(entries.map((e) => e.data.category || 'g
           </div>
         )}
 
-        <div class="pt-3 border-t border-zinc-800/60 flex items-center justify-between">
+        <div class="pt-3.5 border-t border-zinc-800/70 flex items-center justify-between">
           <div class="flex flex-wrap gap-1.5">
             {log.data.tags.slice(0, 4).map((t) => (
               <TagPill tag={t} />
             ))}
           </div>
-          <a href={`/logs/${log.slug}`} class="text-xs font-mono text-sky-400 hover:text-sky-300 flex items-center gap-1">
+          <a href={`/logs/${log.slug}`} class="text-xs font-mono text-sky-400 hover:text-sky-300 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
             <span>Read Log</span>
             <span>→</span>
           </a>
@@ -119,11 +123,11 @@ const categoryKeys = Array.from(new Set(entries.map((e) => e.data.category || 'g
     btn.addEventListener('click', () => {
       const filter = btn.getAttribute('data-filter');
       buttons.forEach((b) => {
-        b.classList.remove('border-sky-500/50', 'bg-sky-950/40', 'text-sky-300');
-        b.classList.add('border-zinc-800', 'bg-zinc-900/60', 'text-zinc-400');
+        b.classList.remove('border-sky-500/30', 'bg-sky-500/15', 'text-sky-300', 'shadow-sm');
+        b.classList.add('border-zinc-800', 'bg-zinc-900/50', 'text-zinc-400');
       });
-      btn.classList.remove('border-zinc-800', 'bg-zinc-900/60', 'text-zinc-400');
-      btn.classList.add('border-sky-500/50', 'bg-sky-950/40', 'text-sky-300');
+      btn.classList.remove('border-zinc-800', 'bg-zinc-900/50', 'text-zinc-400');
+      btn.classList.add('border-sky-500/30', 'bg-sky-500/15', 'text-sky-300', 'shadow-sm');
 
       cards.forEach((card) => {
         const cat = card.getAttribute('data-category');
