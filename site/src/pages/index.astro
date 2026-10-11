@@ -10,6 +10,16 @@ const entries = await getCollection('entries');
 // Sort blogs by date descending
 blogs.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 entries.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const categoryLabels: Record<string, string> = {
+  'ai-and-agentic-engineering': 'AI and Agentic Engineering',
+  'architecture-and-design': 'Architecture and Design',
+  'mistakes-and-pitfalls': 'Mistakes and Pitfalls',
+  'performance-and-infra': 'Performance and Infra',
+  'testing-and-quality': 'Testing and Quality',
+};
+
+const formatCategory = (cat: string) => categoryLabels[cat] || cat.replace(/-/g, ' ');
 ---
 
 <BaseLayout>
@@ -132,7 +142,7 @@ entries.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).g
                 {entry.data.title}
               </h4>
               <div class="flex items-center gap-2 mt-1">
-                <span class="text-[10px] font-mono uppercase tracking-wider text-zinc-500">{entry.data.category}</span>
+                <span class="text-[10px] font-mono tracking-wider text-zinc-400">{formatCategory(entry.data.category)}</span>
                 {entry.data.severity_or_impact && (
                   <span class="text-[10px] font-mono text-amber-400/80 bg-amber-950/30 px-1 rounded border border-amber-800/40">
                     {entry.data.severity_or_impact}

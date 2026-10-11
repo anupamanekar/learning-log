@@ -14,6 +14,16 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+
+const categoryLabels: Record<string, string> = {
+  'ai-and-agentic-engineering': 'AI and Agentic Engineering',
+  'architecture-and-design': 'Architecture and Design',
+  'mistakes-and-pitfalls': 'Mistakes and Pitfalls',
+  'performance-and-infra': 'Performance and Infra',
+  'testing-and-quality': 'Testing and Quality',
+};
+
+const formatCategory = (cat: string) => categoryLabels[cat] || cat.replace(/-/g, ' ');
 ---
 
 <BaseLayout title={`${entry.data.title} — Vault Note`} description={entry.data.title}>
@@ -26,8 +36,8 @@ const { Content } = await entry.render();
 
     <div class="flex flex-wrap items-center gap-3 mb-4">
       <ProjectBadge project={entry.data.project} size="md" />
-      <span class="text-xs font-mono text-zinc-400 uppercase tracking-wider bg-zinc-900 border border-zinc-800 px-2 py-0.5 rounded">
-        {entry.data.category}
+      <span class="text-xs font-mono text-zinc-300 bg-zinc-900 border border-zinc-800 px-2 py-0.5 rounded">
+        {formatCategory(entry.data.category)}
       </span>
       {entry.data.severity_or_impact && (
         <span class="text-xs font-mono text-amber-400/90 bg-amber-950/40 border border-amber-800/50 px-2 py-0.5 rounded">

@@ -8,6 +8,16 @@ const entries = await getCollection('entries');
 entries.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
 // Group by category
+const categoryLabels: Record<string, string> = {
+  'ai-and-agentic-engineering': 'AI and Agentic Engineering',
+  'architecture-and-design': 'Architecture and Design',
+  'mistakes-and-pitfalls': 'Mistakes and Pitfalls',
+  'performance-and-infra': 'Performance and Infra',
+  'testing-and-quality': 'Testing and Quality',
+};
+
+const formatCategory = (cat: string) => categoryLabels[cat] || cat.replace(/-/g, ' ');
+
 const categories: Record<string, typeof entries> = {};
 entries.forEach((e) => {
   const cat = e.data.category || 'uncategorized';
@@ -31,8 +41,8 @@ entries.forEach((e) => {
     {Object.entries(categories).map(([category, items]) => (
       <section>
         <div class="flex items-center gap-3 border-b border-zinc-800 pb-3 mb-4">
-          <h2 class="text-lg font-mono font-bold text-sky-400 capitalize">
-            {category.replace(/-/g, ' ')}
+          <h2 class="text-lg font-mono font-bold text-sky-400">
+            {formatCategory(category)}
           </h2>
           <span class="rounded bg-zinc-900 border border-zinc-800 px-2 py-0.5 text-xs font-mono text-zinc-400">
             {items.length} notes
