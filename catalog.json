@@ -1,15 +1,15 @@
 {
-  "total_entries": 8,
-  "total_showcases": 8,
+  "total_entries": 9,
+  "total_showcases": 9,
   "categories": {
     "mistakes-and-pitfalls": 1,
     "testing-and-quality": 1,
     "performance-and-infra": 3,
-    "architecture-and-design": 2,
+    "architecture-and-design": 3,
     "ai-and-agentic-engineering": 1
   },
   "projects": {
-    "adaptive-edtech-platform": 3,
+    "adaptive-edtech-platform": 4,
     "astrological-signals-engine": 4,
     "all-projects": 1
   },
@@ -34,22 +34,25 @@
     "gpu": 1,
     "embeddings": 2,
     "serverless": 1,
-    "fastapi": 2,
+    "fastapi": 3,
     "performance": 1,
     "retry-logic": 1,
-    "workers": 1,
-    "event-driven": 1,
+    "workers": 2,
+    "event-driven": 2,
     "oom": 1,
     "disk-isolation": 1,
-    "concurrency": 1,
+    "concurrency": 2,
     "retry-backoff": 1,
-    "ffmpeg": 1,
+    "ffmpeg": 2,
     "sarvam-ai": 1,
     "tts": 1,
     "rbac": 1,
     "ux": 1,
     "authorization": 1,
     "frontend-architecture": 1,
+    "pubsub": 1,
+    "scalability": 1,
+    "firestore": 1,
     "rag": 1,
     "vector-search": 1,
     "nomic": 1,
@@ -141,6 +144,34 @@
         "documentation/architecture/ARCHITECTURE_REVIEW_LOAD_LIMITS.md"
       ],
       "rel_path": "entries/performance-and-infra/event-driven-worker-scalability-and-oom-isolation.md"
+    },
+    {
+      "id": "pubsub-event-driven-media-generation-scalability",
+      "title": "Scaling Multimedia Generation via Cloud Pub/Sub and Decoupled Worker Pods",
+      "project": "adaptive-edtech-platform",
+      "date": "2026-10-10",
+      "category": "architecture-and-design",
+      "tags": [
+        "pubsub",
+        "event-driven",
+        "workers",
+        "fastapi",
+        "scalability",
+        "ffmpeg",
+        "firestore",
+        "concurrency"
+      ],
+      "severity_or_impact": "Critical",
+      "showcase_potential": "Blog",
+      "status": "Showcase Drafted",
+      "source_references": [
+        "contentgen-services/app/services/pubsub_client.py:67-133",
+        "contentgen-services/app/api/content.py:454-465",
+        "contentgen-services/app/api/content.py:664-676",
+        "contentgen-services/app/entrypoints/video_worker.py:43-104",
+        "documentation/architecture/ARCHITECTURE_REVIEW_LOAD_LIMITS.md:7-34"
+      ],
+      "rel_path": "entries/architecture-and-design/pubsub-event-driven-media-generation-scalability.md"
     },
     {
       "id": "vector-embedding-model-selection-and-migration",
@@ -281,6 +312,33 @@
         "backend/agents/query_agent.py:82-105"
       ],
       "rel_path": "showcase/blogs/vector-embedding-model-evolution.md",
+      "type": "blogs"
+    },
+    {
+      "title": "Dev Log: Scaling Audio & Video Generation via Pub/Sub Event Decoupling",
+      "slug": "scaling-media-generation-with-pubsub",
+      "project": "adaptive-edtech-platform",
+      "topic": "pubsub-event-driven-media-generation-scalability",
+      "date": "2026-10-10",
+      "status": "Published",
+      "tags": [
+        "pubsub",
+        "fastapi",
+        "workers",
+        "event-driven",
+        "ffmpeg",
+        "scalability",
+        "concurrency",
+        "dev-log"
+      ],
+      "references": [
+        "contentgen-services/app/services/pubsub_client.py:67-133",
+        "contentgen-services/app/api/content.py:454-465",
+        "contentgen-services/app/api/content.py:664-676",
+        "contentgen-services/app/entrypoints/video_worker.py:43-104",
+        "documentation/architecture/ARCHITECTURE_REVIEW_LOAD_LIMITS.md:7-34"
+      ],
+      "rel_path": "showcase/blogs/pubsub-scalable-media-content-generation.md",
       "type": "blogs"
     },
     {
