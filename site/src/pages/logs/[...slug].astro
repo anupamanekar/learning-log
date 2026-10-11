@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectBadge from '../../components/ProjectBadge.astro';
+import TagPill from '../../components/TagPill.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('entries');
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const categoryLabels: Record<string, string> = {
+  'ai-and-agentic-engineering': 'AI & Agentic Engineering',
+  'architecture-and-design': 'Architecture & Design',
+  'mistakes-and-pitfalls': 'Mistakes & Pitfalls',
+  'performance-and-infra': 'Performance & Infra',
+  'testing-and-quality': 'Testing & Quality',
+};
+
+const formatCategory = (cat: string) => categoryLabels[cat] || cat.replace(/-/g, ' ');
+---
+
+<BaseLayout title={`${entry.data.title} — Engineering Log`} description={entry.data.title}>
+  <div class="mb-10 border-b border-zinc-800/80 pb-8">
+    <div class="flex items-center gap-2 text-xs font-mono text-sky-400 mb-4">
+      <a href="/logs" class="hover:underline">Engineering Logs</a>
+      <span class="text-zinc-600">/</span>
+      <span class="text-zinc-400 truncate">{entry.slug}</span>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2.5 mb-5">
+      <ProjectBadge project={entry.data.project} size="md" />
+      <span class="text-xs font-sans font-medium text-zinc-300 bg-zinc-900/90 border border-zinc-800 px-3 py-0.5 rounded-full">
+        {formatCategory(entry.data.category || 'general')}
+      </span>
+      {entry.data.severity_or_impact && (
+        <span class="text-xs font-mono text-amber-300 bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded-full">
+          Impact: {entry.data.severity_or_impact}
+        </span>
+      )}
+      <time class="text-xs font-mono text-zinc-400 ml-auto">
+        {new Date(entry.data.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+      </time>
+    </div>
+
+    <h1 class="text-2xl sm:text-4xl font-display font-extrabold text-white tracking-tight mb-6 leading-[1.2]">
+      {entry.data.title}
+    </h1>
+
+    {entry.data.source_references && entry.data.source_references.length > 0 && (
+      <div class="rounded-2xl border border-sky-500/20 bg-sky-950/20 backdrop-blur-sm p-4 sm:p-5 mb-6 shadow-sm">
+        <div class="text-[11px] font-mono uppercase tracking-wider text-sky-400 font-semibold mb-2.5 flex items-center gap-1.5">
+          <span>🔍</span>
+          <span>Verified Source References</span>
+        </div>
+        <div class="flex flex-col gap-2">
+          {entry.data.source_references.map((ref) => (
+            <code class="text-xs font-mono text-sky-200 bg-zinc-950/80 border border-sky-500/20 rounded-lg px-3 py-1.5 w-fit shadow-xs">
+              {ref}
+            </code>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <div class="flex flex-wrap gap-1.5 pt-1">
+      {entry.data.tags.map((t) => (
+        <TagPill tag={t} />
+      ))}
+    </div>
+  </div>
+
+  <article class="prose prose-invert prose-zinc max-w-none prose-headings:font-display prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-white prose-headings:scroll-mt-20 prose-p:text-zinc-300 prose-p:leading-relaxed prose-li:text-zinc-300 prose-strong:text-white prose-strong:font-semibold prose-pre:border prose-pre:border-zinc-800/90 prose-pre:bg-zinc-950/90 prose-pre:rounded-2xl prose-pre:shadow-md prose-code:font-mono prose-code:text-sky-300 prose-code:bg-zinc-900/60 prose-code:border prose-code:border-zinc-800/60 prose-code:rounded-md prose-code:px-1.5 prose-code:py-0.5">
+    <Content />
+  </article>
+
+  <style is:global>
+    /* Suppress duplicate markdown H1 since template hero already renders title */
+    .prose > h1:first-of-type {
+      display: none !important;
+    }
+  </style>
+
+  <div class="mt-16 pt-6 border-t border-zinc-800/80 flex items-center justify-between">
+    <a href="/logs" class="text-xs font-mono text-sky-400 hover:text-sky-300 flex items-center gap-1">
+      ← Back to Engineering Logs
+    </a>
+    <a href="#" class="text-xs font-mono text-zinc-500 hover:text-zinc-300">
+      ↑ Back to Top
+    </a>
+  </div>
+</BaseLayout>

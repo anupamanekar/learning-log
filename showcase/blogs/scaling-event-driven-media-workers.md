@@ -6,17 +6,17 @@ date: "2026-10-10"
 status: "Published"
 tags: ["fastapi", "workers", "event-driven", "oom", "disk-isolation", "concurrency", "retry-backoff", "dev-log"]
 references:
-  - "ai-directed-learning/contentgen-services/app/entrypoints/video_worker.py"
-  - "ai-directed-learning/contentgen-services/app/entrypoints/audio_worker.py"
-  - "ai-directed-learning/contentgen-services/app/core/retry.py:10-97"
-  - "ai-directed-learning/documentation/architecture/ARCHITECTURE_REVIEW_LOAD_LIMITS.md"
+  - "contentgen-services/app/entrypoints/video_worker.py"
+  - "contentgen-services/app/entrypoints/audio_worker.py"
+  - "contentgen-services/app/core/retry.py:10-97"
+  - "documentation/architecture/ARCHITECTURE_REVIEW_LOAD_LIMITS.md"
 ---
 
 # Dev Log: Decoupling Media Workers and Eliminating Web Process OOM at 5,000-User Scale
 
-**Project**: `ai-directed-learning`  
-**Source Ref**: [`contentgen-services/app/entrypoints/video_worker.py`](file:///Users/anupmanekar/DevWorkspace/ai-directed-learning/contentgen-services/app/entrypoints/video_worker.py), [`contentgen-services/app/core/retry.py:10-97`](file:///Users/anupmanekar/DevWorkspace/ai-directed-learning/contentgen-services/app/core/retry.py#L10-L97)  
-**Docs**: [`documentation/architecture/ARCHITECTURE_REVIEW_LOAD_LIMITS.md`](file:///Users/anupmanekar/DevWorkspace/ai-directed-learning/documentation/architecture/ARCHITECTURE_REVIEW_LOAD_LIMITS.md)  
+**Project**: `adaptive-edtech-platform`  
+**Source Ref**: [`contentgen-services/app/entrypoints/video_worker.py`](contentgen-services/app/entrypoints/video_worker.py), [`contentgen-services/app/core/retry.py:10-97`](contentgen-services/app/core/retry.py#L10-L97)  
+**Docs**: [`documentation/architecture/ARCHITECTURE_REVIEW_LOAD_LIMITS.md`](documentation/architecture/ARCHITECTURE_REVIEW_LOAD_LIMITS.md)  
 
 ---
 

@@ -1,7 +1,7 @@
 ---
 id: "vite-esm-react-player-breakage"
 title: "Why react-player Broke in Vite and How Native Embeds Solved It"
-project: "ai-directed-learning"
+project: "adaptive-edtech-platform"
 date: "2026-02-08"
 category: "mistakes-and-pitfalls"
 tags: ["react", "vite", "bundling", "esm", "video-player", "frontend"]
@@ -9,14 +9,14 @@ severity_or_impact: "High"
 showcase_potential: "Blog"
 status: "Synthesized"
 source_references:
-  - "ai-directed-learning/documentation/VIDEO_PLAYER_FIX_COMPLETE.md"
-  - "ai-directed-learning/frontend/src/components/VideoPlayer.tsx"
+  - "documentation/VIDEO_PLAYER_FIX_COMPLETE.md"
+  - "frontend/src/components/VideoPlayer.tsx"
 ---
 
 # Why react-player Broke in Vite and How Native Embeds Solved It
 
 ## 🔍 Context & Scenario
-In the **ai-directed-learning** platform, students access multimedia lessons containing video content hosted on YouTube, Vimeo, or served as direct MP4 files. The team originally integrated `react-player` (v3.4.0) to handle universal video rendering.
+In the **adaptive-edtech-platform** platform, students access multimedia lessons containing video content hosted on YouTube, Vimeo, or served as direct MP4 files. The team originally integrated `react-player` (v3.4.0) to handle universal video rendering.
 
 ## 💥 The Incident & Symptoms
 - Students reported that videos rendered blank or failed to load entirely.

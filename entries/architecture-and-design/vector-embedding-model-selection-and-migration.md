@@ -1,7 +1,7 @@
 ---
 id: "vector-embedding-model-selection-and-migration"
 title: "Vector Embedding Model Selection & Migration: Transitioning from Gemini text-embedding-004 to Asymmetric Nomic Embeddings"
-project: "market-signals-platform"
+project: "astrological-signals-engine"
 date: "2026-10-10"
 category: "architecture-and-design"
 tags: ["embeddings", "rag", "vector-search", "nomic", "pgvector", "sqlite-vec", "runpod", "ollama"]
@@ -9,15 +9,15 @@ severity_or_impact: "High"
 showcase_potential: "Blog"
 status: "Showcase Drafted"
 source_references:
-  - "market-signals-platform/backend/utils/embeddings.py:18-42"
-  - "market-signals-platform/backend/scripts/build_rag_store.py:38-65"
-  - "market-signals-platform/backend/agents/query_agent.py:82-105"
+  - "backend/utils/embeddings.py:18-42"
+  - "backend/scripts/build_rag_store.py:38-65"
+  - "backend/agents/query_agent.py:82-105"
 ---
 
 # Vector Embedding Model Selection & Migration: Transitioning from Gemini text-embedding-004 to Asymmetric Nomic Embeddings
 
 ## Problem
-In the **market-signals-platform** RAG knowledge retrieval pipeline, the initial embedding implementation relied on Google's Gemini `text-embedding-004` API. This setup failed in production during batch ingestion due to two issues:
+In the **astrological-signals-engine** RAG knowledge retrieval pipeline, the initial embedding implementation relied on Google's Gemini `text-embedding-004` API. This setup failed in production during batch ingestion due to two issues:
 1. **`v1beta` Endpoint Mismatch**: Breaking changes between `google-generativeai` client releases and Google Cloud v1/v1beta REST routes produced intermittent serialization and task-type validation errors.
 2. **Quota Exhaustion**: Batch indexing of thousands of market events and profile summaries hit API rate limits (HTTP 429 `RESOURCE_EXHAUSTED`), stalling automated ingest pipelines.
 

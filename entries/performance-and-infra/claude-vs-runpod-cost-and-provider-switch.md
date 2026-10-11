@@ -1,7 +1,7 @@
 ---
 id: "claude-vs-runpod-cost-and-provider-switch"
 title: "Claude API vs RunPod Self-Hosted GPU: Cost-per-Profile Analysis and .env Provider Switching"
-project: "market-signals-platform"
+project: "astrological-signals-engine"
 date: "2026-10-10"
 category: "performance-and-infra"
 tags: ["runpod", "claude", "cost-optimization", "llm", "infrastructure", "environment-config"]
@@ -9,9 +9,9 @@ severity_or_impact: "High"
 showcase_potential: "Blog"
 status: "Synthesized"
 source_references:
-  - "market-signals-platform/backend/app/engine/llm/provider.py:367-381"
-  - "market-signals-platform/docs/RUNPOD_SETUP_GUIDE.md:21-52"
-  - "market-signals-platform/commit:bdf9f27"
+  - "backend/app/engine/llm/provider.py:367-381"
+  - "docs/RUNPOD_SETUP_GUIDE.md:21-52"
+  - "commit:bdf9f27"
 ---
 
 # Claude API vs RunPod Self-Hosted GPU: Cost-per-Profile Analysis and .env Provider Switching

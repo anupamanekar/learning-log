@@ -1,7 +1,7 @@
 ---
 id: "runpod-gpu-embedding-orchestration"
 title: "Orchestrating Serverless GPU Embeddings on RunPod with Resilient Error Handling"
-project: "market-signals-platform"
+project: "astrological-signals-engine"
 date: "2026-10-10"
 category: "performance-and-infra"
 tags: ["runpod", "gpu", "embeddings", "serverless", "fastapi", "performance", "retry-logic"]
@@ -9,15 +9,15 @@ severity_or_impact: "High"
 showcase_potential: "Blog"
 status: "Synthesized"
 source_references:
-  - "market-signals-platform/docs/RUNPOD_SETUP_GUIDE.md"
-  - "market-signals-platform/commit:ccb2de4"
-  - "market-signals-platform/commit:178842e"
+  - "docs/RUNPOD_SETUP_GUIDE.md"
+  - "commit:ccb2de4"
+  - "commit:178842e"
 ---
 
 # Orchestrating Serverless GPU Embeddings on RunPod with Resilient Error Handling
 
 ## 🔍 Context & Scenario
-In the **market-signals-platform**, stage 5 of the ingestion pipeline computes high-dimensional vector embeddings across hundreds of thousands of historical event summaries, profile bios, and market signal snippets. Running dense embedding models (e.g. `BAAI/bge-large-en-v1.5` or `all-mpnet-base-v2`) locally on CPU or small VPS machines was a major throughput bottleneck, taking hours per batch.
+In the **astrological-signals-engine**, stage 5 of the ingestion pipeline computes high-dimensional vector embeddings across hundreds of thousands of historical event summaries, profile bios, and market signal snippets. Running dense embedding models (e.g. `BAAI/bge-large-en-v1.5` or `all-mpnet-base-v2`) locally on CPU or small VPS machines was a major throughput bottleneck, taking hours per batch.
 
 To scale throughput, the team moved vector inference to a **RunPod Serverless GPU endpoint**.
 

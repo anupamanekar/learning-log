@@ -1,22 +1,22 @@
 ---
 title: "Dev Log: Inference Performance & Model Benchmarks in Batch Ingestion"
 slug: "ingestion-model-inference-benchmarks"
-project: "market-signals-platform"
+project: "astrological-signals-engine"
 topic: "claude-vs-runpod-cost-and-provider-switch"
 date: "2026-10-10"
 status: "Published"
 tags: ["llm-benchmarks", "ollama", "claude", "gemini", "fastapi", "ingestion", "dev-log"]
 references:
-  - "market-signals-platform/backend/app/engine/llm/provider.py:216-296"
-  - "market-signals-platform/docs/ARCHITECTURE.md:70-78"
-  - "market-signals-platform/commit:bdf9f27"
+  - "backend/app/engine/llm/provider.py:216-296"
+  - "docs/ARCHITECTURE.md:70-78"
+  - "commit:bdf9f27"
 ---
 
 # Dev Log: Inference Performance & Model Benchmarks in Batch Ingestion
 
-**Project**: `market-signals-platform`  
-**Provider Code**: [`backend/app/engine/llm/provider.py:216-296`](file:///Users/anupmanekar/DevWorkspace/market-signals-platform/backend/app/engine/llm/provider.py#L216-L296)  
-**Git Commit**: [`commit:bdf9f27`](file:///Users/anupmanekar/DevWorkspace/market-signals-platform/commit:bdf9f27) (*"add claude as ingestion llm"*)
+**Project**: `astrological-signals-engine`  
+**Provider Code**: [`backend/app/engine/llm/provider.py:216-296`](backend/app/engine/llm/provider.py#L216-L296)  
+**Git Commit**: [`commit:bdf9f27`](commit:bdf9f27) (*"add claude as ingestion llm"*)
 
 ---
 

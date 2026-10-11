@@ -1,0 +1,94 @@
+---
+interface Props {
+  code?: string;
+  title?: string;
+}
+
+const { code, title } = Astro.props;
+---
+
+<div class="my-6 rounded-lg border border-zinc-800 bg-zinc-900/50 p-4 overflow-hidden mermaid-card">
+  {title && (
+    <div class="mb-3 flex items-center justify-between border-b border-zinc-800 pb-2 text-xs font-mono text-zinc-400">
+      <span>📐 {title}</span>
+      <span class="text-[10px] text-zinc-500">Mermaid Diagram</span>
+    </div>
+  )}
+  <!-- Hidden raw source preserving whitespace -->
+  <pre class="mermaid-source hidden">{code ? code : <slot />}</pre>
+  
+  <!-- Diagram render container -->
+  <div class="mermaid-output flex justify-center items-center py-4 min-h-[140px] overflow-x-auto text-zinc-300">
+    <div class="mermaid-loading flex items-center gap-2 text-xs font-mono text-zinc-500">
+      <span class="inline-block w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
+      <span>Rendering architecture diagram...</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  import mermaid from 'mermaid';
+
+  mermaid.initialize({
+    startOnLoad: false,
+    securityLevel: 'loose',
+    theme: 'dark',
+    themeVariables: {
+      darkMode: true,
+      background: '#18181b',
+      primaryColor: '#0284c7',
+      primaryTextColor: '#f4f4f5',
+      primaryBorderColor: '#38bdf8',
+      lineColor: '#71717a',
+      secondaryColor: '#1e1b4b',
+      tertiaryColor: '#064e3b',
+    },
+    fontFamily: 'JetBrains Mono, monospace',
+  });
+
+  let counter = 0;
+
+  async function renderDiagrams() {
+    const cards = document.querySelectorAll('.mermaid-card');
+    for (const card of cards) {
+      const source = card.querySelector('.mermaid-source');
+      const output = card.querySelector('.mermaid-output');
+      if (!source || !output) continue;
+      if (output.getAttribute('data-rendered') === 'true') continue;
+
+      const rawGraph = (source.textContent || '').trim();
+      if (!rawGraph) continue;
+
+      const diagramId = `mermaid-graph-${Date.now()}-${counter++}`;
+      try {
+        const { svg } = await mermaid.render(diagramId, rawGraph);
+        output.innerHTML = svg;
+        output.setAttribute('data-rendered', 'true');
+
+        const svgElement = output.querySelector('svg');
+        if (svgElement) {
+          svgElement.style.maxWidth = '100%';
+          svgElement.style.height = 'auto';
+        }
+      } catch (err) {
+        console.error('Failed to render diagram:', err);
+        output.innerHTML = `
+          <div class="w-full text-xs font-mono text-amber-400/90 bg-amber-950/20 border border-amber-800/40 rounded p-4">
+            <div class="font-semibold text-amber-300 mb-1">Diagram Render Warning</div>
+            <p class="text-zinc-400 mb-2">Displaying source definition:</p>
+            <pre class="bg-zinc-950 p-3 rounded text-[11px] text-zinc-300 overflow-x-auto whitespace-pre">${rawGraph}</pre>
+          </div>
+        `;
+        output.setAttribute('data-rendered', 'error');
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderDiagrams);
+  } else {
+    renderDiagrams();
+  }
+
+  window.addEventListener('load', renderDiagrams);
+</script>

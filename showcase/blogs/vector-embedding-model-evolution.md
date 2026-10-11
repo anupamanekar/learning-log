@@ -6,15 +6,15 @@ date: "2026-10-10"
 status: "Published"
 tags: ["embeddings", "rag", "vector-search", "ollama", "nomic", "dev-log"]
 references:
-  - "market-signals-platform/backend/utils/embeddings.py:18-42"
-  - "market-signals-platform/backend/scripts/build_rag_store.py:38-65"
-  - "market-signals-platform/backend/agents/query_agent.py:82-105"
+  - "backend/utils/embeddings.py:18-42"
+  - "backend/scripts/build_rag_store.py:38-65"
+  - "backend/agents/query_agent.py:82-105"
 ---
 
 # Dev Log: Fixing Semantic Collapse in Nomic Embeddings
 
-**Project**: `market-signals-platform`  
-**Source Ref**: [`backend/utils/embeddings.py:18-42`](file:///Users/anupmanekar/DevWorkspace/market-signals-platform/backend/utils/embeddings.py#L18-L42), [`backend/scripts/build_rag_store.py:38-65`](file:///Users/anupmanekar/DevWorkspace/market-signals-platform/backend/scripts/build_rag_store.py#L38-L65), [`backend/agents/query_agent.py:82-105`](file:///Users/anupmanekar/DevWorkspace/market-signals-platform/backend/agents/query_agent.py#L82-L105)
+**Project**: `astrological-signals-engine`  
+**Source Ref**: [`backend/utils/embeddings.py:18-42`](backend/utils/embeddings.py#L18-L42), [`backend/scripts/build_rag_store.py:38-65`](backend/scripts/build_rag_store.py#L38-L65), [`backend/agents/query_agent.py:82-105`](backend/agents/query_agent.py#L82-L105)
 
 ---
 

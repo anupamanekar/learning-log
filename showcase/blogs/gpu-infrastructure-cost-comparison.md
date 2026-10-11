@@ -1,22 +1,22 @@
 ---
 title: "Dev Log: GPU Infrastructure Cost Comparison for Batch Ingestion"
 slug: "gpu-infrastructure-cost-comparison-batch-ingestion"
-project: "market-signals-platform"
+project: "astrological-signals-engine"
 topic: "claude-vs-runpod-cost-and-provider-switch"
 date: "2026-10-10"
 status: "Published"
 tags: ["runpod", "gpu", "infrastructure", "cost-optimization", "ollama", "dev-log"]
 references:
-  - "market-signals-platform/docs/RUNPOD_SETUP_GUIDE.md:21-52"
-  - "market-signals-platform/docs/ARCHITECTURE.md:70-78"
-  - "market-signals-platform/docs/PHASE_13.md:100-103"
+  - "docs/RUNPOD_SETUP_GUIDE.md:21-52"
+  - "docs/ARCHITECTURE.md:70-78"
+  - "docs/PHASE_13.md:100-103"
 ---
 
 # Dev Log: GPU Infrastructure Cost Comparison for Batch Ingestion
 
-**Project**: `market-signals-platform`  
-**Source Ref**: [`docs/RUNPOD_SETUP_GUIDE.md:21-52`](file:///Users/anupmanekar/DevWorkspace/market-signals-platform/docs/RUNPOD_SETUP_GUIDE.md#L21-L52)  
-**Config Reference**: [`docs/ARCHITECTURE.md:70-78`](file:///Users/anupmanekar/DevWorkspace/market-signals-platform/docs/ARCHITECTURE.md#L70-L78)
+**Project**: `astrological-signals-engine`  
+**Source Ref**: [`docs/RUNPOD_SETUP_GUIDE.md:21-52`](docs/RUNPOD_SETUP_GUIDE.md#L21-L52)  
+**Config Reference**: [`docs/ARCHITECTURE.md:70-78`](docs/ARCHITECTURE.md#L70-L78)
 
 ---
 

@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Mermaid from '../../components/Mermaid.astro';
+import ProjectBadge from '../../components/ProjectBadge.astro';
+
+const diagrams = [
+  {
+    title: 'Media Workers Decoupling & Queue Architecture',
+    project: 'adaptive-edtech-platform',
+    description: 'Decoupling heavy FFmpeg video stitching and Pillow canvas rendering from the FastAPI web server into standalone autoscaled container entrypoints.',
+    code: `graph LR
+    User["Client App"] -->|REST / POST| API["FastAPI Web Server<br/>(Lightweight, Port 8001)"]
+    API -->|Write Job State| FS["Firestore<br/>(Real-time State)"]
+    API -->|Publish Task| PS["Google Cloud Pub/Sub"]
+    
+    subgraph Isolated_Worker_Pods ["Isolated Worker Pods"]
+      PS -->|Topic: audio-generation| AW["AudioWorker<br/>(TTS Synthesis)"]
+      PS -->|Topic: video-composition| VW["VideoWorker<br/>(FFmpeg Subprocess)"]
+    end
+
+    AW -->|Audio Stream| GCS["Object Storage<br/>(media-bucket)"]
+    VW -->|Rendered MP4| GCS
+    User -.->|Listen Progress| FS
+    User -->|Stream MP4| GCS`,
+  },
+  {
+    title: 'Multi-Stage Ingestion Pipeline & Cloud GPU Offload',
+    project: 'astrological-signals-engine',
+    description: 'Multi-stage batch ingestion pipeline offloading heavy LLM extraction and 768-dim vector embeddings to dedicated Cloud GPU instances.',
+    code: `flowchart TD
+    Wiki["Source Documents & Web Records"] --> Stage1["Stage 1: Profile & Event Extraction<br/>(scripts/ingest_wikipedia.py)"]
+    
+    subgraph Compute_Inference ["Compute Inference"]
+      Stage1 -->|HTTP POST :11434| RunPod["Cloud GPU (RTX 4090)<br/>Ollama llama3.1:8b (4 Parallel)"]
+      Stage1 -.->|Burst API Fallback| Claude["Anthropic Claude Haiku API"]
+    end
+
+    RunPod --> Stage2["Stage 2: Deterministic Audit Validation<br/>(audit_ingestion.py)"]
+    Stage2 -->|Zero Date Leaks| DB[("Relational Database<br/>Profile & Life Events")]
+    
+    DB --> Stage5["Stage 5: Vector RAG Indexing<br/>(build_rag_store.py)"]
+    Stage5 -->|search_document: prefix| Nomic["nomic-embed-text (768-dim)"]
+    Nomic --> VecDB[("Vector Storage<br/>HNSW Indexes")]`,
+  },
+  {
+    title: 'Subscription Plans vs Feature Flags Schema Architecture',
+    project: 'adaptive-edtech-platform',
+    description: 'Relational boundary between application-level capability toggles (features) and time-bounded commercial products (plans) with cumulative expiration stacking.',
+    code: `erDiagram
+    USERS ||--o{ USER_PLANS : purchases
+    PLANS ||--o{ USER_PLANS : links
+    FEATURES ||--o{ PLANS : specifies
+    
+    USERS {
+      int id PK
+      string email
+      string role
+    }
+    
+    FEATURES {
+      int id PK
+      string code UK "e.g. creator_studio"
+      boolean is_active
+      string description
+    }
+    
+    PLANS {
+      int id PK
+      string feature_code FK
+      int duration_days "30 or 365"
+      int price_cents
+    }
+    
+    USER_PLANS {
+      int id PK
+      int user_id FK
+      int plan_id FK
+      datetime expires_at "Cumulative stacked expiry"
+    }`,
+  },
+];
+---
+
+<BaseLayout title="Architecture Diagrams — dev.journal" description="Interactive architectural diagrams and system models.">
+  <div class="mb-10 border-b border-zinc-800/80 pb-8">
+    <div class="flex items-center gap-2 text-xs font-mono text-sky-400 mb-3">
+      <a href="/" class="hover:underline">Home</a>
+      <span class="text-zinc-600">/</span>
+      <span class="text-zinc-400">Architecture Diagrams</span>
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-white mb-2.5">
+      Architecture Diagrams & Models
+    </h1>
+    <p class="text-sm sm:text-base text-zinc-300 max-w-3xl leading-relaxed">
+      Interactive system architecture diagrams, state machines, and relational models harvested from active codebases.
+    </p>
+  </div>
+
+  <div class="space-y-10">
+    {diagrams.map((d) => (
+      <section class="rounded-2xl border border-zinc-800/80 bg-zinc-900/40 backdrop-blur-sm p-6 sm:p-8 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-4">
+          <ProjectBadge project={d.project} size="md" />
+          <span class="text-xs font-mono text-zinc-500 bg-zinc-900/60 border border-zinc-800/80 rounded-full px-3 py-1">
+            Interactive Model
+          </span>
+        </div>
+
+        <h2 class="text-xl sm:text-2xl font-display font-bold text-white mb-2.5 leading-snug">{d.title}</h2>
+        <p class="text-sm sm:text-base text-zinc-300 mb-6 leading-relaxed max-w-4xl">{d.description}</p>
+
+        <Mermaid code={d.code} title={d.title} />
+      </section>
+    ))}
+  </div>
+</BaseLayout>

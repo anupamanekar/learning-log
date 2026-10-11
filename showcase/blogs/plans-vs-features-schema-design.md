@@ -6,15 +6,15 @@ date: "2026-07-12"
 status: "Published"
 tags: ["database-design", "fastapi", "sqlalchemy", "agentic-coding", "dev-log"]
 references:
-  - "ai-directed-learning/backend/app/adapters/api/payments.py:57-90"
-  - "ai-directed-learning/backend/app/domain/models/plan.py"
+  - "backend/app/adapters/api/payments.py:57-90"
+  - "backend/app/domain/models/plan.py"
   - "Antigravity Session: 35ab7246-ca33-40c7-8979-52f734e2fa97"
 ---
 
 # Dev Log: Why AI Agents Conflate Feature Flags with Subscription Plans
 
-**Project**: `ai-directed-learning`  
-**Source Ref**: [`backend/app/adapters/api/payments.py:57-90`](file:///Users/anupmanekar/DevWorkspace/ai-directed-learning/backend/app/adapters/api/payments.py#L57-L90)  
+**Project**: `adaptive-edtech-platform`  
+**Source Ref**: [`backend/app/adapters/api/payments.py:57-90`](backend/app/adapters/api/payments.py#L57-L90)  
 **Conversation**: Antigravity Session `35ab7246-ca33-40c7-8979-52f734e2fa97`
 
 ---

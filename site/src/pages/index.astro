@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectBadge from '../components/ProjectBadge.astro';
+import TagPill from '../components/TagPill.astro';
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('entries');
+
+// Sort entries by date descending
+entries.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const categoryLabels: Record<string, string> = {
+  'ai-and-agentic-engineering': 'AI & Agentic Engineering',
+  'architecture-and-design': 'Architecture & Design',
+  'mistakes-and-pitfalls': 'Mistakes & Pitfalls',
+  'performance-and-infra': 'Performance & Infra',
+  'testing-and-quality': 'Testing & Quality',
+};
+
+const formatCategory = (cat: string) => categoryLabels[cat] || cat.replace(/-/g, ' ');
+---
+
+<BaseLayout>
+  <!-- Hero Section -->
+  <section class="py-8 sm:py-14 border-b border-zinc-800/80 mb-12">
+    <div class="inline-flex items-center gap-2 rounded-full border border-sky-500/20 bg-sky-500/10 px-3.5 py-1 text-xs font-mono text-sky-400 mb-5">
+      <span class="inline-block w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+      <span>Living Field Notes & Architecture Vault</span>
+    </div>
+
+    <h1 class="text-3xl sm:text-5xl font-display font-extrabold tracking-tight text-white mb-5 leading-[1.15]">
+      Real Engineering Logs. <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-sky-300 to-indigo-300">Curated Code Learnings.</span>
+    </h1>
+
+    <p class="max-w-3xl text-zinc-300 text-sm sm:text-base leading-relaxed mb-8">
+      A running technical log of architectural decisions, hard-learned mistakes, GPU infrastructure costs, and agentic engineering observations harvested across active workspaces.
+    </p>
+
+    <!-- Project Badges & Metrics -->
+    <div class="flex flex-wrap items-center gap-3 text-xs">
+      <div class="flex items-center gap-2 border border-zinc-800/80 rounded-full bg-zinc-900/50 backdrop-blur px-3.5 py-1.5">
+        <span class="text-zinc-500 text-[11px] font-mono uppercase tracking-wider">Domains:</span>
+        <ProjectBadge project="astrological-signals-engine" />
+        <ProjectBadge project="adaptive-edtech-platform" />
+      </div>
+
+      <div class="flex items-center gap-3 border border-zinc-800/80 rounded-full bg-zinc-900/50 backdrop-blur px-4 py-1.5 text-zinc-300 font-mono text-[11px]">
+        <span><strong class="text-white font-semibold">{entries.length}</strong> Engineering Logs</span>
+        <span class="text-zinc-600">•</span>
+        <span><strong class="text-white font-semibold">3</strong> Architecture Diagrams</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Grid: Recent Engineering Logs -->
+  <section class="mb-14">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h2 class="text-xl font-display font-bold text-white flex items-center gap-2">
+          <span>⚡</span>
+          <span>Recent Engineering Logs</span>
+        </h2>
+        <p class="text-xs text-zinc-400 mt-1">Concise field notes with root causes and exact line references</p>
+      </div>
+      <a href="/logs" class="text-xs font-mono font-medium text-sky-400 hover:text-sky-300 flex items-center gap-1.5 transition-colors">
+        <span>View all {entries.length} logs</span>
+        <span>→</span>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      {entries.slice(0, 6).map((log) => (
+        <a
+          href={`/logs/${log.slug}`}
+          class="group relative flex flex-col justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 backdrop-blur-sm p-6 hover:border-zinc-700 hover:bg-zinc-900/70 hover:shadow-xl hover:shadow-sky-500/5 transition-all duration-200"
+        >
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3.5">
+              <div class="flex flex-wrap items-center gap-2">
+                <ProjectBadge project={log.data.project} size="sm" />
+                <span class="text-[11px] font-sans font-medium text-zinc-300 bg-zinc-900/90 border border-zinc-800 rounded-full px-2.5 py-0.5">
+                  {formatCategory(log.data.category || 'general')}
+                </span>
+                {log.data.severity_or_impact && (
+                  <span class="text-[10px] font-mono text-amber-300 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full">
+                    {log.data.severity_or_impact}
+                  </span>
+                )}
+              </div>
+              <time class="text-xs font-mono text-zinc-500">
+                {new Date(log.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+              </time>
+            </div>
+
+            <h3 class="text-base sm:text-lg font-display font-semibold text-zinc-100 group-hover:text-sky-300 transition-colors mb-2.5 leading-snug">
+              {log.data.title}
+            </h3>
+
+            {log.data.source_references && log.data.source_references.length > 0 && (
+              <div class="mt-3.5 flex items-center gap-2 text-[11px] font-mono text-zinc-400 bg-zinc-950/70 border border-zinc-800/80 rounded-lg px-2.5 py-1.5">
+                <span class="text-sky-400">📄</span>
+                <span class="truncate">{log.data.source_references[0]}</span>
+              </div>
+            )}
+          </div>
+
+          <div class="mt-5 pt-3.5 border-t border-zinc-800/70 flex items-center justify-between">
+            <div class="flex flex-wrap gap-1.5">
+              {log.data.tags.slice(0, 3).map((t) => (
+                <TagPill tag={t} />
+              ))}
+            </div>
+            <span class="text-xs font-mono text-zinc-400 group-hover:text-sky-300 transition-colors flex items-center gap-1">
+              Read <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Interactive Architecture Section Teaser -->
+  <section class="mb-14 rounded-3xl border border-zinc-800/80 bg-gradient-to-br from-zinc-900/60 via-zinc-900/40 to-zinc-950 p-6 sm:p-9 shadow-lg">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+      <div>
+        <div class="inline-flex items-center gap-1.5 text-xs font-mono text-sky-400 mb-2">
+          <span>📐</span>
+          <span class="uppercase tracking-wider">System Models</span>
+        </div>
+        <h3 class="text-xl sm:text-2xl font-display font-bold text-white mb-2">Interactive Architecture Diagrams</h3>
+        <p class="text-sm text-zinc-300 max-w-2xl leading-relaxed">
+          Visual system models including Media Workers queue decoupling, GPU batch ingestion offloading, and subscription entitlement data modeling rendered directly in Mermaid.
+        </p>
+      </div>
+      <a
+        href="/diagrams"
+        class="inline-flex items-center justify-center gap-2 rounded-full border border-sky-500/30 bg-sky-500/10 px-5 py-2.5 text-xs font-medium text-sky-300 hover:bg-sky-500/20 hover:border-sky-400 transition-all whitespace-nowrap self-start sm:self-center shadow-sm"
+      >
+        <span>Explore Diagrams</span>
+        <span>→</span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
