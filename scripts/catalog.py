@@ -189,12 +189,25 @@ def index_vault():
         "total_showcases": len(showcases),
         "categories": dict(category_count),
         "projects": dict(project_count),
-        "tags": dict(tags_count),
         "entries": entries,
         "showcases": showcases,
     }
     CATALOG_JSON.write_text(json.dumps(catalog_data, indent=2), encoding="utf-8")
-    print(f"✅ Catalog updated: {len(entries)} entries, {len(showcases)} showcases.")
+
+    # Sync to site content directory for self-contained deployment
+    site_content = BASE_DIR / "site" / "src" / "content"
+    if site_content.exists():
+        import shutil
+        for folder, src in [("entries", ENTRIES_DIR), ("blogs", SHOWCASE_DIR / "blogs"), ("vlogs", SHOWCASE_DIR / "vlogs")]:
+            dest = site_content / folder
+            if src.exists():
+                if dest.is_symlink():
+                    dest.unlink()
+                elif dest.exists():
+                    shutil.rmtree(dest)
+                shutil.copytree(src, dest)
+
+    print(f"✅ Catalog updated: {len(entries)} entries, {len(showcases)} showcases (synced to site/src/content).")
 
 
 if __name__ == "__main__":
