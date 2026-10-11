@@ -10,7 +10,7 @@
   },
   "projects": {
     "adaptive-edtech-platform": 3,
-    "financial-signals-engine": 4,
+    "astrological-signals-engine": 4,
     "all-projects": 1
   },
   "tags": {
@@ -67,7 +67,7 @@
     {
       "id": "claude-vs-runpod-cost-and-provider-switch",
       "title": "Claude API vs RunPod Self-Hosted GPU: Cost-per-Profile Analysis and .env Provider Switching",
-      "project": "financial-signals-engine",
+      "project": "astrological-signals-engine",
       "date": "2026-10-10",
       "category": "performance-and-infra",
       "tags": [
@@ -91,7 +91,7 @@
     {
       "id": "runpod-gpu-embedding-orchestration",
       "title": "Orchestrating Serverless GPU Embeddings on RunPod with Resilient Error Handling",
-      "project": "financial-signals-engine",
+      "project": "astrological-signals-engine",
       "date": "2026-10-10",
       "category": "performance-and-infra",
       "tags": [
@@ -145,7 +145,7 @@
     {
       "id": "vector-embedding-model-selection-and-migration",
       "title": "Vector Embedding Model Selection & Migration: Transitioning from Gemini text-embedding-004 to Asymmetric Nomic Embeddings",
-      "project": "financial-signals-engine",
+      "project": "astrological-signals-engine",
       "date": "2026-10-10",
       "category": "architecture-and-design",
       "tags": [
@@ -171,7 +171,7 @@
     {
       "id": "llm-zero-hallucination-verification-ledger",
       "title": "Preventing Date Leaks & Hallucinations in LLM Knowledge Extraction Pipelines",
-      "project": "financial-signals-engine",
+      "project": "astrological-signals-engine",
       "date": "2026-10-09",
       "category": "testing-and-quality",
       "tags": [
@@ -286,7 +286,7 @@
     {
       "title": "Dev Log: Inference Performance & Model Benchmarks in Batch Ingestion",
       "slug": "ingestion-model-inference-benchmarks",
-      "project": "financial-signals-engine",
+      "project": "astrological-signals-engine",
       "topic": "claude-vs-runpod-cost-and-provider-switch",
       "date": "2026-10-10",
       "status": "Published",
@@ -335,7 +335,7 @@
     {
       "title": "Dev Log: GPU Infrastructure Cost Comparison for Batch Ingestion",
       "slug": "gpu-infrastructure-cost-comparison-batch-ingestion",
-      "project": "financial-signals-engine",
+      "project": "astrological-signals-engine",
       "topic": "claude-vs-runpod-cost-and-provider-switch",
       "date": "2026-10-10",
       "status": "Published",

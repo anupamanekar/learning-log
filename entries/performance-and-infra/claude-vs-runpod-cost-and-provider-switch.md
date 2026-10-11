@@ -1,7 +1,7 @@
 ---
 id: "claude-vs-runpod-cost-and-provider-switch"
 title: "Claude API vs RunPod Self-Hosted GPU: Cost-per-Profile Analysis and .env Provider Switching"
-project: "financial-signals-engine"
+project: "astrological-signals-engine"
 date: "2026-10-10"
 category: "performance-and-infra"
 tags: ["runpod", "claude", "cost-optimization", "llm", "infrastructure", "environment-config"]

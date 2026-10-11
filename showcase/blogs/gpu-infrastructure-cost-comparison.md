@@ -1,7 +1,7 @@
 ---
 title: "Dev Log: GPU Infrastructure Cost Comparison for Batch Ingestion"
 slug: "gpu-infrastructure-cost-comparison-batch-ingestion"
-project: "financial-signals-engine"
+project: "astrological-signals-engine"
 topic: "claude-vs-runpod-cost-and-provider-switch"
 date: "2026-10-10"
 status: "Published"
@@ -14,7 +14,7 @@ references:
 
 # Dev Log: GPU Infrastructure Cost Comparison for Batch Ingestion
 
-**Project**: `financial-signals-engine`  
+**Project**: `astrological-signals-engine`  
 **Source Ref**: [`docs/RUNPOD_SETUP_GUIDE.md:21-52`](docs/RUNPOD_SETUP_GUIDE.md#L21-L52)  
 **Config Reference**: [`docs/ARCHITECTURE.md:70-78`](docs/ARCHITECTURE.md#L70-L78)
 

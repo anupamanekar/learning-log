@@ -1,7 +1,7 @@
 ---
 title: "Dev Log: Inference Performance & Model Benchmarks in Batch Ingestion"
 slug: "ingestion-model-inference-benchmarks"
-project: "financial-signals-engine"
+project: "astrological-signals-engine"
 topic: "claude-vs-runpod-cost-and-provider-switch"
 date: "2026-10-10"
 status: "Published"
@@ -14,7 +14,7 @@ references:
 
 # Dev Log: Inference Performance & Model Benchmarks in Batch Ingestion
 
-**Project**: `financial-signals-engine`  
+**Project**: `astrological-signals-engine`  
 **Provider Code**: [`backend/app/engine/llm/provider.py:216-296`](backend/app/engine/llm/provider.py#L216-L296)  
 **Git Commit**: [`commit:bdf9f27`](commit:bdf9f27) (*"add claude as ingestion llm"*)
 

@@ -13,7 +13,7 @@ references:
 
 # Dev Log: Fixing Semantic Collapse in Nomic Embeddings
 
-**Project**: `financial-signals-engine`  
+**Project**: `astrological-signals-engine`  
 **Source Ref**: [`backend/utils/embeddings.py:18-42`](backend/utils/embeddings.py#L18-L42), [`backend/scripts/build_rag_store.py:38-65`](backend/scripts/build_rag_store.py#L38-L65), [`backend/agents/query_agent.py:82-105`](backend/agents/query_agent.py#L82-L105)
 
 ---

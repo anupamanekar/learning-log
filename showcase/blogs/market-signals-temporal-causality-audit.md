@@ -12,7 +12,7 @@ references:
 
 # Dev Log: Auditing Date Leaks & Invariant Violations in LLM Ingestion
 
-**Project**: `financial-signals-engine`  
+**Project**: `astrological-signals-engine`  
 **Source Ref**: [`.agents/skills/ingestion-quality-auditor/scripts/audit_ingestion.py:96-116`](.agents/skills/ingestion-quality-auditor/scripts/audit_ingestion.py#L96-L116)  
 **Ledger Doc**: [`docs/INGESTION_QUALITY_AUDIT_REPORT.md`](docs/INGESTION_QUALITY_AUDIT_REPORT.md)
 
