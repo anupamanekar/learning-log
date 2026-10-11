@@ -9,8 +9,8 @@
     "ai-and-agentic-engineering": 1
   },
   "projects": {
-    "ai-directed-learning": 3,
-    "market-signals-platform": 4,
+    "adaptive-edtech-platform": 3,
+    "financial-signals-engine": 4,
     "all-projects": 1
   },
   "tags": {
@@ -67,7 +67,7 @@
     {
       "id": "claude-vs-runpod-cost-and-provider-switch",
       "title": "Claude API vs RunPod Self-Hosted GPU: Cost-per-Profile Analysis and .env Provider Switching",
-      "project": "market-signals-platform",
+      "project": "financial-signals-engine",
       "date": "2026-10-10",
       "category": "performance-and-infra",
       "tags": [
@@ -82,16 +82,16 @@
       "showcase_potential": "Blog",
       "status": "Synthesized",
       "source_references": [
-        "market-signals-platform/backend/app/engine/llm/provider.py:367-381",
-        "market-signals-platform/docs/RUNPOD_SETUP_GUIDE.md:21-52",
-        "market-signals-platform/commit:bdf9f27"
+        "backend/app/engine/llm/provider.py:367-381",
+        "docs/RUNPOD_SETUP_GUIDE.md:21-52",
+        "commit:bdf9f27"
       ],
       "rel_path": "entries/performance-and-infra/claude-vs-runpod-cost-and-provider-switch.md"
     },
     {
       "id": "runpod-gpu-embedding-orchestration",
       "title": "Orchestrating Serverless GPU Embeddings on RunPod with Resilient Error Handling",
-      "project": "market-signals-platform",
+      "project": "financial-signals-engine",
       "date": "2026-10-10",
       "category": "performance-and-infra",
       "tags": [
@@ -107,16 +107,16 @@
       "showcase_potential": "Blog",
       "status": "Synthesized",
       "source_references": [
-        "market-signals-platform/docs/RUNPOD_SETUP_GUIDE.md",
-        "market-signals-platform/commit:ccb2de4",
-        "market-signals-platform/commit:178842e"
+        "docs/RUNPOD_SETUP_GUIDE.md",
+        "commit:ccb2de4",
+        "commit:178842e"
       ],
       "rel_path": "entries/performance-and-infra/runpod-gpu-embedding-orchestration.md"
     },
     {
       "id": "event-driven-worker-scalability-and-oom-isolation",
       "title": "Decoupling In-Process Media Workers, Ephemeral Disk Isolation, and Jittered Retries for 5,000-User Concurrency",
-      "project": "ai-directed-learning",
+      "project": "adaptive-edtech-platform",
       "date": "2026-10-10",
       "category": "performance-and-infra",
       "tags": [
@@ -135,17 +135,17 @@
       "showcase_potential": "Blog",
       "status": "Showcase Drafted",
       "source_references": [
-        "ai-directed-learning/contentgen-services/app/entrypoints/audio_worker.py",
-        "ai-directed-learning/contentgen-services/app/entrypoints/video_worker.py",
-        "ai-directed-learning/contentgen-services/app/core/retry.py:10-97",
-        "ai-directed-learning/documentation/architecture/ARCHITECTURE_REVIEW_LOAD_LIMITS.md"
+        "contentgen-services/app/entrypoints/audio_worker.py",
+        "contentgen-services/app/entrypoints/video_worker.py",
+        "contentgen-services/app/core/retry.py:10-97",
+        "documentation/architecture/ARCHITECTURE_REVIEW_LOAD_LIMITS.md"
       ],
       "rel_path": "entries/performance-and-infra/event-driven-worker-scalability-and-oom-isolation.md"
     },
     {
       "id": "vector-embedding-model-selection-and-migration",
       "title": "Vector Embedding Model Selection & Migration: Transitioning from Gemini text-embedding-004 to Asymmetric Nomic Embeddings",
-      "project": "market-signals-platform",
+      "project": "financial-signals-engine",
       "date": "2026-10-10",
       "category": "architecture-and-design",
       "tags": [
@@ -162,16 +162,16 @@
       "showcase_potential": "Blog",
       "status": "Showcase Drafted",
       "source_references": [
-        "market-signals-platform/backend/utils/embeddings.py:18-42",
-        "market-signals-platform/backend/scripts/build_rag_store.py:38-65",
-        "market-signals-platform/backend/agents/query_agent.py:82-105"
+        "backend/utils/embeddings.py:18-42",
+        "backend/scripts/build_rag_store.py:38-65",
+        "backend/agents/query_agent.py:82-105"
       ],
       "rel_path": "entries/architecture-and-design/vector-embedding-model-selection-and-migration.md"
     },
     {
       "id": "llm-zero-hallucination-verification-ledger",
       "title": "Preventing Date Leaks & Hallucinations in LLM Knowledge Extraction Pipelines",
-      "project": "market-signals-platform",
+      "project": "financial-signals-engine",
       "date": "2026-10-09",
       "category": "testing-and-quality",
       "tags": [
@@ -186,8 +186,8 @@
       "showcase_potential": "Blog",
       "status": "Synthesized",
       "source_references": [
-        "market-signals-platform/docs/INGESTION_QUALITY_AUDIT_REPORT.md",
-        "market-signals-platform/backend/ingestion/wikipedia_parser.py"
+        "docs/INGESTION_QUALITY_AUDIT_REPORT.md",
+        "backend/ingestion/wikipedia_parser.py"
       ],
       "rel_path": "entries/testing-and-quality/llm-zero-hallucination-verification-ledger.md"
     },
@@ -210,14 +210,14 @@
       "status": "Synthesized",
       "source_references": [
         "Antigravity Transcript Session 59d10f65-2918-4abc-b8e2-bb5f71fab080",
-        "market-signals-platform/docs/CODING_GUIDELINES.md"
+        "docs/CODING_GUIDELINES.md"
       ],
       "rel_path": "entries/ai-and-agentic-engineering/human-review-checklist-for-agentic-code.md"
     },
     {
       "id": "vite-esm-react-player-breakage",
       "title": "Why react-player Broke in Vite and How Native Embeds Solved It",
-      "project": "ai-directed-learning",
+      "project": "adaptive-edtech-platform",
       "date": "2026-02-08",
       "category": "mistakes-and-pitfalls",
       "tags": [
@@ -232,15 +232,15 @@
       "showcase_potential": "Blog",
       "status": "Synthesized",
       "source_references": [
-        "ai-directed-learning/documentation/VIDEO_PLAYER_FIX_COMPLETE.md",
-        "ai-directed-learning/frontend/src/components/VideoPlayer.tsx"
+        "documentation/VIDEO_PLAYER_FIX_COMPLETE.md",
+        "frontend/src/components/VideoPlayer.tsx"
       ],
       "rel_path": "entries/mistakes-and-pitfalls/vite-esm-react-player-breakage.md"
     },
     {
       "id": "rbac-ui-action-separation-invariant",
       "title": "The UI Action Separation Pitfall: Why Tutors Could Edit Lessons but Students Couldn't View Them",
-      "project": "ai-directed-learning",
+      "project": "adaptive-edtech-platform",
       "date": "2026-02-08",
       "category": "architecture-and-design",
       "tags": [
@@ -254,8 +254,8 @@
       "showcase_potential": "Snippet",
       "status": "Synthesized",
       "source_references": [
-        "ai-directed-learning/documentation/BUGFIX_LESSON_VIEW_BUTTON.md",
-        "ai-directed-learning/frontend/src/pages/CourseDetailPage.tsx"
+        "documentation/BUGFIX_LESSON_VIEW_BUTTON.md",
+        "frontend/src/pages/CourseDetailPage.tsx"
       ],
       "rel_path": "entries/architecture-and-design/rbac-ui-action-separation-invariant.md"
     }
@@ -276,9 +276,9 @@
         "dev-log"
       ],
       "references": [
-        "market-signals-platform/backend/utils/embeddings.py:18-42",
-        "market-signals-platform/backend/scripts/build_rag_store.py:38-65",
-        "market-signals-platform/backend/agents/query_agent.py:82-105"
+        "backend/utils/embeddings.py:18-42",
+        "backend/scripts/build_rag_store.py:38-65",
+        "backend/agents/query_agent.py:82-105"
       ],
       "rel_path": "showcase/blogs/vector-embedding-model-evolution.md",
       "type": "blogs"
@@ -286,7 +286,7 @@
     {
       "title": "Dev Log: Inference Performance & Model Benchmarks in Batch Ingestion",
       "slug": "ingestion-model-inference-benchmarks",
-      "project": "market-signals-platform",
+      "project": "financial-signals-engine",
       "topic": "claude-vs-runpod-cost-and-provider-switch",
       "date": "2026-10-10",
       "status": "Published",
@@ -300,9 +300,9 @@
         "dev-log"
       ],
       "references": [
-        "market-signals-platform/backend/app/engine/llm/provider.py:216-296",
-        "market-signals-platform/docs/ARCHITECTURE.md:70-78",
-        "market-signals-platform/commit:bdf9f27"
+        "backend/app/engine/llm/provider.py:216-296",
+        "docs/ARCHITECTURE.md:70-78",
+        "commit:bdf9f27"
       ],
       "rel_path": "showcase/blogs/ingestion-model-inference-benchmarks.md",
       "type": "blogs"
@@ -324,10 +324,10 @@
         "dev-log"
       ],
       "references": [
-        "ai-directed-learning/contentgen-services/app/entrypoints/video_worker.py",
-        "ai-directed-learning/contentgen-services/app/entrypoints/audio_worker.py",
-        "ai-directed-learning/contentgen-services/app/core/retry.py:10-97",
-        "ai-directed-learning/documentation/architecture/ARCHITECTURE_REVIEW_LOAD_LIMITS.md"
+        "contentgen-services/app/entrypoints/video_worker.py",
+        "contentgen-services/app/entrypoints/audio_worker.py",
+        "contentgen-services/app/core/retry.py:10-97",
+        "documentation/architecture/ARCHITECTURE_REVIEW_LOAD_LIMITS.md"
       ],
       "rel_path": "showcase/blogs/scaling-event-driven-media-workers.md",
       "type": "blogs"
@@ -335,7 +335,7 @@
     {
       "title": "Dev Log: GPU Infrastructure Cost Comparison for Batch Ingestion",
       "slug": "gpu-infrastructure-cost-comparison-batch-ingestion",
-      "project": "market-signals-platform",
+      "project": "financial-signals-engine",
       "topic": "claude-vs-runpod-cost-and-provider-switch",
       "date": "2026-10-10",
       "status": "Published",
@@ -348,9 +348,9 @@
         "dev-log"
       ],
       "references": [
-        "market-signals-platform/docs/RUNPOD_SETUP_GUIDE.md:21-52",
-        "market-signals-platform/docs/ARCHITECTURE.md:70-78",
-        "market-signals-platform/docs/PHASE_13.md:100-103"
+        "docs/RUNPOD_SETUP_GUIDE.md:21-52",
+        "docs/ARCHITECTURE.md:70-78",
+        "docs/PHASE_13.md:100-103"
       ],
       "rel_path": "showcase/blogs/gpu-infrastructure-cost-comparison.md",
       "type": "blogs"
@@ -388,8 +388,8 @@
         "dev-log"
       ],
       "references": [
-        "market-signals-platform/.agents/skills/ingestion-quality-auditor/scripts/audit_ingestion.py:96-116",
-        "market-signals-platform/docs/INGESTION_QUALITY_AUDIT_REPORT.md"
+        ".agents/skills/ingestion-quality-auditor/scripts/audit_ingestion.py:96-116",
+        "docs/INGESTION_QUALITY_AUDIT_REPORT.md"
       ],
       "rel_path": "showcase/blogs/market-signals-temporal-causality-audit.md",
       "type": "blogs"
@@ -408,8 +408,8 @@
         "dev-log"
       ],
       "references": [
-        "ai-directed-learning/backend/app/adapters/api/payments.py:57-90",
-        "ai-directed-learning/backend/app/domain/models/plan.py",
+        "backend/app/adapters/api/payments.py:57-90",
+        "backend/app/domain/models/plan.py",
         "Antigravity Session: 35ab7246-ca33-40c7-8979-52f734e2fa97"
       ],
       "rel_path": "showcase/blogs/plans-vs-features-schema-design.md",
@@ -429,9 +429,9 @@
         "dev-log"
       ],
       "references": [
-        "ai-directed-learning/frontend/src/components/common/VideoPlayer.tsx:22-40",
-        "ai-directed-learning/frontend/src/components/common/VideoPlayer.tsx:177-226",
-        "ai-directed-learning/documentation/VIDEO_PLAYER_FIX_COMPLETE.md"
+        "frontend/src/components/common/VideoPlayer.tsx:22-40",
+        "frontend/src/components/common/VideoPlayer.tsx:177-226",
+        "documentation/VIDEO_PLAYER_FIX_COMPLETE.md"
       ],
       "rel_path": "showcase/blogs/vite-esm-video-player-case-study.md",
       "type": "blogs"

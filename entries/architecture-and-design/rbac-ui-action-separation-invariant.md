@@ -1,7 +1,7 @@
 ---
 id: "rbac-ui-action-separation-invariant"
 title: "The UI Action Separation Pitfall: Why Tutors Could Edit Lessons but Students Couldn't View Them"
-project: "ai-directed-learning"
+project: "adaptive-edtech-platform"
 date: "2026-02-08"
 category: "architecture-and-design"
 tags: ["rbac", "react", "ux", "authorization", "frontend-architecture"]
@@ -9,14 +9,14 @@ severity_or_impact: "High"
 showcase_potential: "Snippet"
 status: "Synthesized"
 source_references:
-  - "ai-directed-learning/documentation/BUGFIX_LESSON_VIEW_BUTTON.md"
-  - "ai-directed-learning/frontend/src/pages/CourseDetailPage.tsx"
+  - "documentation/BUGFIX_LESSON_VIEW_BUTTON.md"
+  - "frontend/src/pages/CourseDetailPage.tsx"
 ---
 
 # The UI Action Separation Pitfall: Why Tutors Could Edit Lessons but Students Couldn't View Them
 
 ## 🔍 Context & Scenario
-In the **ai-directed-learning** platform, course modules contain lists of lessons (videos, quizzes, markdown guides). Two primary roles interact with courses:
+In the **adaptive-edtech-platform** platform, course modules contain lists of lessons (videos, quizzes, markdown guides). Two primary roles interact with courses:
 - **Tutors**: Author, publish, edit, and delete lesson modules.
 - **Students**: Enroll in courses and consume lesson content.
 

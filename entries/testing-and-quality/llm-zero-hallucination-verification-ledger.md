@@ -1,7 +1,7 @@
 ---
 id: "llm-zero-hallucination-verification-ledger"
 title: "Preventing Date Leaks & Hallucinations in LLM Knowledge Extraction Pipelines"
-project: "market-signals-platform"
+project: "financial-signals-engine"
 date: "2026-10-09"
 category: "testing-and-quality"
 tags: ["llm", "hallucination", "data-quality", "knowledge-graph", "pipeline", "temporal-logic"]
@@ -9,14 +9,14 @@ severity_or_impact: "Critical"
 showcase_potential: "Blog"
 status: "Synthesized"
 source_references:
-  - "market-signals-platform/docs/INGESTION_QUALITY_AUDIT_REPORT.md"
-  - "market-signals-platform/backend/ingestion/wikipedia_parser.py"
+  - "docs/INGESTION_QUALITY_AUDIT_REPORT.md"
+  - "backend/ingestion/wikipedia_parser.py"
 ---
 
 # Preventing Date Leaks & Hallucinations in LLM Knowledge Extraction Pipelines
 
 ## 🔍 Context & Scenario
-In the **market-signals-platform**, an automated ingestion pipeline extracts historical profiles and timestamped life events (inventions, launches, corporate milestones) from Wikipedia and documents to correlate with market fluctuations and planetary ephemeris data.
+In the **financial-signals-engine**, an automated ingestion pipeline extracts historical profiles and timestamped life events (inventions, launches, corporate milestones) from Wikipedia and documents to correlate with market fluctuations and planetary ephemeris data.
 
 Because the downstream mathematical models rely strictly on historical event causality, **temporal precision and zero-hallucination** are critical invariants.
 

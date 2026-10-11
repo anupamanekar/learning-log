@@ -1,7 +1,7 @@
 ---
 id: "event-driven-worker-scalability-and-oom-isolation"
 title: "Decoupling In-Process Media Workers, Ephemeral Disk Isolation, and Jittered Retries for 5,000-User Concurrency"
-project: "ai-directed-learning"
+project: "adaptive-edtech-platform"
 date: "2026-10-10"
 category: "performance-and-infra"
 tags: ["fastapi", "workers", "event-driven", "oom", "disk-isolation", "concurrency", "retry-backoff", "ffmpeg", "sarvam-ai", "tts"]
@@ -9,16 +9,16 @@ severity_or_impact: "Critical"
 showcase_potential: "Blog"
 status: "Showcase Drafted"
 source_references:
-  - "ai-directed-learning/contentgen-services/app/entrypoints/audio_worker.py"
-  - "ai-directed-learning/contentgen-services/app/entrypoints/video_worker.py"
-  - "ai-directed-learning/contentgen-services/app/core/retry.py:10-97"
-  - "ai-directed-learning/documentation/architecture/ARCHITECTURE_REVIEW_LOAD_LIMITS.md"
+  - "contentgen-services/app/entrypoints/audio_worker.py"
+  - "contentgen-services/app/entrypoints/video_worker.py"
+  - "contentgen-services/app/core/retry.py:10-97"
+  - "documentation/architecture/ARCHITECTURE_REVIEW_LOAD_LIMITS.md"
 ---
 
 # Decoupling In-Process Media Workers, Ephemeral Disk Isolation, and Jittered Retries for 5,000-User Concurrency
 
 ## Problem
-During a 5,000 concurrent user load test review on the `ai-directed-learning` multimedia generation service (`contentgen-services/`), the application suffered cascading infrastructure outages:
+During a 5,000 concurrent user load test review on the `adaptive-edtech-platform` multimedia generation service (`contentgen-services/`), the application suffered cascading infrastructure outages:
 1. **Web Server Out-Of-Memory (OOM) Crashes**: `AudioWorker` and `VideoWorker` ran as in-process daemon threads inside the FastAPI ASGI web server process (`threading.Thread(target=worker.run, daemon=True)`). High concurrent generation requests triggered memory spikes from FFmpeg video rendering, frame decoding, and audio stitching inside the web container, tripping the container cgroup memory limits (SIGKILL / Exit 137) and dropping all active HTTP client connections.
 2. **`/tmp` Filesystem Collisions and Disk Leaks**: Concurrent worker threads wrote intermediate video chunks and wav slices to fixed or pseudo-random shared paths under `/tmp` (e.g. `/tmp/slide_chunk.mp4`). Parallel tasks clobbered each other's temporary media frames, generating corrupted artifacts. Furthermore, when unhandled errors occurred during rendering, cleanup was skipped, saturating the root partition.
 3. **Upstream TTS Rate Limit Cascades (HTTP 429)**: Bursts of concurrent synthesis requests to external TTS providers (Sarvam AI for Indian regional voices and Google Cloud TTS) triggered strict rate limits (`HTTP 429 Too Many Requests`). The lack of jittered backoff caused thundering herd retries that repeatedly failed and exhausted API quotas.

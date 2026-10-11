@@ -6,15 +6,15 @@ date: "2026-10-09"
 status: "Published"
 tags: ["data-quality", "llm", "python", "fastapi", "sqlalchemy", "dev-log"]
 references:
-  - "market-signals-platform/.agents/skills/ingestion-quality-auditor/scripts/audit_ingestion.py:96-116"
-  - "market-signals-platform/docs/INGESTION_QUALITY_AUDIT_REPORT.md"
+  - ".agents/skills/ingestion-quality-auditor/scripts/audit_ingestion.py:96-116"
+  - "docs/INGESTION_QUALITY_AUDIT_REPORT.md"
 ---
 
 # Dev Log: Auditing Date Leaks & Invariant Violations in LLM Ingestion
 
-**Project**: `market-signals-platform`  
-**Source Ref**: [`.agents/skills/ingestion-quality-auditor/scripts/audit_ingestion.py:96-116`](file:///Users/anupmanekar/DevWorkspace/market-signals-platform/.agents/skills/ingestion-quality-auditor/scripts/audit_ingestion.py#L96-L116)  
-**Ledger Doc**: [`docs/INGESTION_QUALITY_AUDIT_REPORT.md`](file:///Users/anupmanekar/DevWorkspace/market-signals-platform/docs/INGESTION_QUALITY_AUDIT_REPORT.md)
+**Project**: `financial-signals-engine`  
+**Source Ref**: [`.agents/skills/ingestion-quality-auditor/scripts/audit_ingestion.py:96-116`](.agents/skills/ingestion-quality-auditor/scripts/audit_ingestion.py#L96-L116)  
+**Ledger Doc**: [`docs/INGESTION_QUALITY_AUDIT_REPORT.md`](docs/INGESTION_QUALITY_AUDIT_REPORT.md)
 
 ---
 
@@ -38,7 +38,7 @@ During an audit of 182 profiles and 843 events, we found 5 "True Date Leaks" whe
 We added an automated auditor script to scan every newly ingested batch for date leaks and placeholder dates:
 
 ```python
-# market-signals-platform/.agents/skills/ingestion-quality-auditor/scripts/audit_ingestion.py:96-107
+# .agents/skills/ingestion-quality-auditor/scripts/audit_ingestion.py:96-107
 for ev in events:
     # Flag year-only placeholders vs exact dates
     is_exact = not ev.event_date.endswith("-01-01") or ev.event_date == p.birth_date

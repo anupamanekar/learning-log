@@ -6,16 +6,16 @@ date: "2026-02-08"
 status: "Published"
 tags: ["react", "vite", "bundling", "frontend", "dev-log"]
 references:
-  - "ai-directed-learning/frontend/src/components/common/VideoPlayer.tsx:22-40"
-  - "ai-directed-learning/frontend/src/components/common/VideoPlayer.tsx:177-226"
-  - "ai-directed-learning/documentation/VIDEO_PLAYER_FIX_COMPLETE.md"
+  - "frontend/src/components/common/VideoPlayer.tsx:22-40"
+  - "frontend/src/components/common/VideoPlayer.tsx:177-226"
+  - "documentation/VIDEO_PLAYER_FIX_COMPLETE.md"
 ---
 
 # Dev Log: Replacing react-player with Native Embeds in Vite
 
-**Project**: `ai-directed-learning`  
-**Source Ref**: [`frontend/src/components/common/VideoPlayer.tsx`](file:///Users/anupmanekar/DevWorkspace/ai-directed-learning/frontend/src/components/common/VideoPlayer.tsx#L22-L226)  
-**Docs**: [`documentation/VIDEO_PLAYER_FIX_COMPLETE.md`](file:///Users/anupmanekar/DevWorkspace/ai-directed-learning/documentation/VIDEO_PLAYER_FIX_COMPLETE.md)
+**Project**: `adaptive-edtech-platform`  
+**Source Ref**: [`frontend/src/components/common/VideoPlayer.tsx`](frontend/src/components/common/VideoPlayer.tsx#L22-L226)  
+**Docs**: [`documentation/VIDEO_PLAYER_FIX_COMPLETE.md`](documentation/VIDEO_PLAYER_FIX_COMPLETE.md)
 
 ---
 

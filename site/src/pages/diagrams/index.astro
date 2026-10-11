@@ -5,8 +5,8 @@ import ProjectBadge from '../../components/ProjectBadge.astro';
 
 const diagrams = [
   {
-    title: 'ContentGen Media Workers Decoupling & Queue Architecture',
-    project: 'ai-directed-learning',
+    title: 'Media Workers Decoupling & Queue Architecture',
+    project: 'adaptive-edtech-platform',
     description: 'Decoupling heavy FFmpeg video stitching and Pillow canvas rendering from the FastAPI web server into standalone autoscaled container entrypoints.',
     code: `graph LR
     User["Client App"] -->|REST / POST| API["FastAPI Web Server<br/>(Lightweight, Port 8001)"]
@@ -14,37 +14,37 @@ const diagrams = [
     API -->|Publish Task| PS["Google Cloud Pub/Sub"]
     
     subgraph Isolated Worker Pods
-      PS -->|Topic: audio-generation| AW["AudioWorker<br/>(Sarvam / Google TTS)"]
+      PS -->|Topic: audio-generation| AW["AudioWorker<br/>(TTS Synthesis)"]
       PS -->|Topic: video-composition| VW["VideoWorker<br/>(FFmpeg Subprocess)"]
     end
 
-    AW -->|Audio Stream| GCS["Google Cloud Storage<br/>(ad1-video-content)"]
+    AW -->|Audio Stream| GCS["Object Storage<br/>(media-bucket)"]
     VW -->|Rendered MP4| GCS
     User -.->|Listen Progress| FS
     User -->|Stream MP4| GCS`,
   },
   {
-    title: 'Market Signals Multi-Stage Ingestion & RunPod GPU Offload',
-    project: 'market-signals-platform',
-    description: 'Multi-stage ingestion pipeline offloading heavy LLM biography extraction and 768-dim vector embeddings to RunPod RTX 4090 Cloud GPU instances.',
+    title: 'Multi-Stage Ingestion Pipeline & Cloud GPU Offload',
+    project: 'financial-signals-engine',
+    description: 'Multi-stage batch ingestion pipeline offloading heavy LLM extraction and 768-dim vector embeddings to dedicated Cloud GPU instances.',
     code: `flowchart TD
-    Wiki["Wikipedia Raw HTML/Markdown"] --> Stage1["Stage 1: Profile & Event Extraction<br/>(backend/scripts/ingest_wikipedia.py)"]
+    Wiki["Source Documents & Web Records"] --> Stage1["Stage 1: Profile & Event Extraction<br/>(scripts/ingest_wikipedia.py)"]
     
     subgraph Compute Inference
-      Stage1 -->|HTTP POST :11434| RunPod["RunPod Cloud GPU (RTX 4090)<br/>Ollama llama3.1:8b (4 Parallel)"]
+      Stage1 -->|HTTP POST :11434| RunPod["Cloud GPU (RTX 4090)<br/>Ollama llama3.1:8b (4 Parallel)"]
       Stage1 -.->|Burst API Fallback| Claude["Anthropic Claude Haiku API"]
     end
 
     RunPod --> Stage2["Stage 2: Deterministic Audit Validation<br/>(audit_ingestion.py)"]
-    Stage2 -->|Zero Date Leaks| DB[("SQLite / PostgreSQL<br/>SQLPublicProfile & Events")]
+    Stage2 -->|Zero Date Leaks| DB[("Relational Database<br/>Profile & Life Events")]
     
     DB --> Stage5["Stage 5: Vector RAG Indexing<br/>(build_rag_store.py)"]
     Stage5 -->|search_document: prefix| Nomic["nomic-embed-text (768-dim)"]
-    Nomic --> VecDB[("sqlite-vec / pgvector<br/>HNSW Indexes")]`,
+    Nomic --> VecDB[("Vector Storage<br/>HNSW Indexes")]`,
   },
   {
-    title: 'Plans vs Feature Flags Schema Architecture',
-    project: 'ai-directed-learning',
+    title: 'Subscription Plans vs Feature Flags Schema Architecture',
+    project: 'adaptive-edtech-platform',
     description: 'Relational boundary between application-level capability toggles (features) and time-bounded commercial products (plans) with cumulative expiration stacking.',
     code: `erDiagram
     USERS ||--o{ USER_PLANS : purchases

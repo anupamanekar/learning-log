@@ -7,23 +7,23 @@ interface Props {
 const { project = 'general', size = 'sm' } = Astro.props;
 
 const styles: Record<string, { bg: string; text: string; border: string; label: string }> = {
-  'market-signals-platform': {
+  'financial-signals-engine': {
     bg: 'bg-purple-950/40',
     text: 'text-purple-300',
     border: 'border-purple-800/60',
-    label: 'market-signals',
+    label: 'financial-signals-engine',
   },
-  'ai-directed-learning': {
+  'adaptive-edtech-platform': {
     bg: 'bg-emerald-950/40',
     text: 'text-emerald-300',
     border: 'border-emerald-800/60',
-    label: 'ai-directed-learning',
+    label: 'adaptive-edtech-platform',
   },
-  'all-projects': {
+  'core-platform': {
     bg: 'bg-blue-950/40',
     text: 'text-blue-300',
     border: 'border-blue-800/60',
-    label: 'cross-project',
+    label: 'core-platform',
   },
 };
 
@@ -31,7 +31,7 @@ const badge = styles[project] || {
   bg: 'bg-zinc-900',
   text: 'text-zinc-300',
   border: 'border-zinc-800',
-  label: project,
+  label: project.replace('-platform', '').replace('ai-', ''),
 };
 
 const sizeClasses = size === 'sm' ? 'px-2 py-0.5 text-[11px]' : 'px-2.5 py-1 text-xs';

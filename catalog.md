@@ -15,9 +15,9 @@
 - **`testing-and-quality`**: 1 entries
 
 ### 🚀 Distribution by Project
-- **`ai-directed-learning`**: 3 entries
+- **`adaptive-edtech-platform`**: 3 entries
 - **`all-projects`**: 1 entries
-- **`market-signals-platform`**: 4 entries
+- **`financial-signals-engine`**: 4 entries
 
 ---
 
@@ -25,14 +25,14 @@
 
 | Date | Title | Project | Category | Showcase Potential | Status | Link |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-10-10 | **Claude API vs RunPod Self-Hosted GPU: Cost-per-Profile Analysis and .env Provider Switching** | `market-signals-platform` | `performance-and-infra` | Blog | `Synthesized` | [Read Entry](entries/performance-and-infra/claude-vs-runpod-cost-and-provider-switch.md) |
-| 2026-10-10 | **Orchestrating Serverless GPU Embeddings on RunPod with Resilient Error Handling** | `market-signals-platform` | `performance-and-infra` | Blog | `Synthesized` | [Read Entry](entries/performance-and-infra/runpod-gpu-embedding-orchestration.md) |
-| 2026-10-10 | **Decoupling In-Process Media Workers, Ephemeral Disk Isolation, and Jittered Retries for 5,000-User Concurrency** | `ai-directed-learning` | `performance-and-infra` | Blog | `Showcase Drafted` | [Read Entry](entries/performance-and-infra/event-driven-worker-scalability-and-oom-isolation.md) |
-| 2026-10-10 | **Vector Embedding Model Selection & Migration: Transitioning from Gemini text-embedding-004 to Asymmetric Nomic Embeddings** | `market-signals-platform` | `architecture-and-design` | Blog | `Showcase Drafted` | [Read Entry](entries/architecture-and-design/vector-embedding-model-selection-and-migration.md) |
-| 2026-10-09 | **Preventing Date Leaks & Hallucinations in LLM Knowledge Extraction Pipelines** | `market-signals-platform` | `testing-and-quality` | Blog | `Synthesized` | [Read Entry](entries/testing-and-quality/llm-zero-hallucination-verification-ledger.md) |
+| 2026-10-10 | **Claude API vs RunPod Self-Hosted GPU: Cost-per-Profile Analysis and .env Provider Switching** | `financial-signals-engine` | `performance-and-infra` | Blog | `Synthesized` | [Read Entry](entries/performance-and-infra/claude-vs-runpod-cost-and-provider-switch.md) |
+| 2026-10-10 | **Orchestrating Serverless GPU Embeddings on RunPod with Resilient Error Handling** | `financial-signals-engine` | `performance-and-infra` | Blog | `Synthesized` | [Read Entry](entries/performance-and-infra/runpod-gpu-embedding-orchestration.md) |
+| 2026-10-10 | **Decoupling In-Process Media Workers, Ephemeral Disk Isolation, and Jittered Retries for 5,000-User Concurrency** | `adaptive-edtech-platform` | `performance-and-infra` | Blog | `Showcase Drafted` | [Read Entry](entries/performance-and-infra/event-driven-worker-scalability-and-oom-isolation.md) |
+| 2026-10-10 | **Vector Embedding Model Selection & Migration: Transitioning from Gemini text-embedding-004 to Asymmetric Nomic Embeddings** | `financial-signals-engine` | `architecture-and-design` | Blog | `Showcase Drafted` | [Read Entry](entries/architecture-and-design/vector-embedding-model-selection-and-migration.md) |
+| 2026-10-09 | **Preventing Date Leaks & Hallucinations in LLM Knowledge Extraction Pipelines** | `financial-signals-engine` | `testing-and-quality` | Blog | `Synthesized` | [Read Entry](entries/testing-and-quality/llm-zero-hallucination-verification-ledger.md) |
 | 2026-06-02 | **The Human Review Checklist for Agentic Code & Preventing Code Slop** | `all-projects` | `ai-and-agentic-engineering` | Blog | `Synthesized` | [Read Entry](entries/ai-and-agentic-engineering/human-review-checklist-for-agentic-code.md) |
-| 2026-02-08 | **Why react-player Broke in Vite and How Native Embeds Solved It** | `ai-directed-learning` | `mistakes-and-pitfalls` | Blog | `Synthesized` | [Read Entry](entries/mistakes-and-pitfalls/vite-esm-react-player-breakage.md) |
-| 2026-02-08 | **The UI Action Separation Pitfall: Why Tutors Could Edit Lessons but Students Couldn't View Them** | `ai-directed-learning` | `architecture-and-design` | Snippet | `Synthesized` | [Read Entry](entries/architecture-and-design/rbac-ui-action-separation-invariant.md) |
+| 2026-02-08 | **Why react-player Broke in Vite and How Native Embeds Solved It** | `adaptive-edtech-platform` | `mistakes-and-pitfalls` | Blog | `Synthesized` | [Read Entry](entries/mistakes-and-pitfalls/vite-esm-react-player-breakage.md) |
+| 2026-02-08 | **The UI Action Separation Pitfall: Why Tutors Could Edit Lessons but Students Couldn't View Them** | `adaptive-edtech-platform` | `architecture-and-design` | Snippet | `Synthesized` | [Read Entry](entries/architecture-and-design/rbac-ui-action-separation-invariant.md) |
 
 ---
 
