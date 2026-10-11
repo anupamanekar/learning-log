@@ -80,6 +80,13 @@ const formatCategory = (cat: string) => categoryLabels[cat] || cat.replace(/-/g,
     <Content />
   </article>
 
+  <style is:global>
+    /* Suppress duplicate markdown H1 already rendered in the hero header */
+    .prose > h1:first-of-type {
+      display: none !important;
+    }
+  </style>
+
   <div class="mt-16 pt-6 border-t border-zinc-800 flex items-center justify-between">
     <a href="/notes" class="text-xs font-mono text-sky-400 hover:text-sky-300">
       ← Back to Knowledge Vault

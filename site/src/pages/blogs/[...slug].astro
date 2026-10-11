@@ -62,6 +62,19 @@ const { Content } = await entry.render();
     <Content />
   </article>
 
+  <style is:global>
+    /* Suppress duplicate markdown H1 and metadata block already rendered in the hero header */
+    .prose > h1:first-of-type {
+      display: none !important;
+    }
+    .prose > h1:first-of-type + p {
+      display: none !important;
+    }
+    .prose > h1:first-of-type + p + hr {
+      display: none !important;
+    }
+  </style>
+
   <div class="mt-16 pt-6 border-t border-zinc-800 flex items-center justify-between">
     <a href="/blogs" class="text-xs font-mono text-sky-400 hover:text-sky-300">
       ← Back to All Logs
