@@ -4,19 +4,17 @@ import ProjectBadge from '../components/ProjectBadge.astro';
 import TagPill from '../components/TagPill.astro';
 import { getCollection } from 'astro:content';
 
-const blogs = await getCollection('blogs');
 const entries = await getCollection('entries');
 
-// Sort blogs by date descending
-blogs.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+// Sort entries by date descending
 entries.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
 const categoryLabels: Record<string, string> = {
-  'ai-and-agentic-engineering': 'AI and Agentic Engineering',
-  'architecture-and-design': 'Architecture and Design',
-  'mistakes-and-pitfalls': 'Mistakes and Pitfalls',
-  'performance-and-infra': 'Performance and Infra',
-  'testing-and-quality': 'Testing and Quality',
+  'ai-and-agentic-engineering': 'AI & Agentic Engineering',
+  'architecture-and-design': 'Architecture & Design',
+  'mistakes-and-pitfalls': 'Mistakes & Pitfalls',
+  'performance-and-infra': 'Performance & Infra',
+  'testing-and-quality': 'Testing & Quality',
 };
 
 const formatCategory = (cat: string) => categoryLabels[cat] || cat.replace(/-/g, ' ');
@@ -47,60 +45,68 @@ const formatCategory = (cat: string) => categoryLabels[cat] || cat.replace(/-/g,
       </div>
 
       <div class="flex items-center gap-3 border border-zinc-800 rounded-lg bg-zinc-900/60 px-3 py-2 text-zinc-400">
-        <span><strong class="text-white">{blogs.length}</strong> Dev Logs</span>
-        <span>•</span>
-        <span><strong class="text-white">{entries.length}</strong> Vault Notes</span>
+        <span><strong class="text-white">{entries.length}</strong> Engineering Logs</span>
         <span>•</span>
         <span><strong class="text-white">3</strong> Architecture Diagrams</span>
       </div>
     </div>
   </section>
 
-  <!-- Main Grid: Recent Dev Logs -->
+  <!-- Main Grid: Recent Engineering Logs -->
   <section class="mb-14">
     <div class="flex items-center justify-between mb-6">
       <div>
         <h2 class="text-xl font-bold text-white flex items-center gap-2">
           <span>⚡</span>
-          <span>Recent Running Logs</span>
+          <span>Recent Engineering Logs</span>
         </h2>
         <p class="text-xs text-zinc-400 mt-0.5">Concise field notes with root causes and exact line references</p>
       </div>
-      <a href="/blogs" class="text-xs font-mono text-sky-400 hover:text-sky-300 flex items-center gap-1">
-        <span>View all logs</span>
+      <a href="/logs" class="text-xs font-mono text-sky-400 hover:text-sky-300 flex items-center gap-1">
+        <span>View all {entries.length} logs</span>
         <span>→</span>
       </a>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {blogs.slice(0, 4).map((post) => (
+      {entries.slice(0, 6).map((log) => (
         <a
-          href={`/blogs/${post.slug}`}
+          href={`/logs/${log.slug}`}
           class="group relative flex flex-col justify-between rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-5 hover:border-zinc-700 hover:bg-zinc-900/80 transition-all shadow-sm"
         >
           <div>
-            <div class="flex items-center justify-between gap-2 mb-3">
-              <ProjectBadge project={post.data.project} />
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <div class="flex items-center gap-2">
+                <ProjectBadge project={log.data.project} size="sm" />
+                <span class="text-[10px] font-mono text-zinc-400 bg-zinc-900 border border-zinc-800 px-1.5 py-0.5 rounded">
+                  {formatCategory(log.data.category || 'general')}
+                </span>
+                {log.data.severity_or_impact && (
+                  <span class="text-[10px] font-mono text-amber-400/90 bg-amber-950/40 border border-amber-800/50 px-1 rounded">
+                    {log.data.severity_or_impact}
+                  </span>
+                )}
+              </div>
               <time class="text-xs font-mono text-zinc-500">
-                {new Date(post.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                {new Date(log.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
               </time>
             </div>
 
             <h3 class="text-base font-semibold text-zinc-100 group-hover:text-sky-400 transition-colors mb-2 leading-snug">
-              {post.data.title}
+              {log.data.title}
             </h3>
 
-            {post.data.references && post.data.references.length > 0 && (
+            {log.data.source_references && log.data.source_references.length > 0 && (
               <div class="mt-3 flex items-center gap-1.5 text-[11px] font-mono text-zinc-400 bg-zinc-950/70 border border-zinc-800/80 rounded px-2 py-1">
                 <span class="text-sky-400">📄</span>
-                <span class="truncate">{post.data.references[0]}</span>
+                <span class="truncate">{log.data.source_references[0]}</span>
               </div>
             )}
           </div>
 
           <div class="mt-4 pt-3 border-t border-zinc-800/60 flex items-center justify-between">
             <div class="flex flex-wrap gap-1.5">
-              {post.data.tags.slice(0, 3).map((t) => (
+              {log.data.tags.slice(0, 3).map((t) => (
                 <TagPill tag={t} />
               ))}
             </div>
@@ -111,52 +117,26 @@ const formatCategory = (cat: string) => categoryLabels[cat] || cat.replace(/-/g,
     </div>
   </section>
 
-  <!-- Knowledge Vault & Category Grid -->
-  <section class="mb-14">
-    <div class="flex items-center justify-between mb-6">
+  <!-- Interactive Architecture Section Teaser -->
+  <section class="mb-14 rounded-2xl border border-zinc-800 bg-gradient-to-br from-zinc-900/60 to-zinc-950 p-6 sm:p-8">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
-        <h2 class="text-xl font-bold text-white flex items-center gap-2">
-          <span>🧠</span>
-          <span>Knowledge Vault Notes</span>
-        </h2>
-        <p class="text-xs text-zinc-400 mt-0.5">Atomic technical learnings categorized by domain and impact</p>
+        <div class="flex items-center gap-2 text-xs font-mono text-sky-400 mb-2">
+          <span>📐</span>
+          <span>System Models</span>
+        </div>
+        <h3 class="text-xl font-bold text-white mb-2">Interactive Architecture Diagrams</h3>
+        <p class="text-sm text-zinc-400 max-w-2xl">
+          Visual system models including Media Workers queue decoupling, GPU batch ingestion offloading, and subscription entitlement data modeling rendered directly in Mermaid.
+        </p>
       </div>
-      <a href="/notes" class="text-xs font-mono text-sky-400 hover:text-sky-300 flex items-center gap-1">
-        <span>Browse full vault</span>
+      <a
+        href="/diagrams"
+        class="inline-flex items-center justify-center gap-2 rounded-lg border border-sky-500/40 bg-sky-950/40 px-4 py-2.5 text-xs font-mono text-sky-300 hover:bg-sky-900/40 hover:border-sky-400 transition-colors whitespace-nowrap self-start sm:self-center"
+      >
+        <span>Explore Diagrams</span>
         <span>→</span>
       </a>
-    </div>
-
-    <div class="space-y-3">
-      {entries.slice(0, 5).map((entry) => (
-        <a
-          href={`/notes/${entry.slug}`}
-          class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-lg border border-zinc-800/60 bg-zinc-900/30 px-4 py-3 hover:border-zinc-700 hover:bg-zinc-900/70 transition-colors"
-        >
-          <div class="flex items-start sm:items-center gap-3">
-            <span class="text-xs font-mono text-zinc-500 whitespace-nowrap">
-              {new Date(entry.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-            </span>
-            <div>
-              <h4 class="text-sm font-medium text-zinc-200 hover:text-sky-400 transition-colors">
-                {entry.data.title}
-              </h4>
-              <div class="flex items-center gap-2 mt-1">
-                <span class="text-[10px] font-mono tracking-wider text-zinc-400">{formatCategory(entry.data.category)}</span>
-                {entry.data.severity_or_impact && (
-                  <span class="text-[10px] font-mono text-amber-400/80 bg-amber-950/30 px-1 rounded border border-amber-800/40">
-                    {entry.data.severity_or_impact}
-                  </span>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-2 sm:self-center">
-            <ProjectBadge project={entry.data.project} size="sm" />
-          </div>
-        </a>
-      ))}
     </div>
   </section>
 </BaseLayout>

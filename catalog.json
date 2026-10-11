@@ -1,16 +1,16 @@
 {
-  "total_entries": 9,
+  "total_entries": 11,
   "total_showcases": 9,
   "categories": {
     "mistakes-and-pitfalls": 1,
     "testing-and-quality": 1,
-    "performance-and-infra": 3,
+    "performance-and-infra": 4,
     "architecture-and-design": 3,
-    "ai-and-agentic-engineering": 1
+    "ai-and-agentic-engineering": 2
   },
   "projects": {
-    "adaptive-edtech-platform": 4,
-    "astrological-signals-engine": 4,
+    "adaptive-edtech-platform": 5,
+    "astrological-signals-engine": 5,
     "all-projects": 1
   },
   "tags": {
@@ -26,15 +26,20 @@
     "knowledge-graph": 1,
     "pipeline": 1,
     "temporal-logic": 1,
+    "llm-benchmarks": 1,
+    "ollama": 2,
+    "claude": 2,
+    "gemini": 1,
+    "fastapi": 5,
+    "ingestion": 1,
+    "throughput": 1,
     "runpod": 3,
-    "claude": 1,
     "cost-optimization": 1,
     "infrastructure": 1,
     "environment-config": 1,
     "gpu": 1,
     "embeddings": 2,
     "serverless": 1,
-    "fastapi": 3,
     "performance": 1,
     "retry-logic": 1,
     "workers": 2,
@@ -58,15 +63,42 @@
     "nomic": 1,
     "pgvector": 1,
     "sqlite-vec": 1,
-    "ollama": 1,
-    "agentic-coding": 1,
+    "agentic-coding": 2,
     "antigravity": 1,
     "code-review": 1,
     "business-invariants": 1,
     "quality-engineering": 1,
-    "best-practices": 1
+    "best-practices": 1,
+    "database-design": 1,
+    "sqlalchemy": 1,
+    "anti-patterns": 1
   },
   "entries": [
+    {
+      "id": "ingestion-model-inference-benchmarks",
+      "title": "Batch Ingestion Model Benchmarks: Llama 3.1 8B vs Claude Haiku vs Gemini Flash",
+      "project": "astrological-signals-engine",
+      "date": "2026-10-10",
+      "category": "performance-and-infra",
+      "tags": [
+        "llm-benchmarks",
+        "ollama",
+        "claude",
+        "gemini",
+        "fastapi",
+        "ingestion",
+        "throughput"
+      ],
+      "severity_or_impact": "High",
+      "showcase_potential": "Blog",
+      "status": "Synthesized",
+      "source_references": [
+        "backend/app/engine/llm/provider.py:216-296",
+        "docs/ARCHITECTURE.md:70-78",
+        "commit:bdf9f27"
+      ],
+      "rel_path": "entries/performance-and-infra/ingestion-model-inference-benchmarks.md"
+    },
     {
       "id": "claude-vs-runpod-cost-and-provider-switch",
       "title": "Claude API vs RunPod Self-Hosted GPU: Cost-per-Profile Analysis and .env Provider Switching",
@@ -221,6 +253,29 @@
         "backend/ingestion/wikipedia_parser.py"
       ],
       "rel_path": "entries/testing-and-quality/llm-zero-hallucination-verification-ledger.md"
+    },
+    {
+      "id": "ai-agent-conflates-feature-flags-with-plans",
+      "title": "Why AI Agents Conflate Application Feature Flags with Subscription Plans",
+      "project": "adaptive-edtech-platform",
+      "date": "2026-07-12",
+      "category": "ai-and-agentic-engineering",
+      "tags": [
+        "database-design",
+        "fastapi",
+        "sqlalchemy",
+        "agentic-coding",
+        "anti-patterns"
+      ],
+      "severity_or_impact": "High",
+      "showcase_potential": "Blog",
+      "status": "Synthesized",
+      "source_references": [
+        "backend/app/adapters/api/payments.py:57-90",
+        "backend/app/domain/models/plan.py",
+        "Antigravity Session: 35ab7246-ca33-40c7-8979-52f734e2fa97"
+      ],
+      "rel_path": "entries/ai-and-agentic-engineering/ai-agent-conflates-feature-flags-with-plans.md"
     },
     {
       "id": "human-review-checklist-for-agentic-code",

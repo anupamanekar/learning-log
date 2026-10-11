@@ -4,8 +4,7 @@ import { getCollection } from 'astro:content';
 
 const navLinks = [
   { href: '/', label: 'Overview' },
-  { href: '/blogs', label: 'Dev Logs' },
-  { href: '/notes', label: 'Knowledge Vault' },
+  { href: '/logs', label: 'Engineering Logs' },
   { href: '/diagrams', label: 'Architecture Diagrams' },
 ];
 
@@ -34,11 +33,11 @@ const entries = await getCollection('entries');
 
     <div class="flex items-center gap-3">
       <a
-        href="/notes"
+        href="/logs"
         class="hidden sm:inline-flex items-center gap-1.5 rounded-md border border-zinc-700 bg-zinc-900 px-3 py-1.5 text-xs font-mono text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors"
       >
-        <span>Vault Index</span>
-        <span class="rounded bg-zinc-800 px-1 py-0.5 text-[10px] text-zinc-400">{entries.length} Notes</span>
+        <span>All Logs</span>
+        <span class="rounded bg-zinc-800 px-1 py-0.5 text-[10px] text-zinc-400">{entries.length} Logs</span>
       </a>
     </div>
   </div>

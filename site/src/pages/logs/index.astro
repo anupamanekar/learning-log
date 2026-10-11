@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectBadge from '../../components/ProjectBadge.astro';
+import TagPill from '../../components/TagPill.astro';
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('entries');
+entries.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const categoryLabels: Record<string, string> = {
+  'ai-and-agentic-engineering': 'AI & Agentic Engineering',
+  'architecture-and-design': 'Architecture & Design',
+  'mistakes-and-pitfalls': 'Mistakes & Pitfalls',
+  'performance-and-infra': 'Performance & Infra',
+  'testing-and-quality': 'Testing & Quality',
+};
+
+const formatCategory = (cat: string) => categoryLabels[cat] || cat.replace(/-/g, ' ');
+
+// Categories list for filter buttons
+const categoryKeys = Array.from(new Set(entries.map((e) => e.data.category || 'general')));
+---
+
+<BaseLayout title="Engineering Logs — dev.journal" description="Curated technical field notes, postmortems, and architectural decisions.">
+  <div class="mb-8 border-b border-zinc-800 pb-6">
+    <div class="flex items-center gap-2 text-xs font-mono text-sky-400 mb-2">
+      <a href="/" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-zinc-500">Engineering Logs</span>
+    </div>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <h1 class="text-3xl font-bold text-white mb-2">Engineering Logs & Field Notes</h1>
+        <p class="text-sm text-zinc-400">Battle-tested architectural decisions, production bugs, and code observations harvested directly from active codebases.</p>
+      </div>
+      <div class="text-xs font-mono text-zinc-400 bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-lg whitespace-nowrap self-start sm:self-auto">
+        <span>Total: </span>
+        <strong class="text-white">{entries.length} Curated Logs</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Category Filter Bar -->
+  <div class="mb-8 flex flex-wrap gap-2 text-xs font-mono" id="filter-bar">
+    <button class="filter-btn active rounded-lg border border-sky-500/50 bg-sky-950/40 px-3 py-1.5 text-sky-300 transition-colors" data-filter="all">
+      All ({entries.length})
+    </button>
+    {categoryKeys.map((catKey) => {
+      const count = entries.filter((e) => e.data.category === catKey).length;
+      return (
+        <button class="filter-btn rounded-lg border border-zinc-800 bg-zinc-900/60 px-3 py-1.5 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200 transition-colors" data-filter={catKey}>
+          {formatCategory(catKey)} ({count})
+        </button>
+      );
+    })}
+  </div>
+
+  <!-- Logs Grid -->
+  <div class="space-y-4" id="logs-list">
+    {entries.map((log) => (
+      <article
+        class="log-card group flex flex-col justify-between rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-5 hover:border-zinc-700 hover:bg-zinc-900/80 transition-all shadow-sm"
+        data-category={log.data.category || 'general'}
+      >
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+          <div class="flex flex-wrap items-center gap-2">
+            <ProjectBadge project={log.data.project} size="sm" />
+            <span class="text-[11px] font-mono text-zinc-300 bg-zinc-900 border border-zinc-800 px-2 py-0.5 rounded">
+              {formatCategory(log.data.category || 'general')}
+            </span>
+            {log.data.severity_or_impact && (
+              <span class="text-[11px] font-mono text-amber-400/90 bg-amber-950/40 border border-amber-800/50 px-2 py-0.5 rounded">
+                Impact: {log.data.severity_or_impact}
+              </span>
+            )}
+          </div>
+          <time class="text-xs font-mono text-zinc-500 whitespace-nowrap">
+            {new Date(log.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+          </time>
+        </div>
+
+        <a href={`/logs/${log.slug}`} class="block mb-3">
+          <h2 class="text-base sm:text-lg font-semibold text-zinc-100 group-hover:text-sky-400 transition-colors leading-snug">
+            {log.data.title}
+          </h2>
+        </a>
+
+        {log.data.source_references && log.data.source_references.length > 0 && (
+          <div class="mb-4 flex items-center gap-1.5 text-[11px] font-mono text-zinc-400 bg-zinc-950/70 border border-zinc-800/80 rounded px-2.5 py-1.5 overflow-x-auto">
+            <span class="text-sky-400">📄</span>
+            <span class="truncate">{log.data.source_references[0]}</span>
+            {log.data.source_references.length > 1 && (
+              <span class="text-[10px] text-zinc-500 shrink-0">+{log.data.source_references.length - 1} more</span>
+            )}
+          </div>
+        )}
+
+        <div class="pt-3 border-t border-zinc-800/60 flex items-center justify-between">
+          <div class="flex flex-wrap gap-1.5">
+            {log.data.tags.slice(0, 4).map((t) => (
+              <TagPill tag={t} />
+            ))}
+          </div>
+          <a href={`/logs/${log.slug}`} class="text-xs font-mono text-sky-400 hover:text-sky-300 flex items-center gap-1">
+            <span>Read Log</span>
+            <span>→</span>
+          </a>
+        </div>
+      </article>
+    ))}
+  </div>
+</BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const cards = document.querySelectorAll<HTMLElement>('.log-card');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+      buttons.forEach((b) => {
+        b.classList.remove('border-sky-500/50', 'bg-sky-950/40', 'text-sky-300');
+        b.classList.add('border-zinc-800', 'bg-zinc-900/60', 'text-zinc-400');
+      });
+      btn.classList.remove('border-zinc-800', 'bg-zinc-900/60', 'text-zinc-400');
+      btn.classList.add('border-sky-500/50', 'bg-sky-950/40', 'text-sky-300');
+
+      cards.forEach((card) => {
+        const cat = card.getAttribute('data-category');
+        if (filter === 'all' || cat === filter) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
