@@ -1,16 +1,16 @@
 {
-  "total_entries": 11,
-  "total_showcases": 9,
+  "total_entries": 12,
+  "total_showcases": 10,
   "categories": {
     "mistakes-and-pitfalls": 1,
-    "testing-and-quality": 1,
+    "testing-and-quality": 2,
     "performance-and-infra": 4,
     "architecture-and-design": 3,
     "ai-and-agentic-engineering": 2
   },
   "projects": {
     "adaptive-edtech-platform": 5,
-    "astrological-signals-engine": 5,
+    "astrological-signals-engine": 6,
     "all-projects": 1
   },
   "entries": [
@@ -193,6 +193,32 @@
         "backend/ingestion/wikipedia_parser.py"
       ],
       "rel_path": "entries/testing-and-quality/llm-zero-hallucination-verification-ledger.md"
+    },
+    {
+      "id": "multi-tiered-testing-for-ai-generated-code",
+      "title": "Multi-Tiered Testing Strategy for AI-Generated Code: Catching Architectural, Semantic, and Performance Drift",
+      "project": "astrological-signals-engine",
+      "date": "2026-10-05",
+      "category": "testing-and-quality",
+      "tags": [
+        "ai-code-generation",
+        "testing-strategy",
+        "architecture-tests",
+        "ast-analysis",
+        "performance",
+        "sast"
+      ],
+      "severity_or_impact": "High",
+      "showcase_potential": "Blog",
+      "status": "Synthesized",
+      "source_references": [
+        "market-signals-platform/.agents/skills/pre-pr-test-generator/SKILL.md:1-145",
+        "market-signals-platform/.agents/skills/pre-pr-test-generator/scripts/run_pre_pr_tests.py:40-250",
+        "market-signals-platform/backend/tests/test_coding_guidelines.py:1-100",
+        "market-signals-platform/backend/app/api/routes/public.py:45-120",
+        "commit:32a8df0"
+      ],
+      "rel_path": "entries/testing-and-quality/multi-tiered-testing-for-ai-generated-code.md"
     },
     {
       "id": "ai-agent-conflates-feature-flags-with-plans",
@@ -445,6 +471,32 @@
         "docs/INGESTION_QUALITY_AUDIT_REPORT.md"
       ],
       "rel_path": "showcase/blogs/market-signals-temporal-causality-audit.md",
+      "type": "blogs"
+    },
+    {
+      "title": "Dev Log: Multi-Tiered Testing Strategy for AI-Generated Code",
+      "slug": "multi-tiered-testing-for-ai-generated-code",
+      "project": "astrological-signals-engine",
+      "topic": "multi-tiered-testing-for-ai-generated-code",
+      "date": "2026-10-05",
+      "status": "Published",
+      "tags": [
+        "ai-code-generation",
+        "testing-strategy",
+        "architecture-tests",
+        "ast-analysis",
+        "performance",
+        "sast",
+        "dev-log"
+      ],
+      "references": [
+        "market-signals-platform/.agents/skills/pre-pr-test-generator/SKILL.md:1-145",
+        "market-signals-platform/.agents/skills/pre-pr-test-generator/scripts/run_pre_pr_tests.py:40-250",
+        "market-signals-platform/backend/tests/test_coding_guidelines.py:1-100",
+        "market-signals-platform/backend/app/api/routes/public.py:45-120",
+        "commit:32a8df0"
+      ],
+      "rel_path": "showcase/blogs/multi-tiered-testing-for-ai-generated-code.md",
       "type": "blogs"
     },
     {
