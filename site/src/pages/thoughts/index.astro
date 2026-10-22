@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TagPill from '../../components/TagPill.astro';
+import { getCollection } from 'astro:content';
+
+const thoughts = await getCollection('thoughts');
+thoughts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+
+<BaseLayout title="Thoughts & Essays — dev.journal" description="Essays, deep dives, and perspectives on agentic systems and developer workflows.">
+  <div class="mb-10 border-b border-zinc-800/80 pb-8">
+    <div class="flex items-center gap-2 text-xs font-mono text-sky-400 mb-3">
+      <a href="/" class="hover:underline">Home</a>
+      <span class="text-zinc-600">/</span>
+      <span class="text-zinc-400">Thoughts</span>
+    </div>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+      <div>
+        <h1 class="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-white mb-2.5">
+          Thoughts & Perspectives
+        </h1>
+        <p class="text-sm sm:text-base text-zinc-300 max-w-3xl leading-relaxed">
+          Deep-dives, essays, and architectural reflections on agentic systems, non-deterministic workflows, and developer tooling.
+        </p>
+      </div>
+      <div class="text-xs font-mono text-zinc-300 bg-zinc-900/50 backdrop-blur border border-zinc-800/80 px-4 py-2 rounded-full whitespace-nowrap self-start sm:self-auto shadow-sm">
+        <span>Total: </span>
+        <strong class="text-white font-semibold">{thoughts.length} Posts</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 gap-6">
+    {thoughts.length === 0 ? (
+      <div class="rounded-2xl border border-zinc-800/80 bg-zinc-900/20 p-12 text-center text-zinc-400 font-mono text-sm">
+        No thoughts published yet.
+      </div>
+    ) : (
+      thoughts.map((post) => (
+        <article class="group relative flex flex-col md:flex-row gap-6 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-6 sm:p-7 hover:border-sky-500/40 hover:bg-zinc-900/70 transition-all duration-300 shadow-sm hover:shadow-sky-500/5">
+          {post.data.image && (
+            <div class="md:w-64 shrink-0 overflow-hidden rounded-xl border border-zinc-800/80 bg-zinc-950 flex items-center justify-center">
+              <img
+                src={post.data.image}
+                alt={post.data.title}
+                class="w-full h-44 md:h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+            </div>
+          )}
+          <div class="flex flex-col justify-between flex-grow">
+            <div>
+              <div class="flex flex-wrap items-center gap-2 text-xs font-mono text-zinc-400 mb-2.5">
+                <time>
+                  {new Date(post.data.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                </time>
+                {post.data.status && (
+                  <>
+                    <span class="text-zinc-600">•</span>
+                    <span class="text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full text-[10px]">
+                      {post.data.status}
+                    </span>
+                  </>
+                )}
+              </div>
+              <h2 class="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-sky-300 transition-colors mb-2.5 leading-snug">
+                <a href={`/thoughts/${post.slug}`}>
+                  <span class="absolute inset-0"></span>
+                  {post.data.title}
+                </a>
+              </h2>
+              {post.data.description && (
+                <p class="text-sm text-zinc-300 leading-relaxed line-clamp-3 mb-4">
+                  {post.data.description}
+                </p>
+              )}
+            </div>
+
+            <div class="relative z-10 flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-zinc-800/60 mt-auto">
+              <div class="flex flex-wrap gap-1.5">
+                {post.data.tags.map((tag) => (
+                  <TagPill tag={tag} />
+                ))}
+              </div>
+              <span class="text-xs font-mono text-sky-400 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+                Read Post →
+              </span>
+            </div>
+          </div>
+        </article>
+      ))
+    )}
+  </div>
+</BaseLayout>

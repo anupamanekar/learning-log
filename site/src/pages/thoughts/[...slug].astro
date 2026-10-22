@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TagPill from '../../components/TagPill.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const thoughts = await getCollection('thoughts');
+  return thoughts.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<BaseLayout title={`${entry.data.title} — Thoughts`} description={entry.data.description || entry.data.title}>
+  <div class="mb-10 border-b border-zinc-800/80 pb-8">
+    <div class="flex items-center gap-2 text-xs font-mono text-sky-400 mb-4">
+      <a href="/thoughts" class="hover:underline">Thoughts</a>
+      <span class="text-zinc-600">/</span>
+      <span class="text-zinc-400 truncate">{entry.slug}</span>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2.5 mb-5">
+      <time class="text-xs font-mono text-zinc-400">
+        {new Date(entry.data.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+      </time>
+      {entry.data.status && (
+        <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full">
+          {entry.data.status}
+        </span>
+      )}
+    </div>
+
+    <h1 class="text-2xl sm:text-4xl font-display font-extrabold text-white tracking-tight mb-4 leading-[1.2]">
+      {entry.data.title}
+    </h1>
+
+    {entry.data.description && (
+      <p class="text-base sm:text-lg text-zinc-300 leading-relaxed mb-6">
+        {entry.data.description}
+      </p>
+    )}
+
+    <div class="flex flex-wrap gap-1.5 pt-1">
+      {entry.data.tags.map((t) => (
+        <TagPill tag={t} />
+      ))}
+    </div>
+  </div>
+
+  <article class="prose prose-invert prose-zinc max-w-none prose-headings:font-display prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-white prose-headings:scroll-mt-20 prose-p:text-zinc-300 prose-p:leading-relaxed prose-li:text-zinc-300 prose-strong:text-white prose-strong:font-semibold prose-pre:border prose-pre:border-zinc-800/90 prose-pre:bg-zinc-950/90 prose-pre:rounded-2xl prose-pre:shadow-md prose-code:font-mono prose-code:text-sky-300 prose-code:bg-zinc-900/60 prose-code:border prose-code:border-zinc-800/60 prose-code:rounded-md prose-code:px-1.5 prose-code:py-0.5 prose-img:rounded-2xl prose-img:border prose-img:border-zinc-800/80 prose-img:shadow-lg">
+    <Content />
+  </article>
+
+  <style is:global>
+    /* Suppress duplicate markdown H1 since template hero already renders title */
+    .prose > h1:first-of-type {
+      display: none !important;
+    }
+  </style>
+
+  <div class="mt-16 pt-6 border-t border-zinc-800/80 flex items-center justify-between">
+    <a href="/thoughts" class="text-xs font-mono text-sky-400 hover:text-sky-300 flex items-center gap-1">
+      ← Back to Thoughts
+    </a>
+    <a href="#" class="text-xs font-mono text-zinc-500 hover:text-zinc-300">
+      ↑ Back to Top
+    </a>
+  </div>
+</BaseLayout>

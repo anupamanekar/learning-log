@@ -1,10 +1,12 @@
 ---
 // Navbar.astro
 import { getCollection } from 'astro:content';
+import SearchModal from './SearchModal.astro';
 
 const navLinks = [
   { href: '/', label: 'Overview' },
   { href: '/logs', label: 'Engineering Logs' },
+  { href: '/thoughts', label: 'Thoughts' },
   { href: '/diagrams', label: 'Architecture Diagrams' },
 ];
 
@@ -32,6 +34,18 @@ const entries = await getCollection('entries');
     </div>
 
     <div class="flex items-center gap-3">
+      <button
+        type="button"
+        class="search-trigger-btn flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-3.5 py-1.5 text-xs font-medium text-zinc-400 hover:border-zinc-700 hover:text-white hover:bg-zinc-900 transition-all shadow-sm cursor-pointer"
+        aria-label="Search content"
+      >
+        <svg class="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+        <span class="hidden sm:inline">Search...</span>
+        <kbd class="hidden sm:inline font-mono text-[10px] text-zinc-500 bg-zinc-800/80 border border-zinc-700/60 rounded px-1.5 py-0.5">⌘K</kbd>
+      </button>
+
       <a
         href="/logs"
         class="hidden sm:inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:border-zinc-700 hover:text-white hover:bg-zinc-900 transition-all shadow-sm"
@@ -44,3 +58,5 @@ const entries = await getCollection('entries');
     </div>
   </div>
 </header>
+
+<SearchModal />

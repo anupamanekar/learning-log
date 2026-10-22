@@ -57,6 +57,9 @@ Classify the insight into one of the canonical categories:
 - `entries/performance-and-infra/`
 - `entries/testing-and-quality/`
 
+> [!IMPORTANT]
+> **Strict Anonymization**: Never use the real folder name `market-signals-platform` in entries, blogs, or user responses. Always anonymize as `astrological-signals-engine`. Use relative paths in `source_references` (e.g. `backend/app/db/models.py:210-223`).
+
 Generate the entry Markdown file complying with the YAML frontmatter schema defined in [AGENTS.md](../../../AGENTS.md).
 
 ### Step 4: Run Automation Helper (Optional / Automated)

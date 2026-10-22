@@ -43,8 +43,21 @@ const entriesCollection = defineCollection({
   }),
 });
 
+const thoughtsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    date: z.union([z.string(), z.date()]),
+    status: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    image: z.string().optional(),
+  }),
+});
+
 export const collections = {
   blogs: blogsCollection,
   vlogs: vlogsCollection,
   entries: entriesCollection,
+  thoughts: thoughtsCollection,
 };

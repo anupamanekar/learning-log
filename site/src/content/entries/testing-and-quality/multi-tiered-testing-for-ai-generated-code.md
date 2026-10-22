@@ -9,10 +9,10 @@ severity_or_impact: "High"
 showcase_potential: "Blog"
 status: "Synthesized"
 source_references:
-  - "market-signals-platform/.agents/skills/pre-pr-test-generator/SKILL.md:1-145"
-  - "market-signals-platform/.agents/skills/pre-pr-test-generator/scripts/run_pre_pr_tests.py:40-250"
-  - "market-signals-platform/backend/tests/test_coding_guidelines.py:1-100"
-  - "market-signals-platform/backend/app/api/routes/public.py:45-120"
+  - ".agents/skills/pre-pr-test-generator/SKILL.md:1-145"
+  - ".agents/skills/pre-pr-test-generator/scripts/run_pre_pr_tests.py:40-250"
+  - "backend/tests/test_coding_guidelines.py:1-100"
+  - "backend/app/api/routes/public.py:45-120"
   - "commit:32a8df0"
 ---
 
@@ -41,7 +41,7 @@ Implemented a 5-tier Pre-PR verification suite executed via `.agents/skills/pre-
 Introspects SQLAlchemy metadata to guarantee GIN and HNSW index declarations, and forbids in-memory table scans:
 
 ```python
-# market-signals-platform/.agents/skills/pre-pr-test-generator/scripts/run_pre_pr_tests.py:40-81
+# .agents/skills/pre-pr-test-generator/scripts/run_pre_pr_tests.py:40-81
 def audit_architectural_invariants(scorecard: Scorecard):
     routes_dir = os.path.join(BACKEND_DIR, "app", "api", "routes")
     in_memory_scans = []
@@ -74,7 +74,7 @@ Validates HTTP contracts, validation failure responses (`422 Unprocessable Entit
 Uses Python `ast` to enforce strict coding guidelines on all changed files:
 
 ```python
-# market-signals-platform/backend/tests/test_coding_guidelines.py:13-55
+# backend/tests/test_coding_guidelines.py:13-55
 @pytest.mark.semantic
 def test_outgoing_pr_files_comply_with_guidelines():
     """All outgoing Python files in the current PR must strictly follow coding guidelines."""

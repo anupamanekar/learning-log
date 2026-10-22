@@ -20,7 +20,7 @@ references:
 
 ## What Broke
 
-Our pipeline uses an LLM to extract entity profiles and historical life events from Wikipedia articles to correlate with financial market signals. 
+Our pipeline uses an LLM to extract entity profiles and historical life events from Wikipedia articles to correlate with planetary cycles and event signals. 
 
 During an audit of 182 profiles and 843 events, we found 5 "True Date Leaks" where the LLM assigned the entity's birth date to adult career milestones (e.g., adult awards or appointments occurring on the exact day of birth).
 

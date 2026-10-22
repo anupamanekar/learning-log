@@ -7,19 +7,19 @@ date: "2026-10-05"
 status: "Published"
 tags: ["ai-code-generation", "testing-strategy", "architecture-tests", "ast-analysis", "performance", "sast", "dev-log"]
 references:
-  - "market-signals-platform/.agents/skills/pre-pr-test-generator/SKILL.md:1-145"
-  - "market-signals-platform/.agents/skills/pre-pr-test-generator/scripts/run_pre_pr_tests.py:40-250"
-  - "market-signals-platform/backend/tests/test_coding_guidelines.py:1-100"
-  - "market-signals-platform/backend/app/api/routes/public.py:45-120"
+  - ".agents/skills/pre-pr-test-generator/SKILL.md:1-145"
+  - ".agents/skills/pre-pr-test-generator/scripts/run_pre_pr_tests.py:40-250"
+  - "backend/tests/test_coding_guidelines.py:1-100"
+  - "backend/app/api/routes/public.py:45-120"
   - "commit:32a8df0"
 ---
 
 # Dev Log: Multi-Tiered Testing for AI-Generated Code
 
 **Project**: `astrological-signals-engine`  
-**Source Ref**: [`market-signals-platform/.agents/skills/pre-pr-test-generator/SKILL.md`](market-signals-platform/.agents/skills/pre-pr-test-generator/SKILL.md)  
-**Runner Script**: [`market-signals-platform/.agents/skills/pre-pr-test-generator/scripts/run_pre_pr_tests.py`](market-signals-platform/.agents/skills/pre-pr-test-generator/scripts/run_pre_pr_tests.py)  
-**AST Checker**: [`market-signals-platform/backend/tests/test_coding_guidelines.py`](market-signals-platform/backend/tests/test_coding_guidelines.py)  
+**Source Ref**: [`.agents/skills/pre-pr-test-generator/SKILL.md`](.agents/skills/pre-pr-test-generator/SKILL.md)  
+**Runner Script**: [`.agents/skills/pre-pr-test-generator/scripts/run_pre_pr_tests.py`](.agents/skills/pre-pr-test-generator/scripts/run_pre_pr_tests.py)  
+**AST Checker**: [`backend/tests/test_coding_guidelines.py`](backend/tests/test_coding_guidelines.py)  
 **Fixed Commit**: `32a8df0` ("feat(test): fixed arch violations")  
 
 ---

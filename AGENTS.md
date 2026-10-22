@@ -11,6 +11,14 @@ Operating inside the **Learning Log Vault** (`/Users/anupmanekar/DevWorkspace/le
 - **Code References (Mandatory)**: Always include exact file paths, line ranges, or commit hashes where the issue occurred or was fixed (e.g. `frontend/src/components/common/VideoPlayer.tsx:22-40`, `commit:ccb2de4`).
 - **No Agent Fluff**: Never use AI boilerplate ("In today's fast-paced landscape...", "Imagine a world...", "In conclusion..."). Jump directly to the technical problem, root cause, code fix, and key takeaway.
 
+## 🔒 Project Anonymization & Privacy Rules (STRICT / ZERO EXCEPTION)
+
+- **NEVER use the prohibited name**: Under NO circumstances should the words `market-signals-platform` or `market-signals` appear anywhere in user-facing communication, markdown files, blog drafts, source references, code comments, or docs.
+- **MANDATORY Substitution**:
+  - Always use **`astrological-signals-engine`** instead of `market-signals-platform`.
+  - In `source_references` or file paths, use relative repository paths (e.g. `backend/app/db/models.py:210-223`) or the anonymized prefix `astrological-signals-engine/...`. Never leak `market-signals`.
+  - In prose and responses, refer to the project exclusively as `astrological-signals-engine`.
+
 ---
 
 ## 🏷️ Standard Entry Schema (`entries/<category>/<slug>.md`)
@@ -19,7 +27,7 @@ Operating inside the **Learning Log Vault** (`/Users/anupmanekar/DevWorkspace/le
 ---
 id: "<kebab-case-slug>"
 title: "<Concise Technical Title>"
-project: "market-signals-platform" | "ai-directed-learning" | "<other-project>"
+project: "astrological-signals-engine" | "adaptive-edtech-platform" | "<other-project>"
 date: "YYYY-MM-DD"
 category: "mistakes-and-pitfalls" | "architecture-and-design" | "ai-and-agentic-engineering" | "performance-and-infra" | "testing-and-quality"
 tags: ["<tag1>", "<tag2>"]

@@ -1,16 +1,16 @@
 {
-  "total_entries": 12,
-  "total_showcases": 10,
+  "total_entries": 13,
+  "total_showcases": 12,
   "categories": {
     "mistakes-and-pitfalls": 1,
     "testing-and-quality": 2,
-    "performance-and-infra": 4,
+    "performance-and-infra": 5,
     "architecture-and-design": 3,
     "ai-and-agentic-engineering": 2
   },
   "projects": {
     "adaptive-edtech-platform": 5,
-    "astrological-signals-engine": 6,
+    "astrological-signals-engine": 7,
     "all-projects": 1
   },
   "entries": [
@@ -212,13 +212,39 @@
       "showcase_potential": "Blog",
       "status": "Synthesized",
       "source_references": [
-        "market-signals-platform/.agents/skills/pre-pr-test-generator/SKILL.md:1-145",
-        "market-signals-platform/.agents/skills/pre-pr-test-generator/scripts/run_pre_pr_tests.py:40-250",
-        "market-signals-platform/backend/tests/test_coding_guidelines.py:1-100",
-        "market-signals-platform/backend/app/api/routes/public.py:45-120",
+        ".agents/skills/pre-pr-test-generator/SKILL.md:1-145",
+        ".agents/skills/pre-pr-test-generator/scripts/run_pre_pr_tests.py:40-250",
+        "backend/tests/test_coding_guidelines.py:1-100",
+        "backend/app/api/routes/public.py:45-120",
         "commit:32a8df0"
       ],
       "rel_path": "entries/testing-and-quality/multi-tiered-testing-for-ai-generated-code.md"
+    },
+    {
+      "id": "postgresql-gin-jsonb-path-ops-query-acceleration",
+      "title": "Accelerating Multi-Dimensional JSONB Array Containment with GIN jsonb_path_ops",
+      "project": "astrological-signals-engine",
+      "date": "2026-09-06",
+      "category": "performance-and-infra",
+      "tags": [
+        "postgresql",
+        "gin-index",
+        "jsonb_path_ops",
+        "performance",
+        "database-indexing",
+        "sqlalchemy"
+      ],
+      "severity_or_impact": "High",
+      "showcase_potential": "Blog",
+      "status": "Synthesized",
+      "source_references": [
+        "backend/app/db/models.py:210-223",
+        "backend/alembic/versions/d8f9e102033_rename_gin_indexes_to_path_ops.py:19-26",
+        "backend/app/api/routes/public.py:162-225",
+        "docs/ARCHITECTURE.md:208-219",
+        "commit:daa158c"
+      ],
+      "rel_path": "entries/performance-and-infra/postgresql-gin-jsonb-path-ops-query-acceleration.md"
     },
     {
       "id": "ai-agent-conflates-feature-flags-with-plans",
@@ -470,7 +496,7 @@
         ".agents/skills/ingestion-quality-auditor/scripts/audit_ingestion.py:96-116",
         "docs/INGESTION_QUALITY_AUDIT_REPORT.md"
       ],
-      "rel_path": "showcase/blogs/market-signals-temporal-causality-audit.md",
+      "rel_path": "showcase/blogs/temporal-causality-audit.md",
       "type": "blogs"
     },
     {
@@ -490,14 +516,56 @@
         "dev-log"
       ],
       "references": [
-        "market-signals-platform/.agents/skills/pre-pr-test-generator/SKILL.md:1-145",
-        "market-signals-platform/.agents/skills/pre-pr-test-generator/scripts/run_pre_pr_tests.py:40-250",
-        "market-signals-platform/backend/tests/test_coding_guidelines.py:1-100",
-        "market-signals-platform/backend/app/api/routes/public.py:45-120",
+        ".agents/skills/pre-pr-test-generator/SKILL.md:1-145",
+        ".agents/skills/pre-pr-test-generator/scripts/run_pre_pr_tests.py:40-250",
+        "backend/tests/test_coding_guidelines.py:1-100",
+        "backend/app/api/routes/public.py:45-120",
         "commit:32a8df0"
       ],
       "rel_path": "showcase/blogs/multi-tiered-testing-for-ai-generated-code.md",
       "type": "blogs"
+    },
+    {
+      "title": "Dev Log: Accelerating Multi-Tag JSONB Queries with GIN jsonb_path_ops",
+      "slug": "postgresql-gin-jsonb-path-ops",
+      "project": "astrological-signals-engine",
+      "topic": "postgresql-gin-jsonb-path-ops-query-acceleration",
+      "date": "2026-09-06",
+      "status": "Published",
+      "tags": [
+        "postgresql",
+        "gin-index",
+        "jsonb_path_ops",
+        "performance",
+        "database-indexing",
+        "dev-log"
+      ],
+      "references": [
+        "backend/app/db/models.py:210-223",
+        "backend/alembic/versions/d8f9e102033_rename_gin_indexes_to_path_ops.py:19-26",
+        "backend/app/api/routes/public.py:162-225",
+        "docs/ARCHITECTURE.md:208-219",
+        "commit:daa158c"
+      ],
+      "rel_path": "showcase/blogs/postgresql-gin-jsonb-path-ops.md",
+      "type": "blogs"
+    },
+    {
+      "title": "Non-Deterministic Agentic Workflows: Evals & Golden Data Sets",
+      "slug": "non-deterministic-agentic-workflows-evals-golden-data-set",
+      "description": "How to benchmark non-deterministic developer agent workflows by mining historical GitHub commits to build high-fidelity golden evaluation datasets.",
+      "date": "2026-08-30",
+      "status": "Published",
+      "tags": [
+        "agentic-workflows",
+        "evals",
+        "golden-datasets",
+        "testing",
+        "ai-code-generation"
+      ],
+      "image": "/images/golden-dataset-workflow.png",
+      "rel_path": "showcase/thoughts/non-deterministic-agentic-workflows-evals-golden-data-set.md",
+      "type": "thoughts"
     },
     {
       "title": "Dev Log: Why AI Agents Conflate Feature Flags with Subscription Plans",

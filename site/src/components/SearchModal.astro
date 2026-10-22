@@ -1,0 +1,278 @@
+---
+// SearchModal.astro
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('entries');
+const thoughts = await getCollection('thoughts');
+
+const searchIndex = [
+  ...entries.map((e) => ({
+    title: e.data.title,
+    url: `/logs/${e.slug}`,
+    type: 'Log',
+    typeBadge: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
+    typeLabel: 'Log',
+    project: e.data.project || '',
+    category: (e.data.category || '').replace(/-/g, ' '),
+    tags: e.data.tags || [],
+    date: new Date(e.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+    description: '',
+  })),
+  ...thoughts.map((t) => ({
+    title: t.data.title,
+    url: `/thoughts/${t.slug}`,
+    type: 'Thought',
+    typeBadge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+    typeLabel: 'Thought',
+    project: 'Perspective',
+    category: 'Essays',
+    tags: t.data.tags || [],
+    date: new Date(t.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+    description: t.data.description || '',
+  })),
+  {
+    title: 'Architecture & System Flow Diagrams',
+    url: '/diagrams',
+    type: 'Diagram',
+    typeBadge: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+    typeLabel: 'Diagram',
+    project: 'astrological-signals-engine',
+    category: 'Architecture',
+    tags: ['mermaid', 'architecture', 'pubsub', 'vector-rag'],
+    date: 'Oct 2026',
+    description: 'Interactive architectural diagrams and data-flow charts.',
+  },
+];
+---
+
+<!-- Search Dialog Modal -->
+<dialog
+  id="search-dialog"
+  class="fixed inset-0 z-50 m-auto w-full max-w-2xl rounded-2xl border border-zinc-800 bg-[#0c0d14]/95 p-0 text-zinc-100 shadow-2xl backdrop:bg-black/75 backdrop:backdrop-blur-sm open:flex open:flex-col"
+>
+  <div class="flex items-center border-b border-zinc-800/80 px-4 py-3 sm:px-5">
+    <svg class="h-5 w-5 shrink-0 text-zinc-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+    </svg>
+    <input
+      type="text"
+      id="search-input"
+      placeholder="Search logs, thoughts, tags, or architectures..."
+      class="w-full bg-transparent text-sm sm:text-base text-white placeholder-zinc-500 focus:outline-none"
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <kbd
+      id="search-close-btn"
+      class="ml-2 cursor-pointer rounded border border-zinc-700/80 bg-zinc-800/60 px-2 py-0.5 text-[11px] font-mono text-zinc-400 hover:text-white transition-colors"
+      title="Close modal"
+    >
+      ESC
+    </kbd>
+  </div>
+
+  <div id="search-results" class="max-h-[60vh] overflow-y-auto p-2 sm:p-3 divide-y divide-zinc-800/40">
+    <!-- Populated dynamically via JS -->
+  </div>
+
+  <div class="flex items-center justify-between border-t border-zinc-800/80 px-4 py-2 text-[11px] font-mono text-zinc-500 bg-zinc-950/40">
+    <div class="flex items-center gap-3">
+      <span><kbd class="text-zinc-400">↑</kbd> <kbd class="text-zinc-400">↓</kbd> to navigate</span>
+      <span><kbd class="text-zinc-400">↵</kbd> to select</span>
+    </div>
+    <span id="search-count" class="text-zinc-400">Showing all</span>
+  </div>
+</dialog>
+
+<script id="search-index-data" type="application/json" set:html={JSON.stringify(searchIndex)} />
+
+<script>
+  function setupSearch() {
+    const dialog = document.getElementById('search-dialog') as HTMLDialogElement | null;
+    const input = document.getElementById('search-input') as HTMLInputElement | null;
+    const resultsContainer = document.getElementById('search-results');
+    const searchCount = document.getElementById('search-count');
+    const triggerButtons = document.querySelectorAll('.search-trigger-btn');
+    const closeBtn = document.getElementById('search-close-btn');
+
+    const rawData = document.getElementById('search-index-data')?.textContent;
+    if (!dialog || !input || !resultsContainer || !rawData) return;
+
+    interface SearchItem {
+      title: string;
+      url: string;
+      type: string;
+      typeBadge: string;
+      typeLabel: string;
+      project: string;
+      category: string;
+      tags: string[];
+      date: string;
+      description?: string;
+    }
+
+    const items: SearchItem[] = JSON.parse(rawData);
+    let selectedIndex = 0;
+    let filteredItems: SearchItem[] = [];
+
+    function renderResults(filtered: SearchItem[]) {
+      filteredItems = filtered;
+      selectedIndex = 0;
+
+      if (!resultsContainer) return;
+
+      if (filtered.length === 0) {
+        resultsContainer.innerHTML = `
+          <div class="py-12 text-center text-zinc-500 font-mono text-xs">
+            No matching logs, thoughts, or topics found.
+          </div>
+        `;
+        if (searchCount) searchCount.textContent = '0 results';
+        return;
+      }
+
+      resultsContainer.innerHTML = filtered
+        .map(
+          (item, idx) => `
+          <a
+            href="${item.url}"
+            class="search-item group flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-xl p-3 text-left transition-all hover:bg-zinc-800/60 ${
+              idx === selectedIndex ? 'bg-zinc-800/60 ring-1 ring-sky-500/30' : ''
+            }"
+            data-index="${idx}"
+          >
+            <div class="flex items-start sm:items-center gap-3 min-w-0">
+              <span class="shrink-0 text-[10px] font-mono font-medium border rounded px-2 py-0.5 ${item.typeBadge}">
+                ${item.typeLabel}
+              </span>
+              <div class="min-w-0">
+                <div class="text-sm font-medium text-zinc-200 group-hover:text-sky-300 transition-colors truncate">
+                  ${item.title}
+                </div>
+                ${
+                  item.description
+                    ? `<div class="text-xs text-zinc-400 line-clamp-1 mt-0.5">${item.description}</div>`
+                    : ''
+                }
+              </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0 text-[11px] font-mono text-zinc-500 self-end sm:self-auto">
+              ${item.category ? `<span class="hidden md:inline text-zinc-400 capitalize">${item.category}</span>` : ''}
+              <span>${item.date}</span>
+            </div>
+          </a>
+        `
+        )
+        .join('');
+
+      if (searchCount) searchCount.textContent = `${filtered.length} item${filtered.length === 1 ? '' : 's'}`;
+    }
+
+    function filterData(query: string) {
+      const q = query.trim().toLowerCase();
+      if (!q) {
+        renderResults(items);
+        return;
+      }
+
+      const qTokens = q.split(/\s+/);
+      const matches = items.filter((item) => {
+        const targetString = `${item.title} ${item.type} ${item.project} ${item.category} ${item.tags.join(' ')} ${
+          item.description || ''
+        }`.toLowerCase();
+        return qTokens.every((token) => targetString.includes(token));
+      });
+
+      renderResults(matches);
+    }
+
+    function openModal() {
+      dialog?.showModal();
+      input?.focus();
+      renderResults(items);
+    }
+
+    function closeModal() {
+      dialog?.close();
+    }
+
+    // Triggers
+    triggerButtons.forEach((btn) => {
+      btn.addEventListener('click', openModal);
+    });
+
+    closeBtn?.addEventListener('click', closeModal);
+
+    // Click backdrop to close
+    dialog.addEventListener('click', (e) => {
+      const rect = dialog.getBoundingClientRect();
+      const isInDialog =
+        rect.top <= e.clientY &&
+        e.clientY <= rect.top + rect.height &&
+        rect.left <= e.clientX &&
+        e.clientX <= rect.left + rect.width;
+      if (!isInDialog) {
+        closeModal();
+      }
+    });
+
+    input.addEventListener('input', () => {
+      filterData(input.value);
+    });
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      // Cmd+K or Ctrl+K or / to open
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        if (dialog.open) {
+          closeModal();
+        } else {
+          openModal();
+        }
+      } else if (e.key === '/' && !dialog.open) {
+        const activeTag = document.activeElement?.tagName.toLowerCase();
+        if (activeTag !== 'input' && activeTag !== 'textarea') {
+          e.preventDefault();
+          openModal();
+        }
+      } else if (dialog.open) {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (filteredItems.length > 0) {
+            selectedIndex = (selectedIndex + 1) % filteredItems.length;
+            updateSelectedUI();
+          }
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (filteredItems.length > 0) {
+            selectedIndex = (selectedIndex - 1 + filteredItems.length) % filteredItems.length;
+            updateSelectedUI();
+          }
+        } else if (e.key === 'Enter') {
+          if (filteredItems[selectedIndex]) {
+            e.preventDefault();
+            window.location.href = filteredItems[selectedIndex].url;
+          }
+        }
+      }
+    });
+
+    function updateSelectedUI() {
+      const allItemElements = resultsContainer?.querySelectorAll('.search-item');
+      allItemElements?.forEach((el, idx) => {
+        if (idx === selectedIndex) {
+          el.classList.add('bg-zinc-800/60', 'ring-1', 'ring-sky-500/30');
+          el.scrollIntoView({ block: 'nearest' });
+        } else {
+          el.classList.remove('bg-zinc-800/60', 'ring-1', 'ring-sky-500/30');
+        }
+      });
+    }
+  }
+
+  // Setup on initial page load
+  setupSearch();
+  // Support Astro View Transitions if enabled
+  document.addEventListener('astro:page-load', setupSearch);
+</script>

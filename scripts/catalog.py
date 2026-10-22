@@ -198,7 +198,12 @@ def index_vault():
     site_content = BASE_DIR / "site" / "src" / "content"
     if site_content.exists():
         import shutil
-        for folder, src in [("entries", ENTRIES_DIR), ("blogs", SHOWCASE_DIR / "blogs"), ("vlogs", SHOWCASE_DIR / "vlogs")]:
+        for folder, src in [
+            ("entries", ENTRIES_DIR),
+            ("blogs", SHOWCASE_DIR / "blogs"),
+            ("vlogs", SHOWCASE_DIR / "vlogs"),
+            ("thoughts", SHOWCASE_DIR / "thoughts"),
+        ]:
             dest = site_content / folder
             if src.exists():
                 if dest.is_symlink():
