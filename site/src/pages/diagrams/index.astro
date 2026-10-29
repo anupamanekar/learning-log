@@ -82,32 +82,32 @@ const diagrams = [
 ---
 
 <BaseLayout title="Architecture Diagrams — dev.journal" description="Interactive architectural diagrams and system models.">
-  <div class="mb-10 border-b border-zinc-800/80 pb-8">
-    <div class="flex items-center gap-2 text-xs font-mono text-sky-400 mb-3">
+  <div class="mb-10 border-b border-[#E5DEC9] dark:border-zinc-800/80 pb-8">
+    <div class="flex items-center gap-2 text-xs font-mono text-sky-700 dark:text-sky-400 mb-3">
       <a href="/" class="hover:underline">Home</a>
-      <span class="text-zinc-600">/</span>
-      <span class="text-zinc-400">Architecture Diagrams</span>
+      <span class="text-stone-400 dark:text-zinc-600">/</span>
+      <span class="text-stone-600 dark:text-zinc-400">Architecture Diagrams</span>
     </div>
-    <h1 class="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-white mb-2.5">
+    <h1 class="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-stone-900 dark:text-white mb-2.5">
       Architecture Diagrams & Models
     </h1>
-    <p class="text-sm sm:text-base text-zinc-300 max-w-3xl leading-relaxed">
+    <p class="text-sm sm:text-base text-stone-600 dark:text-zinc-300 max-w-3xl leading-relaxed">
       Interactive system architecture diagrams, state machines, and relational models harvested from active codebases.
     </p>
   </div>
 
   <div class="space-y-10">
     {diagrams.map((d) => (
-      <section class="rounded-2xl border border-zinc-800/80 bg-zinc-900/40 backdrop-blur-sm p-6 sm:p-8 shadow-sm">
+      <section class="rounded-2xl border border-[#E2DAC7] dark:border-zinc-800/80 bg-[#F3EFE6]/75 dark:bg-zinc-900/40 backdrop-blur-sm p-6 sm:p-8 shadow-sm">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-4">
           <ProjectBadge project={d.project} size="md" />
-          <span class="text-xs font-mono text-zinc-500 bg-zinc-900/60 border border-zinc-800/80 rounded-full px-3 py-1">
+          <span class="text-xs font-mono text-stone-600 dark:text-zinc-500 bg-[#EAE3D3] dark:bg-zinc-900/60 border border-[#DDD5C2] dark:border-zinc-800/80 rounded-full px-3 py-1">
             Interactive Model
           </span>
         </div>
 
-        <h2 class="text-xl sm:text-2xl font-display font-bold text-white mb-2.5 leading-snug">{d.title}</h2>
-        <p class="text-sm sm:text-base text-zinc-300 mb-6 leading-relaxed max-w-4xl">{d.description}</p>
+        <h2 class="text-xl sm:text-2xl font-display font-bold text-stone-900 dark:text-white mb-2.5 leading-snug">{d.title}</h2>
+        <p class="text-sm sm:text-base text-stone-600 dark:text-zinc-300 mb-6 leading-relaxed max-w-4xl">{d.description}</p>
 
         <Mermaid code={d.code} title={d.title} />
       </section>

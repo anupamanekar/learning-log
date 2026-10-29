@@ -1,6 +1,5 @@
 ---
 // Navbar.astro
-import { getCollection } from 'astro:content';
 import SearchModal from './SearchModal.astro';
 
 const navLinks = [
@@ -8,55 +7,162 @@ const navLinks = [
   { href: '/logs', label: 'Engineering Logs' },
   { href: '/thoughts', label: 'Thoughts' },
   { href: '/diagrams', label: 'Architecture Diagrams' },
+  { href: '/profile', label: 'Profile' },
 ];
 
-const entries = await getCollection('entries');
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) => {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+};
 ---
 
-<header class="sticky top-0 z-40 w-full border-b border-zinc-800/80 bg-[#090a0f]/80 backdrop-blur-md">
-  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-    <div class="flex items-center gap-8">
-      <a href="/" class="flex items-center gap-2 font-mono font-bold text-lg text-zinc-100 hover:text-sky-400 transition-colors group">
-        <span class="text-sky-400 text-xl group-hover:scale-110 transition-transform">⚡</span>
-        <span>dev.journal<span class="text-sky-500 animate-pulse">_</span></span>
+<header class="sticky top-0 z-40 w-full border-b border-[#E5DEC9] dark:border-zinc-800/80 bg-[#FAF6EE]/85 dark:bg-[#090a0f]/80 backdrop-blur-md transition-colors duration-200">
+  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-4 sm:px-6">
+    <div class="flex items-center gap-8 min-w-0">
+      <a href="/" class="shrink-0 whitespace-nowrap flex items-center gap-2 font-mono font-bold text-lg text-stone-900 dark:text-zinc-100 hover:text-sky-600 dark:hover:text-sky-400 transition-colors group">
+        <span class="text-sky-600 dark:text-sky-400 text-xl group-hover:scale-110 transition-transform">⚡</span>
+        <span>dev.journal<span class="text-sky-600 dark:text-sky-500 animate-pulse">_</span></span>
       </a>
 
-      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-zinc-400">
-        {navLinks.map((link) => (
-          <a
-            href={link.href}
-            class="hover:text-white transition-colors py-1 relative hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:w-full hover:after:h-[2px] hover:after:bg-sky-400 hover:after:rounded-full"
-          >
-            {link.label}
-          </a>
-        ))}
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-stone-600 dark:text-zinc-400">
+        {navLinks.map((link) => {
+          const active = isActive(link.href);
+          return (
+            <a
+              href={link.href}
+              class:list={[
+                'whitespace-nowrap shrink-0 transition-colors py-1 relative hover:text-stone-950 dark:hover:text-white hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:w-full hover:after:h-[2px] hover:after:bg-sky-600 dark:hover:after:bg-sky-400 hover:after:rounded-full',
+                active
+                  ? 'text-stone-950 dark:text-white font-semibold after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-sky-600 dark:after:bg-sky-400 after:rounded-full'
+                  : '',
+              ]}
+            >
+              {link.label}
+            </a>
+          );
+        })}
       </nav>
     </div>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
       <button
         type="button"
-        class="search-trigger-btn flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-3.5 py-1.5 text-xs font-medium text-zinc-400 hover:border-zinc-700 hover:text-white hover:bg-zinc-900 transition-all shadow-sm cursor-pointer"
+        class="search-trigger-btn shrink-0 whitespace-nowrap flex items-center gap-2 rounded-full border border-[#DDD5C0] dark:border-zinc-800 bg-[#F2ECE0]/80 dark:bg-zinc-900/60 px-3 sm:px-3.5 py-1.5 text-xs font-medium text-stone-600 dark:text-zinc-400 hover:border-[#C8BFA8] dark:hover:border-zinc-700 hover:text-stone-900 dark:hover:text-white hover:bg-[#EBE3D3] dark:hover:bg-zinc-900 transition-all shadow-sm cursor-pointer"
         aria-label="Search content"
       >
-        <svg class="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-3.5 h-3.5 shrink-0 text-stone-500 dark:text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
         </svg>
-        <span class="hidden sm:inline">Search...</span>
-        <kbd class="hidden sm:inline font-mono text-[10px] text-zinc-500 bg-zinc-800/80 border border-zinc-700/60 rounded px-1.5 py-0.5">⌘K</kbd>
+        <span class="hidden lg:inline">Search...</span>
+        <kbd class="hidden sm:inline font-mono text-[10px] text-stone-500 dark:text-zinc-500 bg-[#E6DFCE] dark:bg-zinc-800/80 border border-[#D4CBB6] dark:border-zinc-700/60 rounded px-1.5 py-0.5">⌘K</kbd>
       </button>
 
-      <a
-        href="/logs"
-        class="hidden sm:inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:border-zinc-700 hover:text-white hover:bg-zinc-900 transition-all shadow-sm"
+      <!-- Theme Selector (Light / Dark) -->
+      <div
+        class="shrink-0 whitespace-nowrap inline-flex items-center rounded-full border border-[#DDD5C0] dark:border-zinc-800 bg-[#F2ECE0]/80 dark:bg-zinc-900/60 p-0.5 text-xs font-medium shadow-sm"
+        role="group"
+        aria-label="Theme selector"
       >
-        <span>All Logs</span>
-        <span class="rounded-full bg-sky-500/10 border border-sky-500/20 px-2 py-0.5 text-[10px] font-mono font-medium text-sky-400">
-          {entries.length}
-        </span>
-      </a>
+        <button
+          type="button"
+          data-theme-btn="light"
+          class="theme-select-btn whitespace-nowrap flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-mono transition-all cursor-pointer text-stone-900 bg-[#FAF6EE] shadow-xs border border-[#DDD5C0] dark:bg-transparent dark:border-transparent dark:text-zinc-400 dark:hover:text-zinc-200"
+          aria-label="Switch to Light theme"
+          title="Light theme (Cream)"
+        >
+          <svg class="w-3.5 h-3.5 shrink-0 text-amber-600 dark:text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+          </svg>
+          <span class="hidden sm:inline">Light</span>
+        </button>
+        <button
+          type="button"
+          data-theme-btn="dark"
+          class="theme-select-btn whitespace-nowrap flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-mono transition-all cursor-pointer text-stone-500 hover:text-stone-800 border border-transparent dark:bg-zinc-800 dark:border-zinc-700/80 dark:text-zinc-100 dark:shadow-xs"
+          aria-label="Switch to Dark theme"
+          title="Dark theme"
+        >
+          <svg class="w-3.5 h-3.5 shrink-0 text-stone-500 dark:text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+          </svg>
+          <span class="hidden sm:inline">Dark</span>
+        </button>
+      </div>
     </div>
   </div>
+
+  <!-- Mobile Navigation Bar -->
+  <nav class="flex md:hidden items-center gap-4 overflow-x-auto border-t border-[#E5DEC9]/70 dark:border-zinc-800/60 px-4 py-2 text-xs font-medium text-stone-600 dark:text-zinc-400">
+    {navLinks.map((link) => {
+      const active = isActive(link.href);
+      return (
+        <a
+          href={link.href}
+          class:list={[
+            'whitespace-nowrap py-0.5 transition-colors hover:text-stone-950 dark:hover:text-white',
+            active ? 'text-sky-700 dark:text-sky-400 font-semibold' : '',
+          ]}
+        >
+          {link.label}
+        </a>
+      );
+    })}
+  </nav>
 </header>
 
 <SearchModal />
+
+<script>
+  function setupThemeSelector() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.theme-select-btn');
+
+    function applyTheme(theme: 'light' | 'dark', save = true) {
+      const root = document.documentElement;
+      if (theme === 'dark') {
+        root.classList.add('dark');
+        root.classList.remove('light');
+      } else {
+        root.classList.add('light');
+        root.classList.remove('dark');
+      }
+      root.dataset.theme = theme;
+      const meta = document.querySelector('meta[name="color-scheme"]');
+      if (meta) meta.setAttribute('content', theme);
+
+      if (save) {
+        localStorage.setItem('theme', theme);
+      }
+
+      buttons.forEach((btn) => {
+        const btnTheme = btn.getAttribute('data-theme-btn');
+        btn.setAttribute('aria-pressed', String(btnTheme === theme));
+      });
+
+      window.dispatchEvent(new CustomEvent('theme-change', { detail: { theme } }));
+    }
+
+    const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    buttons.forEach((btn) => {
+      const btnTheme = btn.getAttribute('data-theme-btn');
+      btn.setAttribute('aria-pressed', String(btnTheme === currentTheme));
+      btn.addEventListener('click', () => {
+        if (btnTheme === 'light' || btnTheme === 'dark') {
+          applyTheme(btnTheme, true);
+        }
+      });
+    });
+
+    // React to OS level changes if user hasn't pinned a preference
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        applyTheme(e.matches ? 'dark' : 'light', false);
+      }
+    });
+  }
+
+  setupThemeSelector();
+  document.addEventListener('astro:page-load', setupThemeSelector);
+</script>
+

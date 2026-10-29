@@ -7,20 +7,20 @@ interface Props {
 const { code, title } = Astro.props;
 ---
 
-<div class="my-6 rounded-lg border border-zinc-800 bg-zinc-900/50 p-4 overflow-hidden mermaid-card">
+<div class="my-6 rounded-lg border border-[#DDD5C2] dark:border-zinc-800 bg-[#F3EFE6]/90 dark:bg-zinc-900/50 p-4 overflow-hidden mermaid-card transition-colors duration-200">
   {title && (
-    <div class="mb-3 flex items-center justify-between border-b border-zinc-800 pb-2 text-xs font-mono text-zinc-400">
+    <div class="mb-3 flex items-center justify-between border-b border-[#E5DEC9] dark:border-zinc-800 pb-2 text-xs font-mono text-stone-600 dark:text-zinc-400">
       <span>📐 {title}</span>
-      <span class="text-[10px] text-zinc-500">Mermaid Diagram</span>
+      <span class="text-[10px] text-stone-500 dark:text-zinc-500">Mermaid Diagram</span>
     </div>
   )}
   <!-- Hidden raw source preserving whitespace -->
   <pre class="mermaid-source hidden">{code ? code : <slot />}</pre>
   
   <!-- Diagram render container -->
-  <div class="mermaid-output flex justify-center items-center py-4 min-h-[140px] overflow-x-auto text-zinc-300">
-    <div class="mermaid-loading flex items-center gap-2 text-xs font-mono text-zinc-500">
-      <span class="inline-block w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
+  <div class="mermaid-output flex justify-center items-center py-4 min-h-[140px] overflow-x-auto text-stone-800 dark:text-zinc-300">
+    <div class="mermaid-loading flex items-center gap-2 text-xs font-mono text-stone-500 dark:text-zinc-500">
+      <span class="inline-block w-2 h-2 rounded-full bg-sky-600 dark:bg-sky-400 animate-ping"></span>
       <span>Rendering architecture diagram...</span>
     </div>
   </div>
@@ -29,32 +29,50 @@ const { code, title } = Astro.props;
 <script>
   import mermaid from 'mermaid';
 
-  mermaid.initialize({
-    startOnLoad: false,
-    securityLevel: 'loose',
-    theme: 'dark',
-    themeVariables: {
-      darkMode: true,
-      background: '#18181b',
-      primaryColor: '#0284c7',
-      primaryTextColor: '#f4f4f5',
-      primaryBorderColor: '#38bdf8',
-      lineColor: '#71717a',
-      secondaryColor: '#1e1b4b',
-      tertiaryColor: '#064e3b',
-    },
-    fontFamily: 'JetBrains Mono, monospace',
-  });
-
   let counter = 0;
 
-  async function renderDiagrams() {
+  function configureMermaid(isDark: boolean) {
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'loose',
+      theme: isDark ? 'dark' : 'base',
+      themeVariables: isDark
+        ? {
+            darkMode: true,
+            background: '#18181b',
+            primaryColor: '#0284c7',
+            primaryTextColor: '#f4f4f5',
+            primaryBorderColor: '#38bdf8',
+            lineColor: '#71717a',
+            secondaryColor: '#1e1b4b',
+            tertiaryColor: '#064e3b',
+          }
+        : {
+            darkMode: false,
+            background: '#F3EFE6',
+            primaryColor: '#E0F2FE',
+            primaryTextColor: '#1C1917',
+            primaryBorderColor: '#0284C7',
+            lineColor: '#57534E',
+            secondaryColor: '#EDE9FE',
+            tertiaryColor: '#FAF6EE',
+            clusterBkg: '#EDE7D9',
+            clusterBorder: '#D6CEBF',
+          },
+      fontFamily: 'JetBrains Mono, monospace',
+    });
+  }
+
+  async function renderDiagrams(force = false) {
+    const isDark = document.documentElement.classList.contains('dark');
+    configureMermaid(isDark);
+
     const cards = document.querySelectorAll('.mermaid-card');
     for (const card of cards) {
       const source = card.querySelector('.mermaid-source');
       const output = card.querySelector('.mermaid-output');
       if (!source || !output) continue;
-      if (output.getAttribute('data-rendered') === 'true') continue;
+      if (!force && output.getAttribute('data-rendered') === 'true') continue;
 
       const rawGraph = (source.textContent || '').trim();
       if (!rawGraph) continue;
@@ -73,10 +91,10 @@ const { code, title } = Astro.props;
       } catch (err) {
         console.error('Failed to render diagram:', err);
         output.innerHTML = `
-          <div class="w-full text-xs font-mono text-amber-400/90 bg-amber-950/20 border border-amber-800/40 rounded p-4">
-            <div class="font-semibold text-amber-300 mb-1">Diagram Render Warning</div>
-            <p class="text-zinc-400 mb-2">Displaying source definition:</p>
-            <pre class="bg-zinc-950 p-3 rounded text-[11px] text-zinc-300 overflow-x-auto whitespace-pre">${rawGraph}</pre>
+          <div class="w-full text-xs font-mono text-amber-800 dark:text-amber-400/90 bg-amber-100/60 dark:bg-amber-950/20 border border-amber-400/50 dark:border-amber-800/40 rounded p-4">
+            <div class="font-semibold text-amber-900 dark:text-amber-300 mb-1">Diagram Render Warning</div>
+            <p class="text-stone-600 dark:text-zinc-400 mb-2">Displaying source definition:</p>
+            <pre class="bg-[#EDE7D9] dark:bg-zinc-950 p-3 rounded text-[11px] text-stone-800 dark:text-zinc-300 overflow-x-auto whitespace-pre">${rawGraph}</pre>
           </div>
         `;
         output.setAttribute('data-rendered', 'error');
@@ -85,10 +103,11 @@ const { code, title } = Astro.props;
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', renderDiagrams);
+    document.addEventListener('DOMContentLoaded', () => renderDiagrams(false));
   } else {
-    renderDiagrams();
+    renderDiagrams(false);
   }
 
-  window.addEventListener('load', renderDiagrams);
+  window.addEventListener('load', () => renderDiagrams(false));
+  window.addEventListener('theme-change', () => renderDiagrams(true));
 </script>

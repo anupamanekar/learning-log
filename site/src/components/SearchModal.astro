@@ -10,7 +10,7 @@ const searchIndex = [
     title: e.data.title,
     url: `/logs/${e.slug}`,
     type: 'Log',
-    typeBadge: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
+    typeBadge: 'bg-sky-500/15 text-sky-700 dark:text-sky-400 border-sky-600/25 dark:border-sky-500/20',
     typeLabel: 'Log',
     project: e.data.project || '',
     category: (e.data.category || '').replace(/-/g, ' '),
@@ -22,7 +22,7 @@ const searchIndex = [
     title: t.data.title,
     url: `/thoughts/${t.slug}`,
     type: 'Thought',
-    typeBadge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+    typeBadge: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-600/25 dark:border-emerald-500/20',
     typeLabel: 'Thought',
     project: 'Perspective',
     category: 'Essays',
@@ -34,7 +34,7 @@ const searchIndex = [
     title: 'Architecture & System Flow Diagrams',
     url: '/diagrams',
     type: 'Diagram',
-    typeBadge: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+    typeBadge: 'bg-purple-500/15 text-purple-700 dark:text-purple-400 border-purple-600/25 dark:border-purple-500/20',
     typeLabel: 'Diagram',
     project: 'astrological-signals-engine',
     category: 'Architecture',
@@ -48,39 +48,39 @@ const searchIndex = [
 <!-- Search Dialog Modal -->
 <dialog
   id="search-dialog"
-  class="fixed inset-0 z-50 m-auto w-full max-w-2xl rounded-2xl border border-zinc-800 bg-[#0c0d14]/95 p-0 text-zinc-100 shadow-2xl backdrop:bg-black/75 backdrop:backdrop-blur-sm open:flex open:flex-col"
+  class="fixed inset-0 z-50 m-auto w-full max-w-2xl rounded-2xl border border-[#DDD5C2] dark:border-zinc-800 bg-[#FAF6EE]/95 dark:bg-[#0c0d14]/95 p-0 text-stone-900 dark:text-zinc-100 shadow-2xl backdrop:bg-stone-900/40 dark:backdrop:bg-black/75 backdrop:backdrop-blur-sm open:flex open:flex-col"
 >
-  <div class="flex items-center border-b border-zinc-800/80 px-4 py-3 sm:px-5">
-    <svg class="h-5 w-5 shrink-0 text-zinc-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <div class="flex items-center border-b border-[#E5DEC9] dark:border-zinc-800/80 px-4 py-3 sm:px-5">
+    <svg class="h-5 w-5 shrink-0 text-stone-500 dark:text-zinc-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
     </svg>
     <input
       type="text"
       id="search-input"
       placeholder="Search logs, thoughts, tags, or architectures..."
-      class="w-full bg-transparent text-sm sm:text-base text-white placeholder-zinc-500 focus:outline-none"
+      class="w-full bg-transparent text-sm sm:text-base text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-zinc-500 focus:outline-none"
       autocomplete="off"
       spellcheck="false"
     />
     <kbd
       id="search-close-btn"
-      class="ml-2 cursor-pointer rounded border border-zinc-700/80 bg-zinc-800/60 px-2 py-0.5 text-[11px] font-mono text-zinc-400 hover:text-white transition-colors"
+      class="ml-2 cursor-pointer rounded border border-[#D4CBB6] dark:border-zinc-700/80 bg-[#EBE3D3] dark:bg-zinc-800/60 px-2 py-0.5 text-[11px] font-mono text-stone-600 dark:text-zinc-400 hover:text-stone-950 dark:hover:text-white transition-colors"
       title="Close modal"
     >
       ESC
     </kbd>
   </div>
 
-  <div id="search-results" class="max-h-[60vh] overflow-y-auto p-2 sm:p-3 divide-y divide-zinc-800/40">
+  <div id="search-results" class="max-h-[60vh] overflow-y-auto p-2 sm:p-3 divide-y divide-[#E5DEC9]/60 dark:divide-zinc-800/40">
     <!-- Populated dynamically via JS -->
   </div>
 
-  <div class="flex items-center justify-between border-t border-zinc-800/80 px-4 py-2 text-[11px] font-mono text-zinc-500 bg-zinc-950/40">
+  <div class="flex items-center justify-between border-t border-[#E5DEC9] dark:border-zinc-800/80 px-4 py-2 text-[11px] font-mono text-stone-500 dark:text-zinc-500 bg-[#F2ECE0]/80 dark:bg-zinc-950/40">
     <div class="flex items-center gap-3">
-      <span><kbd class="text-zinc-400">↑</kbd> <kbd class="text-zinc-400">↓</kbd> to navigate</span>
-      <span><kbd class="text-zinc-400">↵</kbd> to select</span>
+      <span><kbd class="text-stone-700 dark:text-zinc-400">↑</kbd> <kbd class="text-stone-700 dark:text-zinc-400">↓</kbd> to navigate</span>
+      <span><kbd class="text-stone-700 dark:text-zinc-400">↵</kbd> to select</span>
     </div>
-    <span id="search-count" class="text-zinc-400">Showing all</span>
+    <span id="search-count" class="text-stone-600 dark:text-zinc-400">Showing all</span>
   </div>
 </dialog>
 
@@ -123,7 +123,7 @@ const searchIndex = [
 
       if (filtered.length === 0) {
         resultsContainer.innerHTML = `
-          <div class="py-12 text-center text-zinc-500 font-mono text-xs">
+          <div class="py-12 text-center text-stone-500 dark:text-zinc-500 font-mono text-xs">
             No matching logs, thoughts, or topics found.
           </div>
         `;
@@ -136,8 +136,8 @@ const searchIndex = [
           (item, idx) => `
           <a
             href="${item.url}"
-            class="search-item group flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-xl p-3 text-left transition-all hover:bg-zinc-800/60 ${
-              idx === selectedIndex ? 'bg-zinc-800/60 ring-1 ring-sky-500/30' : ''
+            class="search-item group flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-xl p-3 text-left transition-all hover:bg-[#EDE6D6] dark:hover:bg-zinc-800/60 ${
+              idx === selectedIndex ? 'bg-[#EDE6D6] dark:bg-zinc-800/60 ring-1 ring-sky-600/30 dark:ring-sky-500/30' : ''
             }"
             data-index="${idx}"
           >
@@ -146,18 +146,18 @@ const searchIndex = [
                 ${item.typeLabel}
               </span>
               <div class="min-w-0">
-                <div class="text-sm font-medium text-zinc-200 group-hover:text-sky-300 transition-colors truncate">
+                <div class="text-sm font-medium text-stone-800 dark:text-zinc-200 group-hover:text-sky-700 dark:group-hover:text-sky-300 transition-colors truncate">
                   ${item.title}
                 </div>
                 ${
                   item.description
-                    ? `<div class="text-xs text-zinc-400 line-clamp-1 mt-0.5">${item.description}</div>`
+                    ? `<div class="text-xs text-stone-500 dark:text-zinc-400 line-clamp-1 mt-0.5">${item.description}</div>`
                     : ''
                 }
               </div>
             </div>
-            <div class="flex items-center gap-2 shrink-0 text-[11px] font-mono text-zinc-500 self-end sm:self-auto">
-              ${item.category ? `<span class="hidden md:inline text-zinc-400 capitalize">${item.category}</span>` : ''}
+            <div class="flex items-center gap-2 shrink-0 text-[11px] font-mono text-stone-500 dark:text-zinc-500 self-end sm:self-auto">
+              ${item.category ? `<span class="hidden md:inline text-stone-600 dark:text-zinc-400 capitalize">${item.category}</span>` : ''}
               <span>${item.date}</span>
             </div>
           </a>
@@ -262,10 +262,10 @@ const searchIndex = [
       const allItemElements = resultsContainer?.querySelectorAll('.search-item');
       allItemElements?.forEach((el, idx) => {
         if (idx === selectedIndex) {
-          el.classList.add('bg-zinc-800/60', 'ring-1', 'ring-sky-500/30');
+          el.classList.add('bg-[#EDE6D6]', 'dark:bg-zinc-800/60', 'ring-1', 'ring-sky-600/30', 'dark:ring-sky-500/30');
           el.scrollIntoView({ block: 'nearest' });
         } else {
-          el.classList.remove('bg-zinc-800/60', 'ring-1', 'ring-sky-500/30');
+          el.classList.remove('bg-[#EDE6D6]', 'dark:bg-zinc-800/60', 'ring-1', 'ring-sky-600/30', 'dark:ring-sky-500/30');
         }
       });
     }
