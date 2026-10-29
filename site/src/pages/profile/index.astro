@@ -1,0 +1,337 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectBadge from '../../components/ProjectBadge.astro';
+
+const hats = [
+  {
+    icon: '🧠',
+    role: 'Hat 01 // Agentic & GenAI Architect',
+    title: 'Multi-Model & Agentic Systems Design',
+    summary:
+      'Operationalizing agentic workflows beyond prototypes—converting traditional software layers (requirements, orchestration, observability, and evals) into deterministic, production-grade AI pipelines.',
+    proofPoints: [
+      'Architected modular multi-model engines orchestrating frontier commercial LLMs and open-weight models on dedicated Cloud GPUs.',
+      'Led enterprise AI Center of Excellence initiatives using agentic frameworks (Google ADK, CrewAI, LangChain, and coding agents) for automated security vulnerability remediation, feature delivery, and clinical data extraction.',
+      'Streamlined requirement curation from raw user stories and issue trackers using EARS (Easy Approach to Requirements Syntax) to eliminate prompt ambiguity before code generation.',
+    ],
+    tags: ['Google ADK', 'CrewAI', 'LangChain', 'Agentic Workflows', 'EARS Spec', 'RAG & Vector Search'],
+  },
+  {
+    icon: '⚙️',
+    role: 'Hat 02 // Hands-On Full-Stack & Cloud Builder',
+    title: 'End-to-End Product & Distributed Infra Engineering',
+    summary:
+      'Writing production code across the entire stack—from React/TypeScript interfaces and FastAPI microservices to async Cloud Pub/Sub media workers and Terraform IaC.',
+    proofPoints: [
+      'Built full-stack AI platforms from the ground up using FastAPI (Clean Architecture), React 18/TypeScript, and a hybrid PostgreSQL + Firestore data tier.',
+      'Engineered event-driven 1080p video and multilingual audio synthesis pipelines (Cloud Pub/Sub, FFmpeg, Pillow, TTS & generative media APIs), cutting media processing costs by ~70%.',
+      'Implemented RBAC, JWT auth with SHA-256 refresh token rotation, short-lived cloud storage signed URLs, and automated cloud infrastructure provisioning via Terraform.',
+    ],
+    tags: ['Python', 'FastAPI', 'React 18', 'TypeScript', 'PostgreSQL', 'Firestore', 'Cloud Pub/Sub', 'Terraform'],
+  },
+  {
+    icon: '🛡️',
+    role: 'Hat 03 // Adversarial QA & Eval Strategist',
+    title: 'Verification as the Core AI Bottleneck',
+    summary:
+      'When coding agents generate implementation at 10x speed, verification becomes the primary engineering bottleneck. Twenty years of test architecture directly powers rigorous AI evals and guardrails.',
+    proofPoints: [
+      'Designed multi-tiered verification suites (500+ Pytest/Vitest unit and integration tests with >70–90% sprint coverage) and adversarial review checklists to catch agentic regressions.',
+      'Built golden-dataset evaluation pipelines and deterministic temporal causality audits (zero-hallucination and zero-date-leak verification ledgers).',
+      'Previously scaled a 50+ member Product Engineering team and architected custom Test Management Systems (250K+ records) and 35K+ automated API/BDD test suites.',
+    ],
+    tags: ['LLM Evals', 'Golden Datasets', 'Pytest & Vitest', 'Adversarial Review', 'BDD / SpecFlow', 'Performance / JMeter'],
+  },
+  {
+    icon: '🚀',
+    role: 'Hat 04 // Product Co-Founder & Domain Translator',
+    title: '0-to-1 Product Ownership & Cross-Domain Execution',
+    summary:
+      'Bridging business economics, UX workflows, and deep technical constraints across Healthcare, Capital Markets, EdTech, and Consumer platforms.',
+    proofPoints: [
+      'Co-founded and built a 0-to-1 consumer aggregation platform end-to-end, spanning mobile applications, vendor administration portals, and real-time analytics.',
+      'Directed end-to-end delivery of cross-platform mobile apps (React Native iOS/Android), CSR portals, Electron desktop apps, and AI/ML Excel Office API add-ins backed by Spring Boot and .NET microservices.',
+      'Delivered mission-critical domain systems across Healthcare IT (clinical data ingestion, cloud analytics warehouses), Capital Markets (low-latency repo/gilts order-matching engines, YTM calculators, in-memory market-watch caching), and Utilities.',
+    ],
+    tags: ['0-to-1 Product', 'Healthcare IT', 'FinOps & GPU Economics', 'Capital Markets', 'UX & Analytics'],
+  },
+  {
+    icon: '🧭',
+    role: 'Hat 05 // Engineering Director & Practice Leader',
+    title: 'Org-Wide AI Enablement, Delivery & Pre-Sales',
+    summary:
+      'Leading cross-functional global teams (1 to 50+ engineers), turning emerging GenAI capabilities into repeatable organizational practices, POCs, and measurable delivery outcomes.',
+    proofPoints: [
+      'Directed GenAI practice operations, engineering delivery, technical workshops, hackathons, and talent acquisition for agentic and ML engineering roles.',
+      'Partnered with executive and sales leadership to architect high-impact GenAI POCs, turn around high-risk enterprise engagements, and establish quantitative workflow efficiency metrics.',
+      'Recognized with multiple industry leadership honors for technical ownership, test automation architecture, and delivery excellence.',
+    ],
+    tags: ['GenAI Practice', 'Team Leadership (1–50+)', 'Pre-Sales & POCs', 'Agile Delivery', 'Talent & Hiring'],
+  },
+];
+---
+
+<BaseLayout
+  title="Anup Manekar — Profile & AI Engineering Narrative"
+  description="20+ year Tech-Functional Architect, GenAI Practice Director, and Hands-On Full-Stack AI Builder wearing multiple hats across agentic architecture, code, evals, and delivery."
+>
+  <!-- Hero / Identity Header -->
+  <section class="mb-12 border-b border-[#E5DEC9] dark:border-zinc-800/80 pb-10">
+    <div class="flex items-center gap-2 text-xs font-mono text-sky-700 dark:text-sky-400 mb-4">
+      <a href="/" class="hover:underline">Home</a>
+      <span class="text-stone-400 dark:text-zinc-600">/</span>
+      <span class="text-stone-600 dark:text-zinc-400">Profile</span>
+    </div>
+
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+      <div>
+        <div class="inline-flex items-center gap-2 rounded-full border border-sky-600/25 dark:border-sky-500/20 bg-sky-600/10 dark:bg-sky-500/10 px-3.5 py-1 text-xs font-mono text-sky-800 dark:text-sky-400 mb-4">
+          <span class="inline-block w-2 h-2 rounded-full bg-sky-600 dark:bg-sky-400 animate-pulse"></span>
+          <span>20+ Years • Architect • Hands-On AI Builder • Engineering Director</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-display font-extrabold text-stone-900 dark:text-white mb-3 leading-[1.2]">
+          Anup Manekar
+        </h1>
+
+        <p class="text-base sm:text-lg font-medium text-stone-700 dark:text-zinc-200 max-w-3xl leading-relaxed">
+          Tech-Functional Architect & GenAI Practice Director
+        </p>
+      </div>
+
+      <!-- Contact & Links Pill Bar -->
+      <div class="flex flex-wrap items-center gap-2.5 text-xs font-mono shrink-0">
+        <a
+          href="https://github.com/anupmanekar"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 rounded-full border border-[#DDD5C2] dark:border-zinc-800 bg-[#F3EFE6] dark:bg-zinc-900/80 px-3.5 py-2 text-stone-800 dark:text-zinc-200 hover:border-sky-600/50 dark:hover:border-sky-500/50 hover:text-sky-700 dark:hover:text-sky-300 transition-all shadow-xs"
+        >
+          <span>GitHub</span>
+          <span>↗</span>
+        </a>
+        <a
+          href="https://in.linkedin.com/in/anupmanekar"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 rounded-full border border-[#DDD5C2] dark:border-zinc-800 bg-[#F3EFE6] dark:bg-zinc-900/80 px-3.5 py-2 text-stone-800 dark:text-zinc-200 hover:border-sky-600/50 dark:hover:border-sky-500/50 hover:text-sky-700 dark:hover:text-sky-300 transition-all shadow-xs"
+        >
+          <span>LinkedIn</span>
+          <span>↗</span>
+        </a>
+        <a
+          href="mailto:manekar.anup@gmail.com"
+          class="inline-flex items-center gap-1.5 rounded-full border border-[#DDD5C2] dark:border-zinc-800 bg-[#F3EFE6] dark:bg-zinc-900/80 px-3.5 py-2 text-stone-800 dark:text-zinc-200 hover:border-sky-600/50 dark:hover:border-sky-500/50 hover:text-sky-700 dark:hover:text-sky-300 transition-all shadow-xs"
+        >
+          <span>manekar.anup@gmail.com</span>
+        </a>
+        <span class="inline-flex items-center gap-1.5 rounded-full border border-[#E2DAC7] dark:border-zinc-800/80 bg-[#EDE7D9]/70 dark:bg-zinc-900/40 px-3.5 py-2 text-stone-600 dark:text-zinc-400">
+          <span>📍 Toronto, ON</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Narrative: Wearing Multiple Hats in the AI Era -->
+  <section class="mb-14 rounded-3xl border border-[#DDD5C2] dark:border-zinc-800/80 bg-gradient-to-br from-[#F3EFE6] via-[#EFE9DC] to-[#EAE2D1] dark:from-zinc-900/70 dark:via-zinc-900/40 dark:to-zinc-950 p-6 sm:p-10 shadow-md dark:shadow-lg">
+    <div class="max-w-4xl">
+      <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-sky-700 dark:text-sky-400 font-semibold mb-3">
+        <span>⚡</span>
+        <span>The AI Engineering Thesis</span>
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl font-display font-bold text-stone-900 dark:text-white mb-4 leading-snug">
+        Why Wearing Multiple Hats is the Defining Requirement in the AI Era
+      </h2>
+
+      <div class="space-y-4 text-sm sm:text-base text-stone-700 dark:text-zinc-300 leading-relaxed">
+        <p>
+          Traditional software orgs were built around strict silos: product managers wrote stories, architects drew system boundaries, backend and frontend developers implemented features, QA engineers wrote regression suites, and DevOps managed cloud pipelines.
+        </p>
+        <p>
+          <strong class="text-stone-950 dark:text-white font-semibold">Agentic engineering collapses those silos into a single feedback loop.</strong> When AI coding agents and multi-model LLM pipelines can generate thousands of lines of code in minutes, the bottleneck shifts from typing syntax to <strong class="text-stone-950 dark:text-white font-semibold">problem specification, system boundary design, adversarial verification, and unit economics</strong>. If an engineer cannot wear all of those hats simultaneously, AI velocity backfires—vague specs produce hallucinated logic, weak architecture creates brittle coupling, and missing verification lets subtle regressions slip into production.
+        </p>
+        <p>
+          Over <strong class="text-stone-950 dark:text-white font-semibold">20+ years</strong> across London, Toronto, the US, and India—spanning low-latency bond trading engines, a 0-to-1 startup co-founding role, a 50+ member Product Engineering team, and enterprise GenAI practice leadership—I have lived inside every one of those roles first-hand. Today, I combine them to take AI-native products from <strong class="text-stone-950 dark:text-white font-semibold">EARS specification → clean distributed architecture → multi-model orchestration → adversarial evals → Terraform cloud deployment</strong>.
+        </p>
+      </div>
+
+      <!-- Quick Proof Metrics -->
+      <div class="mt-8 pt-6 border-t border-[#DDD5C2] dark:border-zinc-800/80 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="rounded-2xl border border-[#DDD5C2] dark:border-zinc-800/80 bg-[#FAF6EE]/80 dark:bg-zinc-950/60 p-4">
+          <div class="text-2xl font-display font-extrabold text-stone-900 dark:text-white">20+ yrs</div>
+          <div class="text-xs font-mono text-stone-600 dark:text-zinc-400 mt-0.5">Systems, QA & AI Architecture</div>
+        </div>
+        <div class="rounded-2xl border border-[#DDD5C2] dark:border-zinc-800/80 bg-[#FAF6EE]/80 dark:bg-zinc-950/60 p-4">
+          <div class="text-2xl font-display font-extrabold text-sky-700 dark:text-sky-400">5 Hats</div>
+          <div class="text-xs font-mono text-stone-600 dark:text-zinc-400 mt-0.5">Arch • Code • Eval • Product • Ops</div>
+        </div>
+        <div class="rounded-2xl border border-[#DDD5C2] dark:border-zinc-800/80 bg-[#FAF6EE]/80 dark:bg-zinc-950/60 p-4">
+          <div class="text-2xl font-display font-extrabold text-stone-900 dark:text-white">~70%</div>
+          <div class="text-xs font-mono text-stone-600 dark:text-zinc-400 mt-0.5">Media & Compute Cost Reduction</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The 5 Hats Matrix -->
+  <section class="mb-14">
+    <div class="mb-6">
+      <h2 class="text-xl sm:text-2xl font-display font-bold text-stone-900 dark:text-white flex items-center gap-2">
+        <span>🎩</span>
+        <span>The 5 Hats I Wear in AI & Agentic Engineering</span>
+      </h2>
+      <p class="text-xs sm:text-sm text-stone-600 dark:text-zinc-400 mt-1">
+        How two decades of cross-disciplinary depth converge into modern AI-native execution
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      {hats.map((hat, idx) => (
+        <article
+          class:list={[
+            'flex flex-col justify-between rounded-2xl border border-[#E2DAC7] dark:border-zinc-800/80 bg-[#F3EFE6]/75 dark:bg-zinc-900/40 backdrop-blur-sm p-6 hover:border-[#C8BFA8] dark:hover:border-zinc-700 transition-all shadow-sm',
+            idx === hats.length - 1 ? 'md:col-span-2' : '',
+          ]}
+        >
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="text-xs font-mono font-semibold text-sky-700 dark:text-sky-400 bg-sky-600/10 dark:bg-sky-500/10 border border-sky-600/20 dark:border-sky-500/20 rounded-full px-3 py-0.5">
+                {hat.role}
+              </span>
+              <span class="text-xl">{hat.icon}</span>
+            </div>
+
+            <h3 class="text-lg font-display font-bold text-stone-900 dark:text-white mb-2">
+              {hat.title}
+            </h3>
+
+            <p class="text-sm text-stone-600 dark:text-zinc-300 leading-relaxed mb-4">
+              {hat.summary}
+            </p>
+
+            <ul class="space-y-2 mb-5 text-xs sm:text-sm text-stone-700 dark:text-zinc-300">
+              {hat.proofPoints.map((pt) => (
+                <li class="flex items-start gap-2">
+                  <span class="text-sky-600 dark:text-sky-400 font-mono mt-0.5">▹</span>
+                  <span>{pt}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="pt-3.5 border-t border-[#E2DAC7] dark:border-zinc-800/70 flex flex-wrap gap-1.5">
+            {hat.tags.map((t) => (
+              <span class="inline-flex items-center rounded-full bg-[#EDE7D9] dark:bg-zinc-900/80 border border-[#DDD5C2] dark:border-zinc-800 px-2.5 py-0.5 text-[11px] font-mono text-stone-700 dark:text-zinc-400">
+                {t}
+              </span>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Active Production Workspaces Featured in Vault -->
+  <section class="mb-14">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+      <div>
+        <h2 class="text-xl sm:text-2xl font-display font-bold text-stone-900 dark:text-white flex items-center gap-2">
+          <span>🔬</span>
+          <span>Active AI Workspaces Documented in This Vault</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-stone-600 dark:text-zinc-400 mt-1">
+          Real production systems where these hats are applied daily
+        </p>
+      </div>
+      <a href="/logs" class="text-xs font-mono font-medium text-sky-700 dark:text-sky-400 hover:underline">
+        Explore all field logs →
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div class="rounded-2xl border border-[#E2DAC7] dark:border-zinc-800/80 bg-[#F3EFE6]/75 dark:bg-zinc-900/40 p-6">
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <ProjectBadge project="adaptive-edtech-platform" size="md" />
+          <span class="text-xs font-mono text-stone-500 dark:text-zinc-500">Creator & Lead Dev</span>
+        </div>
+        <h3 class="text-lg font-display font-bold text-stone-900 dark:text-white mb-2">
+          Adaptive EdTech & Multimodal Learning Platform
+        </h3>
+        <p class="text-sm text-stone-600 dark:text-zinc-300 leading-relaxed mb-4">
+          Full-stack adaptive learning platform combining FastAPI (Clean Architecture), React 18/TypeScript, PostgreSQL + Firestore, multi-model LLM ingestion, and Cloud Pub/Sub 1080p video/audio synthesis workers.
+        </p>
+        <div class="text-xs font-mono text-stone-600 dark:text-zinc-400 bg-[#EAE3D3]/80 dark:bg-zinc-950/70 border border-[#DDD5C2] dark:border-zinc-800/80 rounded-xl p-3">
+          Key Outcomes: ~70% media synthesis cost reduction • 500+ Pytest/Vitest suite (&gt;70% coverage) • Terraform GCP IaC
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-[#E2DAC7] dark:border-zinc-800/80 bg-[#F3EFE6]/75 dark:bg-zinc-900/40 p-6">
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <ProjectBadge project="astrological-signals-engine" size="md" />
+          <span class="text-xs font-mono text-stone-500 dark:text-zinc-500">Systems & RAG Architect</span>
+        </div>
+        <h3 class="text-lg font-display font-bold text-stone-900 dark:text-white mb-2">
+          High-Throughput Ingestion & Vector RAG Engine
+        </h3>
+        <p class="text-sm text-stone-600 dark:text-zinc-300 leading-relaxed mb-4">
+          Multi-stage document extraction and 768-dim vector RAG pipeline offloading heavy LLM inference to dedicated Cloud GPUs with deterministic temporal causality auditing and PostgreSQL GIN JSONB acceleration.
+        </p>
+        <div class="text-xs font-mono text-stone-600 dark:text-zinc-400 bg-[#EAE3D3]/80 dark:bg-zinc-950/70 border border-[#DDD5C2] dark:border-zinc-800/80 rounded-xl p-3">
+          Key Outcomes: Zero-hallucination verification ledger • Cloud GPU vs API FinOps optimization • Sub-millisecond JSONB indexing
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education & Certifications -->
+  <section class="grid grid-cols-1 md:grid-cols-2 gap-5">
+    <div class="rounded-2xl border border-[#E2DAC7] dark:border-zinc-800/80 bg-[#F3EFE6]/75 dark:bg-zinc-900/40 p-6">
+      <h2 class="text-lg font-display font-bold text-stone-900 dark:text-white mb-4 flex items-center gap-2">
+        <span>🎓</span>
+        <span>Education</span>
+      </h2>
+      <div class="space-y-4">
+        <div class="border-b border-[#E2DAC7] dark:border-zinc-800/70 pb-4">
+          <div class="text-xs font-mono text-sky-700 dark:text-sky-400">London, UK</div>
+          <div class="text-base font-display font-bold text-stone-900 dark:text-white mt-0.5">
+            London School of Economics and Political Science (LSE)
+          </div>
+          <div class="text-sm text-stone-600 dark:text-zinc-300 mt-0.5">
+            M.Sc. Analysis, Design and Management of Information Systems
+          </div>
+        </div>
+        <div>
+          <div class="text-xs font-mono text-sky-700 dark:text-sky-400">Surat, India</div>
+          <div class="text-base font-display font-bold text-stone-900 dark:text-white mt-0.5">
+            Veer Narmad South Gujarat University
+          </div>
+          <div class="text-sm text-stone-600 dark:text-zinc-300 mt-0.5">
+            B.E. in Computer Engineering
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rounded-2xl border border-[#E2DAC7] dark:border-zinc-800/80 bg-[#F3EFE6]/75 dark:bg-zinc-900/40 p-6">
+      <h2 class="text-lg font-display font-bold text-stone-900 dark:text-white mb-4 flex items-center gap-2">
+        <span>🏅</span>
+        <span>Certifications & Credentials</span>
+      </h2>
+      <ul class="space-y-2.5 text-xs sm:text-sm text-stone-700 dark:text-zinc-300">
+        <li class="flex items-start gap-2">
+          <span class="text-sky-600 dark:text-sky-400 font-mono">▹</span>
+          <span><strong class="text-stone-900 dark:text-white">GenAI & ML Specializations:</strong> Transformer Models & BERT, Attention Mechanism, Encoder-Decoder Architecture, Vertex AI, Image Captioning Models, Responsible AI.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-sky-600 dark:text-sky-400 font-mono">▹</span>
+          <span><strong class="text-stone-900 dark:text-white">Google Cloud Certifications:</strong> Architecting with Google Compute Engine, Reliable & Elastic GCP Infrastructure (Scaling & Automation), Core Infrastructure.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-sky-600 dark:text-sky-400 font-mono">▹</span>
+          <span><strong class="text-stone-900 dark:text-white">Delivery & Quality Credentials:</strong> PRINCE2 Certified Practitioner, ISTQB Foundation Certified.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

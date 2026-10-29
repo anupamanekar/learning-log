@@ -8,29 +8,29 @@ const { project = 'general', size = 'sm' } = Astro.props;
 
 const styles: Record<string, { bg: string; text: string; border: string; label: string }> = {
   'astrological-signals-engine': {
-    bg: 'bg-purple-950/40',
-    text: 'text-purple-300',
-    border: 'border-purple-800/60',
+    bg: 'bg-purple-100/80 dark:bg-purple-950/40',
+    text: 'text-purple-800 dark:text-purple-300',
+    border: 'border-purple-300/80 dark:border-purple-800/60',
     label: 'astrological-signals-engine',
   },
   'adaptive-edtech-platform': {
-    bg: 'bg-emerald-950/40',
-    text: 'text-emerald-300',
-    border: 'border-emerald-800/60',
+    bg: 'bg-emerald-100/80 dark:bg-emerald-950/40',
+    text: 'text-emerald-800 dark:text-emerald-300',
+    border: 'border-emerald-300/80 dark:border-emerald-800/60',
     label: 'adaptive-edtech-platform',
   },
   'core-platform': {
-    bg: 'bg-blue-950/40',
-    text: 'text-blue-300',
-    border: 'border-blue-800/60',
+    bg: 'bg-blue-100/80 dark:bg-blue-950/40',
+    text: 'text-blue-800 dark:text-blue-300',
+    border: 'border-blue-300/80 dark:border-blue-800/60',
     label: 'core-platform',
   },
 };
 
 const badge = styles[project] || {
-  bg: 'bg-zinc-900',
-  text: 'text-zinc-300',
-  border: 'border-zinc-800',
+  bg: 'bg-[#EDE7D9] dark:bg-zinc-900',
+  text: 'text-stone-700 dark:text-zinc-300',
+  border: 'border-[#DDD5C2] dark:border-zinc-800',
   label: project.replace('-platform', '').replace('ai-', ''),
 };
 

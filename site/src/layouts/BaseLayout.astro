@@ -19,6 +19,25 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
+    <script is:inline>
+      {
+        const storedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = storedTheme === 'light' || storedTheme === 'dark' ? storedTheme : (prefersDark ? 'dark' : 'dark');
+        const root = document.documentElement;
+        if (theme === 'dark') {
+          root.classList.add('dark');
+          root.classList.remove('light');
+        } else {
+          root.classList.add('light');
+          root.classList.remove('dark');
+        }
+        root.dataset.theme = theme;
+        const meta = document.querySelector('meta[name="color-scheme"]');
+        if (meta) meta.setAttribute('content', theme);
+      }
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
@@ -30,10 +49,10 @@ const {
       rel="stylesheet"
     />
   </head>
-  <body class="min-h-screen bg-[#090a0f] text-zinc-100 font-sans antialiased selection:bg-sky-500/25 selection:text-sky-200 relative overflow-x-hidden">
+  <body class="min-h-screen bg-[#FAF6EE] dark:bg-[#090a0f] text-stone-800 dark:text-zinc-100 font-sans antialiased selection:bg-sky-500/20 selection:text-sky-900 dark:selection:bg-sky-500/25 dark:selection:text-sky-200 relative overflow-x-hidden transition-colors duration-200">
     <!-- Ambient radial gradient for editorial depth -->
-    <div class="fixed inset-0 -z-10 pointer-events-none bg-[radial-gradient(ellipse_80%_60%_at_50%_-15%,rgba(14,165,233,0.08),rgba(255,255,255,0))]"></div>
-    <div class="fixed inset-0 -z-10 pointer-events-none bg-[radial-gradient(ellipse_60%_40%_at_80%_60%,rgba(99,102,241,0.04),rgba(255,255,255,0))]"></div>
+    <div class="fixed inset-0 -z-10 pointer-events-none bg-[radial-gradient(ellipse_80%_60%_at_50%_-15%,rgba(2,132,199,0.06),rgba(250,246,238,0))] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_-15%,rgba(14,165,233,0.08),rgba(255,255,255,0))]"></div>
+    <div class="fixed inset-0 -z-10 pointer-events-none bg-[radial-gradient(ellipse_60%_40%_at_80%_60%,rgba(180,140,80,0.05),rgba(250,246,238,0))] dark:bg-[radial-gradient(ellipse_60%_40%_at_80%_60%,rgba(99,102,241,0.04),rgba(255,255,255,0))]"></div>
 
     <div class="relative flex min-h-screen flex-col">
       <Navbar />
@@ -43,5 +62,12 @@ const {
       <Footer />
     </div>
     <Analytics />
+    <style is:global>
+      /* Prevent Plus Jakarta Sans 'fi' ligature from slicing the arch of 'f' in headings */
+      .font-display, h1, h2, h3, h4 {
+        font-variant-ligatures: no-common-ligatures;
+        font-feature-settings: "liga" 0, "clig" 0;
+      }
+    </style>
   </body>
 </html>
