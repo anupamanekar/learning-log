@@ -1,0 +1,335 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Mermaid from '../../components/Mermaid.astro';
+import ProjectBadge from '../../components/ProjectBadge.astro';
+import TagPill from '../../components/TagPill.astro';
+
+const astroDiagramCode = `flowchart TD
+    Wiki["Source Documents & Web Records"] --> Stage1["Stage 1: Profile & Event Extraction<br/>(scripts/ingest_wikipedia.py)"]
+    
+    subgraph Compute_Inference ["Compute Inference Layer"]
+      Stage1 -->|HTTP POST :11434| RunPod["Cloud GPU (RTX 4090)<br/>Ollama llama3.1:8b (4 Parallel Workers)"]
+      Stage1 -.->|Burst API Fallback| Claude["Anthropic Claude Haiku API"]
+    end
+
+    RunPod --> Stage2["Stage 2: Deterministic Audit Validation<br/>(audit_ingestion.py)"]
+    Stage2 -->|Zero Date Leaks / Verified Invariants| DB[("PostgreSQL 16 Relational DB<br/>Profiles, Transits & Life Events")]
+    
+    DB --> Stage5["Stage 5: Vector RAG Indexing<br/>(build_rag_store.py)"]
+    Stage5 -->|search_document: prefix| Nomic["nomic-embed-text (768-dim)"]
+    Nomic --> VecDB[("Vector Storage (pgvector / sqlite-vec)<br/>HNSW Indexes")]`;
+
+const edtechDiagramCode = `graph LR
+    User["Client App (React + Vite)"] -->|REST / POST| API["FastAPI Web Server<br/>(Lightweight, Port 8001)"]
+    API -->|Write Job State| FS["Firestore<br/>(Real-time State Sync)"]
+    API -->|Publish Event| PS["Google Cloud Pub/Sub"]
+    
+    subgraph Isolated_Worker_Pods ["Decoupled Worker Pods"]
+      PS -->|Topic: audio-generation| AW["AudioWorker<br/>(Sarvam AI / TTS Synthesis)"]
+      PS -->|Topic: video-composition| VW["VideoWorker<br/>(FFmpeg Subprocess + Ephemeral Disk)"]
+    end
+
+    AW -->|Audio Stream| GCS["Object Storage (GCS)<br/>media-bucket"]
+    VW -->|Rendered MP4| GCS
+    User -.->|Listen Progress / Status| FS
+    User -->|Stream Native MP4| GCS`;
+
+const schemaDiagramCode = `erDiagram
+    USERS ||--o{ USER_PLANS : purchases
+    PLANS ||--o{ USER_PLANS : links
+    FEATURES ||--o{ PLANS : specifies
+    
+    USERS {
+      int id PK
+      string email
+      string role
+    }
+    
+    FEATURES {
+      int id PK
+      string code UK "e.g. creator_studio, ai_tutor"
+      boolean is_active
+      string description
+    }
+    
+    PLANS {
+      int id PK
+      string feature_code FK
+      int duration_days "30 or 365"
+      int price_cents
+    }
+    
+    USER_PLANS {
+      int id PK
+      int user_id FK
+      int plan_id FK
+      datetime expires_at "Cumulative stacked expiry"
+    }`;
+---
+
+<BaseLayout 
+  title="Products & Engineering Architecture — dev.journal" 
+  description="Deep-dive architectural blueprints, tech stacks, and engineering innovations for our active core products: Astrological Signals Engine and Adaptive EdTech Platform."
+>
+  <!-- Breadcrumb & Header -->
+  <div class="mb-10 border-b border-[#E5DEC9] dark:border-zinc-800/80 pb-8">
+    <div class="flex items-center gap-2 text-xs font-mono text-sky-700 dark:text-sky-400 mb-3">
+      <a href="/" class="hover:underline">Home</a>
+      <span class="text-stone-400 dark:text-zinc-600">/</span>
+      <span class="text-stone-600 dark:text-zinc-400">Products</span>
+    </div>
+    
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div>
+        <h1 class="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-stone-900 dark:text-white mb-2.5">
+          Products in Active Development
+        </h1>
+        <p class="text-sm sm:text-base text-stone-600 dark:text-zinc-300 max-w-3xl leading-relaxed">
+          Detailed technical blueprints, pipelines, data models, and architectural decisions behind our two primary platforms.
+        </p>
+      </div>
+
+      <!-- Quick Jump Navigator -->
+      <div class="flex items-center gap-2 self-start lg:self-center bg-[#F3EFE6] dark:bg-zinc-900/60 p-1.5 rounded-full border border-[#E2DAC7] dark:border-zinc-800 text-xs font-mono">
+        <a href="#astro-engine" class="px-3 py-1 rounded-full text-stone-800 dark:text-zinc-200 hover:bg-[#EAE3D3] dark:hover:bg-zinc-800 transition-colors">
+          ⚡ Astro Engine
+        </a>
+        <a href="#edtech-platform" class="px-3 py-1 rounded-full text-stone-800 dark:text-zinc-200 hover:bg-[#EAE3D3] dark:hover:bg-zinc-800 transition-colors">
+          🎓 EdTech Platform
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT 1: ASTROLOGICAL SIGNALS ENGINE -->
+  <section id="astro-engine" class="mb-16 scroll-mt-24 rounded-3xl border border-[#E2DAC7] dark:border-zinc-800/80 bg-[#F3EFE6]/80 dark:bg-zinc-900/40 backdrop-blur-sm p-6 sm:p-10 shadow-sm">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+      <div class="flex items-center gap-2.5">
+        <ProjectBadge project="astrological-signals-engine" size="md" />
+        <span class="text-xs font-mono text-stone-600 dark:text-zinc-400 bg-[#EAE3D3] dark:bg-zinc-900/90 border border-[#DDD5C2] dark:border-zinc-800/80 rounded-full px-3 py-0.5">
+          v2.4 • Batch Ingestion & Signal Engine
+        </span>
+      </div>
+      <span class="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-600/20 px-3 py-0.5 rounded-full">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        Active Production Pipeline
+      </span>
+    </div>
+
+    <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-stone-900 dark:text-white mb-4">
+      Astrological Signals Engine
+    </h2>
+
+    <p class="text-sm sm:text-base text-stone-700 dark:text-zinc-300 leading-relaxed mb-6 max-w-4xl">
+      A high-throughput, deterministic correlation and signal synthesis engine designed to ingest massive historical and biographical corpora, extract structured chronologies, compute planetary transits, and perform low-latency vector similarity retrieval without temporal leakage.
+    </p>
+
+    <!-- Key Architectural Highlights Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+      <div class="rounded-2xl border border-[#DDD5C2] dark:border-zinc-800 bg-[#FAF6EE]/90 dark:bg-zinc-950/60 p-5">
+        <div class="flex items-center gap-2 text-sky-700 dark:text-sky-400 font-mono text-xs font-bold uppercase mb-2">
+          <span>⚡</span>
+          <span>Self-Hosted GPU Inference & Provider Fallback</span>
+        </div>
+        <p class="text-xs sm:text-sm text-stone-600 dark:text-zinc-400 leading-relaxed">
+          Offloads batch extraction to RunPod dedicated RTX 4090 GPUs running Ollama (<code class="text-xs bg-[#EAE3D3] dark:bg-zinc-800 px-1 py-0.5 rounded">llama3.1:8b</code> with 4 concurrent workers), reducing extraction cost by <strong>87%</strong> ($0.006 vs $0.048/profile) with zero-downtime fallback to Claude 3.5 Haiku.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-[#DDD5C2] dark:border-zinc-800 bg-[#FAF6EE]/90 dark:bg-zinc-950/60 p-5">
+        <div class="flex items-center gap-2 text-sky-700 dark:text-sky-400 font-mono text-xs font-bold uppercase mb-2">
+          <span>🧠</span>
+          <span>Asymmetric 768-Dim Vector RAG</span>
+        </div>
+        <p class="text-xs sm:text-sm text-stone-600 dark:text-zinc-400 leading-relaxed">
+          Migrated from Gemini embeddings to <code class="text-xs bg-[#EAE3D3] dark:bg-zinc-800 px-1 py-0.5 rounded">nomic-embed-text</code> with asymmetric task prefixes (<code class="text-xs bg-[#EAE3D3] dark:bg-zinc-800 px-1 py-0.5 rounded">search_document:</code> vs <code class="text-xs bg-[#EAE3D3] dark:bg-zinc-800 px-1 py-0.5 rounded">search_query:</code>), eliminating semantic collapse across multi-turn astrological queries.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-[#DDD5C2] dark:border-zinc-800 bg-[#FAF6EE]/90 dark:bg-zinc-950/60 p-5">
+        <div class="flex items-center gap-2 text-sky-700 dark:text-sky-400 font-mono text-xs font-bold uppercase mb-2">
+          <span>🚀</span>
+          <span>Sub-5ms JSONB Containment Queries</span>
+        </div>
+        <p class="text-xs sm:text-sm text-stone-600 dark:text-zinc-400 leading-relaxed">
+          Accelerated multi-tag profile and transit aspect lookups in PostgreSQL using specialized <code class="text-xs bg-[#EAE3D3] dark:bg-zinc-800 px-1 py-0.5 rounded">GIN jsonb_path_ops</code> indexing, dropping query latency from 120ms to 4.2ms on million-row datasets.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-[#DDD5C2] dark:border-zinc-800 bg-[#FAF6EE]/90 dark:bg-zinc-950/60 p-5">
+        <div class="flex items-center gap-2 text-sky-700 dark:text-sky-400 font-mono text-xs font-bold uppercase mb-2">
+          <span>🛡️</span>
+          <span>Zero-Hallucination Temporal Audit Ledger</span>
+        </div>
+        <p class="text-xs sm:text-sm text-stone-600 dark:text-zinc-400 leading-relaxed">
+          Deterministic audit layer catching date leaks, chronologically impossible life events, and retrocausal hallucinations before biographical data is persisted or converted to embeddings.
+        </p>
+      </div>
+    </div>
+
+    <!-- Architecture Pipeline Diagram -->
+    <div class="mb-8">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-lg font-display font-bold text-stone-900 dark:text-white flex items-center gap-2">
+          <span>📐</span>
+          <span>Multi-Stage Ingestion Pipeline & Compute Offload Architecture</span>
+        </h3>
+        <span class="text-xs font-mono text-stone-500 dark:text-zinc-500">Live Mermaid Topology</span>
+      </div>
+      <Mermaid code={astroDiagramCode} title="Multi-Stage Ingestion Pipeline & Cloud GPU Offload" />
+    </div>
+
+    <!-- Tech Stack Matrix -->
+    <div class="mb-8">
+      <h3 class="text-xs font-mono text-stone-500 dark:text-zinc-400 uppercase tracking-wider mb-3">Technology Stack</h3>
+      <div class="flex flex-wrap gap-2">
+        {['Python 3.11', 'FastAPI', 'PostgreSQL 16', 'pgvector (HNSW)', 'SQLAlchemy 2.0 (Async)', 'Alembic', 'RunPod RTX 4090', 'Ollama (llama3.1:8b)', 'Claude 3.5 Haiku', 'nomic-embed-text', 'sqlite-vec', 'AST Analysis'].map((tech) => (
+          <span class="text-xs font-mono px-3 py-1 rounded-full bg-[#EAE3D3] dark:bg-zinc-800/90 text-stone-800 dark:text-zinc-200 border border-[#DDD5C2] dark:border-zinc-700/80">
+            {tech}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- Curated Engineering Logs Links -->
+    <div class="border-t border-[#DDD5C2] dark:border-zinc-800/80 pt-6">
+      <h3 class="text-xs font-mono text-stone-500 dark:text-zinc-400 uppercase tracking-wider mb-3">Harvested Field Notes & Benchmarks</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <a href="/logs/ingestion-model-inference-benchmarks" class="text-xs font-medium text-stone-800 dark:text-zinc-200 hover:text-sky-700 dark:hover:text-sky-300 p-3 rounded-xl bg-[#FAF6EE] dark:bg-zinc-950/50 border border-[#DDD5C2] dark:border-zinc-800/80 block transition-colors">
+          <div class="font-semibold mb-1 text-stone-900 dark:text-white">Batch Model Benchmarks</div>
+          <p class="text-stone-500 dark:text-zinc-400 line-clamp-2">Llama 3.1 8B vs Claude Haiku vs Gemini Flash throughput analysis.</p>
+        </a>
+        <a href="/logs/claude-vs-runpod-cost-and-provider-switch" class="text-xs font-medium text-stone-800 dark:text-zinc-200 hover:text-sky-700 dark:hover:text-sky-300 p-3 rounded-xl bg-[#FAF6EE] dark:bg-zinc-950/50 border border-[#DDD5C2] dark:border-zinc-800/80 block transition-colors">
+          <div class="font-semibold mb-1 text-stone-900 dark:text-white">Claude vs RunPod Cost</div>
+          <p class="text-stone-500 dark:text-zinc-400 line-clamp-2">Self-hosted GPU cost breakdown and resilient .env provider switching.</p>
+        </a>
+        <a href="/logs/vector-embedding-model-selection-and-migration" class="text-xs font-medium text-stone-800 dark:text-zinc-200 hover:text-sky-700 dark:hover:text-sky-300 p-3 rounded-xl bg-[#FAF6EE] dark:bg-zinc-950/50 border border-[#DDD5C2] dark:border-zinc-800/80 block transition-colors">
+          <div class="font-semibold mb-1 text-stone-900 dark:text-white">Nomic Embeddings Migration</div>
+          <p class="text-stone-500 dark:text-zinc-400 line-clamp-2">Fixing semantic collapse via asymmetric task prefixes.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT 2: ADAPTIVE EDTECH PLATFORM -->
+  <section id="edtech-platform" class="mb-16 scroll-mt-24 rounded-3xl border border-[#E2DAC7] dark:border-zinc-800/80 bg-[#F3EFE6]/80 dark:bg-zinc-900/40 backdrop-blur-sm p-6 sm:p-10 shadow-sm">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+      <div class="flex items-center gap-2.5">
+        <ProjectBadge project="adaptive-edtech-platform" size="md" />
+        <span class="text-xs font-mono text-stone-600 dark:text-zinc-400 bg-[#EAE3D3] dark:bg-zinc-900/90 border border-[#DDD5C2] dark:border-zinc-800/80 rounded-full px-3 py-0.5">
+          v3.1 • Adaptive Learning & Media Generation
+        </span>
+      </div>
+      <span class="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-600/20 px-3 py-0.5 rounded-full">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        Active Production Pipeline
+      </span>
+    </div>
+
+    <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-stone-900 dark:text-white mb-4">
+      Adaptive EdTech Platform
+    </h2>
+
+    <p class="text-sm sm:text-base text-stone-700 dark:text-zinc-300 leading-relaxed mb-6 max-w-4xl">
+      An AI-driven educational platform synthesizing personalized, interactive video courses and audio lessons on demand. Combines multilingual text-to-speech, dynamic canvas animation, and decoupled media workers to deliver localized learning at massive scale.
+    </p>
+
+    <!-- Key Architectural Highlights Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+      <div class="rounded-2xl border border-[#DDD5C2] dark:border-zinc-800 bg-[#FAF6EE]/90 dark:bg-zinc-950/60 p-5">
+        <div class="flex items-center gap-2 text-sky-700 dark:text-sky-400 font-mono text-xs font-bold uppercase mb-2">
+          <span>📦</span>
+          <span>Decoupled Cloud Pub/Sub Worker Pods</span>
+        </div>
+        <p class="text-xs sm:text-sm text-stone-600 dark:text-zinc-400 leading-relaxed">
+          Decoupled heavy FFmpeg rendering and Sarvam AI TTS generation from the FastAPI web server. API endpoints respond in <code class="text-xs bg-[#EAE3D3] dark:bg-zinc-800 px-1 py-0.5 rounded">&lt;40ms</code> with HTTP 202 while autoscaling worker pods process queues asynchronously.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-[#DDD5C2] dark:border-zinc-800 bg-[#FAF6EE]/90 dark:bg-zinc-950/60 p-5">
+        <div class="flex items-center gap-2 text-sky-700 dark:text-sky-400 font-mono text-xs font-bold uppercase mb-2">
+          <span>🛡️</span>
+          <span>Ephemeral Disk Isolation & OOM Prevention</span>
+        </div>
+        <p class="text-xs sm:text-sm text-stone-600 dark:text-zinc-400 leading-relaxed">
+          Eliminated container crash loops by isolating media temp directories, wrapping subprocesses with memory guards, and implementing jittered exponential backoffs to sustain 5,000-user concurrent lesson generation.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-[#DDD5C2] dark:border-zinc-800 bg-[#FAF6EE]/90 dark:bg-zinc-950/60 p-5">
+        <div class="flex items-center gap-2 text-sky-700 dark:text-sky-400 font-mono text-xs font-bold uppercase mb-2">
+          <span>💳</span>
+          <span>Plans vs Feature Flags Relational Separation</span>
+        </div>
+        <p class="text-xs sm:text-sm text-stone-600 dark:text-zinc-400 leading-relaxed">
+          Enforced a strict relational architecture separating application feature capability flags from commercial duration plans, enabling cumulative stacking of subscription renewals without permission corruption.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-[#DDD5C2] dark:border-zinc-800 bg-[#FAF6EE]/90 dark:bg-zinc-950/60 p-5">
+        <div class="flex items-center gap-2 text-sky-700 dark:text-sky-400 font-mono text-xs font-bold uppercase mb-2">
+          <span>🎬</span>
+          <span>Vite ESM Native Video Player Architecture</span>
+        </div>
+        <p class="text-xs sm:text-sm text-stone-600 dark:text-zinc-400 leading-relaxed">
+          Replaced fragile third-party video player dependencies with lightweight, native HTML5/HLS video components, eliminating bundler breakage during Vite SSR and modern ESM builds.
+        </p>
+      </div>
+    </div>
+
+    <!-- Media Worker Architecture Diagram -->
+    <div class="mb-10">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-lg font-display font-bold text-stone-900 dark:text-white flex items-center gap-2">
+          <span>📐</span>
+          <span>Media Workers Decoupling & Queue Architecture</span>
+        </h3>
+        <span class="text-xs font-mono text-stone-500 dark:text-zinc-500">Live Mermaid Topology</span>
+      </div>
+      <Mermaid code={edtechDiagramCode} title="Media Workers Decoupling & Queue Architecture" />
+    </div>
+
+    <!-- Subscription Plans Schema Diagram -->
+    <div class="mb-8">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-lg font-display font-bold text-stone-900 dark:text-white flex items-center gap-2">
+          <span>📐</span>
+          <span>Subscription Plans vs Feature Flags Relational Schema</span>
+        </h3>
+        <span class="text-xs font-mono text-stone-500 dark:text-zinc-500">Live ER Diagram</span>
+      </div>
+      <Mermaid code={schemaDiagramCode} title="Subscription Plans vs Feature Flags Relational Schema" />
+    </div>
+
+    <!-- Tech Stack Matrix -->
+    <div class="mb-8">
+      <h3 class="text-xs font-mono text-stone-500 dark:text-zinc-400 uppercase tracking-wider mb-3">Technology Stack</h3>
+      <div class="flex flex-wrap gap-2">
+        {['React 18', 'Vite', 'TypeScript', 'Tailwind CSS', 'FastAPI', 'Google Cloud Pub/Sub', 'Cloud Firestore', 'Google Cloud Storage', 'FFmpeg', 'Sarvam AI (Indian TTS)', 'Pillow', 'JWT Auth'].map((tech) => (
+          <span class="text-xs font-mono px-3 py-1 rounded-full bg-[#EAE3D3] dark:bg-zinc-800/90 text-stone-800 dark:text-zinc-200 border border-[#DDD5C2] dark:border-zinc-700/80">
+            {tech}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- Curated Engineering Logs Links -->
+    <div class="border-t border-[#DDD5C2] dark:border-zinc-800/80 pt-6">
+      <h3 class="text-xs font-mono text-stone-500 dark:text-zinc-400 uppercase tracking-wider mb-3">Harvested Field Notes & Case Studies</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <a href="/logs/pubsub-event-driven-media-generation-scalability" class="text-xs font-medium text-stone-800 dark:text-zinc-200 hover:text-sky-700 dark:hover:text-sky-300 p-3 rounded-xl bg-[#FAF6EE] dark:bg-zinc-950/50 border border-[#DDD5C2] dark:border-zinc-800/80 block transition-colors">
+          <div class="font-semibold mb-1 text-stone-900 dark:text-white">Cloud Pub/Sub Scaling</div>
+          <p class="text-stone-500 dark:text-zinc-400 line-clamp-2">Decoupling audio/video workers to eliminate HTTP timeouts and container crashes.</p>
+        </a>
+        <a href="/logs/event-driven-worker-scalability-and-oom-isolation" class="text-xs font-medium text-stone-800 dark:text-zinc-200 hover:text-sky-700 dark:hover:text-sky-300 p-3 rounded-xl bg-[#FAF6EE] dark:bg-zinc-950/50 border border-[#DDD5C2] dark:border-zinc-800/80 block transition-colors">
+          <div class="font-semibold mb-1 text-stone-900 dark:text-white">OOM Isolation & Ephemeral Disks</div>
+          <p class="text-stone-500 dark:text-zinc-400 line-clamp-2">Handling 5,000-user concurrency with disk isolation and jittered retries.</p>
+        </a>
+        <a href="/logs/ai-agent-conflates-feature-flags-with-plans" class="text-xs font-medium text-stone-800 dark:text-zinc-200 hover:text-sky-700 dark:hover:text-sky-300 p-3 rounded-xl bg-[#FAF6EE] dark:bg-zinc-950/50 border border-[#DDD5C2] dark:border-zinc-800/80 block transition-colors">
+          <div class="font-semibold mb-1 text-stone-900 dark:text-white">Plans vs Feature Flags Schema</div>
+          <p class="text-stone-500 dark:text-zinc-400 line-clamp-2">Why AI agents conflate feature flags with duration plans and the schema invariant that fixes it.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
