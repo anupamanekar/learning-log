@@ -1,19 +1,75 @@
 {
-  "total_entries": 13,
-  "total_showcases": 12,
+  "total_entries": 15,
+  "total_showcases": 15,
   "categories": {
     "mistakes-and-pitfalls": 1,
     "testing-and-quality": 2,
     "performance-and-infra": 5,
-    "architecture-and-design": 3,
+    "architecture-and-design": 5,
     "ai-and-agentic-engineering": 2
   },
   "projects": {
-    "adaptive-edtech-platform": 5,
-    "astrological-signals-engine": 7,
+    "adaptive-edtech-platform": 6,
+    "astrological-signals-engine": 8,
     "all-projects": 1
   },
   "entries": [
+    {
+      "id": "astrological-signals-engine-architecture-overview",
+      "title": "Astrological Signals Engine: Batch Ingestion, GPU Offload, and Asymmetric Vector Architecture",
+      "project": "astrological-signals-engine",
+      "date": "2026-11-21",
+      "category": "architecture-and-design",
+      "tags": [
+        "astrological-signals-engine",
+        "architecture",
+        "gpu",
+        "rag",
+        "embeddings",
+        "nomic",
+        "postgresql",
+        "fastapi"
+      ],
+      "severity_or_impact": "Critical",
+      "showcase_potential": "Blog",
+      "status": "Synthesized",
+      "source_references": [
+        "backend/app/engine/llm/provider.py:216-296",
+        "backend/utils/embeddings.py:18-42",
+        "backend/scripts/build_rag_store.py:38-65",
+        "backend/app/db/models.py:210-223",
+        "docs/ARCHITECTURE.md:70-112"
+      ],
+      "rel_path": "entries/architecture-and-design/astrological-signals-engine-architecture-overview.md"
+    },
+    {
+      "id": "adaptive-edtech-platform-architecture-overview",
+      "title": "Adaptive EdTech Platform: Event-Driven Multimedia Workers, Ephemeral Disk Isolation, and Entitlement Modeling",
+      "project": "adaptive-edtech-platform",
+      "date": "2026-11-21",
+      "category": "architecture-and-design",
+      "tags": [
+        "adaptive-edtech-platform",
+        "architecture",
+        "pubsub",
+        "fastapi",
+        "workers",
+        "ffmpeg",
+        "firestore",
+        "vite"
+      ],
+      "severity_or_impact": "Critical",
+      "showcase_potential": "Blog",
+      "status": "Synthesized",
+      "source_references": [
+        "contentgen-services/app/services/pubsub_client.py:67-133",
+        "contentgen-services/app/entrypoints/video_worker.py:43-104",
+        "backend/app/adapters/api/payments.py:57-90",
+        "frontend/src/components/common/VideoPlayer.tsx:22-40",
+        "documentation/architecture/ARCHITECTURE_REVIEW_LOAD_LIMITS.md:7-45"
+      ],
+      "rel_path": "entries/architecture-and-design/adaptive-edtech-platform-architecture-overview.md"
+    },
     {
       "id": "ingestion-model-inference-benchmarks",
       "title": "Batch Ingestion Model Benchmarks: Llama 3.1 8B vs Claude Haiku vs Gemini Flash",
@@ -339,6 +395,72 @@
     }
   ],
   "showcases": [
+    {
+      "title": "Dev Log: Astrological Signals Engine \u2014 Batch Ingestion & GPU Compute Topology",
+      "slug": "astrological-signals-engine-product-architecture",
+      "project": "astrological-signals-engine",
+      "topic": "astrological-signals-engine-architecture-overview",
+      "date": "2026-11-21",
+      "status": "Published",
+      "tags": [
+        "astrological-signals-engine",
+        "architecture",
+        "gpu",
+        "rag",
+        "embeddings",
+        "dev-log"
+      ],
+      "references": [
+        "backend/app/engine/llm/provider.py:216-296",
+        "backend/utils/embeddings.py:18-42",
+        "backend/scripts/build_rag_store.py:38-65",
+        "docs/ARCHITECTURE.md:70-112"
+      ],
+      "rel_path": "showcase/blogs/astrological-signals-engine-product-architecture.md",
+      "type": "blogs"
+    },
+    {
+      "title": "Dev Log: Adaptive EdTech Platform \u2014 Cloud Pub/Sub Decoupled Worker Topology",
+      "slug": "adaptive-edtech-platform-product-architecture",
+      "project": "adaptive-edtech-platform",
+      "topic": "adaptive-edtech-platform-architecture-overview",
+      "date": "2026-11-21",
+      "status": "Published",
+      "tags": [
+        "adaptive-edtech-platform",
+        "architecture",
+        "pubsub",
+        "fastapi",
+        "workers",
+        "ffmpeg",
+        "dev-log"
+      ],
+      "references": [
+        "contentgen-services/app/services/pubsub_client.py:67-133",
+        "contentgen-services/app/entrypoints/video_worker.py:43-104",
+        "backend/app/domain/models/plan.py",
+        "documentation/architecture/ARCHITECTURE_REVIEW_LOAD_LIMITS.md:7-45"
+      ],
+      "rel_path": "showcase/blogs/adaptive-edtech-platform-product-architecture.md",
+      "type": "blogs"
+    },
+    {
+      "title": "Adversarial Review: Why AI-Generated Code and Tests Need a Multi-Level Breaker Loop",
+      "slug": "adversarial-review-ai-generated-code-tests",
+      "description": "Why high test coverage from AI models is often an illusion, and how implementing a 3-tier adversarial review pipeline grounded in ASDLC L3 autonomy caught real bugs before production.",
+      "date": "2026-10-21",
+      "status": "Published",
+      "tags": [
+        "ai-code-generation",
+        "adversarial-review",
+        "mutation-testing",
+        "asdlc",
+        "testing"
+      ],
+      "image": "/images/adversarial-review-pipeline.png",
+      "rel_path": "showcase/thoughts/adversarial-review-ai-generated-code-tests.md",
+      "type": "thoughts"
+    },
     {
       "title": "Dev Log: Fixing Semantic Collapse in Nomic Embeddings",
       "slug": "vector-embedding-model-evolution",

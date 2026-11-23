@@ -3,21 +3,21 @@
 > Authoritative index of all extracted learnings, architecture decisions, mistakes, and showcase drafts.
 
 ## 📊 Vault Statistics
-- **Total Documented Learnings**: 13
-- **Showcase Content Pieces**: 12
-- **Distinct Tags**: 67
+- **Total Documented Learnings**: 15
+- **Showcase Content Pieces**: 15
+- **Distinct Tags**: 70
 
 ### 📁 Distribution by Category
 - **`ai-and-agentic-engineering`**: 2 entries
-- **`architecture-and-design`**: 3 entries
+- **`architecture-and-design`**: 5 entries
 - **`mistakes-and-pitfalls`**: 1 entries
 - **`performance-and-infra`**: 5 entries
 - **`testing-and-quality`**: 2 entries
 
 ### 🚀 Distribution by Project
-- **`adaptive-edtech-platform`**: 5 entries
+- **`adaptive-edtech-platform`**: 6 entries
 - **`all-projects`**: 1 entries
-- **`astrological-signals-engine`**: 7 entries
+- **`astrological-signals-engine`**: 8 entries
 
 ---
 
@@ -25,6 +25,8 @@
 
 | Date | Title | Project | Category | Showcase Potential | Status | Link |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-11-21 | **Astrological Signals Engine: Batch Ingestion, GPU Offload, and Asymmetric Vector Architecture** | `astrological-signals-engine` | `architecture-and-design` | Blog | `Synthesized` | [Read Entry](entries/architecture-and-design/astrological-signals-engine-architecture-overview.md) |
+| 2026-11-21 | **Adaptive EdTech Platform: Event-Driven Multimedia Workers, Ephemeral Disk Isolation, and Entitlement Modeling** | `adaptive-edtech-platform` | `architecture-and-design` | Blog | `Synthesized` | [Read Entry](entries/architecture-and-design/adaptive-edtech-platform-architecture-overview.md) |
 | 2026-10-10 | **Batch Ingestion Model Benchmarks: Llama 3.1 8B vs Claude Haiku vs Gemini Flash** | `astrological-signals-engine` | `performance-and-infra` | Blog | `Synthesized` | [Read Entry](entries/performance-and-infra/ingestion-model-inference-benchmarks.md) |
 | 2026-10-10 | **Claude API vs RunPod Self-Hosted GPU: Cost-per-Profile Analysis and .env Provider Switching** | `astrological-signals-engine` | `performance-and-infra` | Blog | `Synthesized` | [Read Entry](entries/performance-and-infra/claude-vs-runpod-cost-and-provider-switch.md) |
 | 2026-10-10 | **Orchestrating Serverless GPU Embeddings on RunPod with Resilient Error Handling** | `astrological-signals-engine` | `performance-and-infra` | Blog | `Synthesized` | [Read Entry](entries/performance-and-infra/runpod-gpu-embedding-orchestration.md) |
@@ -45,6 +47,9 @@
 
 | Title | Medium | Status | Source Entry / Topic | Link |
 | :--- | :--- | :--- | :--- | :--- |
+| **Dev Log: Astrological Signals Engine — Batch Ingestion & GPU Compute Topology** | `BLOGS` | `Published` | `astrological-signals-engine-architecture-overview` | [View Draft](showcase/blogs/astrological-signals-engine-product-architecture.md) |
+| **Dev Log: Adaptive EdTech Platform — Cloud Pub/Sub Decoupled Worker Topology** | `BLOGS` | `Published` | `adaptive-edtech-platform-architecture-overview` | [View Draft](showcase/blogs/adaptive-edtech-platform-product-architecture.md) |
+| **Adversarial Review: Why AI-Generated Code and Tests Need a Multi-Level Breaker Loop** | `THOUGHTS` | `Published` | `N/A` | [View Draft](showcase/thoughts/adversarial-review-ai-generated-code-tests.md) |
 | **Dev Log: Fixing Semantic Collapse in Nomic Embeddings** | `BLOGS` | `Published` | `vector-embedding-model-selection-and-migration` | [View Draft](showcase/blogs/vector-embedding-model-evolution.md) |
 | **Dev Log: Scaling Audio & Video Generation via Pub/Sub Event Decoupling** | `BLOGS` | `Published` | `pubsub-event-driven-media-generation-scalability` | [View Draft](showcase/blogs/pubsub-scalable-media-content-generation.md) |
 | **Dev Log: Inference Performance & Model Benchmarks in Batch Ingestion** | `BLOGS` | `Published` | `claude-vs-runpod-cost-and-provider-switch` | [View Draft](showcase/blogs/ingestion-model-inference-benchmarks.md) |
@@ -62,4 +67,4 @@
 
 ## 🏷️ Tag Index
 
-`#fastapi` (5) • `#performance` (3) • `#runpod` (3) • `#react` (2) • `#llm` (2) • `#sqlalchemy` (2) • `#ollama` (2) • `#claude` (2) • `#embeddings` (2) • `#workers` (2) • `#event-driven` (2) • `#concurrency` (2) • `#ffmpeg` (2) • `#agentic-coding` (2) • `#vite` (1) • `#bundling` (1) • `#esm` (1) • `#video-player` (1) • `#frontend` (1) • `#hallucination` (1) • `#data-quality` (1) • `#knowledge-graph` (1) • `#pipeline` (1) • `#temporal-logic` (1) • `#ai-code-generation` (1) • `#testing-strategy` (1) • `#architecture-tests` (1) • `#ast-analysis` (1) • `#sast` (1) • `#postgresql` (1) • `#gin-index` (1) • `#jsonb_path_ops` (1) • `#database-indexing` (1) • `#llm-benchmarks` (1) • `#gemini` (1) • `#ingestion` (1) • `#throughput` (1) • `#cost-optimization` (1) • `#infrastructure` (1) • `#environment-config` (1) • `#gpu` (1) • `#serverless` (1) • `#retry-logic` (1) • `#oom` (1) • `#disk-isolation` (1) • `#retry-backoff` (1) • `#sarvam-ai` (1) • `#tts` (1) • `#rbac` (1) • `#ux` (1) • `#authorization` (1) • `#frontend-architecture` (1) • `#pubsub` (1) • `#scalability` (1) • `#firestore` (1) • `#rag` (1) • `#vector-search` (1) • `#nomic` (1) • `#pgvector` (1) • `#sqlite-vec` (1) • `#antigravity` (1) • `#code-review` (1) • `#business-invariants` (1) • `#quality-engineering` (1) • `#best-practices` (1) • `#database-design` (1) • `#anti-patterns` (1)
+`#fastapi` (7) • `#performance` (3) • `#runpod` (3) • `#embeddings` (3) • `#workers` (3) • `#ffmpeg` (3) • `#react` (2) • `#vite` (2) • `#llm` (2) • `#postgresql` (2) • `#sqlalchemy` (2) • `#ollama` (2) • `#claude` (2) • `#gpu` (2) • `#event-driven` (2) • `#concurrency` (2) • `#pubsub` (2) • `#firestore` (2) • `#rag` (2) • `#nomic` (2) • `#architecture` (2) • `#agentic-coding` (2) • `#bundling` (1) • `#esm` (1) • `#video-player` (1) • `#frontend` (1) • `#hallucination` (1) • `#data-quality` (1) • `#knowledge-graph` (1) • `#pipeline` (1) • `#temporal-logic` (1) • `#ai-code-generation` (1) • `#testing-strategy` (1) • `#architecture-tests` (1) • `#ast-analysis` (1) • `#sast` (1) • `#gin-index` (1) • `#jsonb_path_ops` (1) • `#database-indexing` (1) • `#llm-benchmarks` (1) • `#gemini` (1) • `#ingestion` (1) • `#throughput` (1) • `#cost-optimization` (1) • `#infrastructure` (1) • `#environment-config` (1) • `#serverless` (1) • `#retry-logic` (1) • `#oom` (1) • `#disk-isolation` (1) • `#retry-backoff` (1) • `#sarvam-ai` (1) • `#tts` (1) • `#rbac` (1) • `#ux` (1) • `#authorization` (1) • `#frontend-architecture` (1) • `#scalability` (1) • `#vector-search` (1) • `#pgvector` (1) • `#sqlite-vec` (1) • `#astrological-signals-engine` (1) • `#adaptive-edtech-platform` (1) • `#antigravity` (1) • `#code-review` (1) • `#business-invariants` (1) • `#quality-engineering` (1) • `#best-practices` (1) • `#database-design` (1) • `#anti-patterns` (1)

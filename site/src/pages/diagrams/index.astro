@@ -78,6 +78,108 @@ const diagrams = [
       datetime expires_at "Cumulative stacked expiry"
     }`,
   },
+  {
+    title: 'Astrological Signals Engine: Cloud Infrastructure & GPU Offload Topology',
+    project: 'astrological-signals-engine',
+    description: 'Production cloud deployment topology showing ingress, containerized FastAPI ASGI nodes, dedicated RunPod NVIDIA RTX 4090 GPU worker instances (running Ollama llama3.1:8b), Claude 3.5 Haiku burst fallback, and managed PostgreSQL 16 (with pgvector HNSW and GIN jsonb_path_ops).',
+    code: `flowchart TB
+    subgraph Client_Traffic ["Traffic & Ingestion Triggers"]
+      WebClient["Web & API Clients"]
+      BatchCron["Batch Ingestion Triggers<br/>(scripts/ingest_wikipedia.py)"]
+    end
+
+    subgraph Ingress_Layer ["Ingress & Gateway Tier"]
+      LB["Cloud Ingress & Reverse Proxy<br/>(TLS Termination, Rate Limiting)"]
+      WebClient --> LB
+      BatchCron --> LB
+    end
+
+    subgraph App_Cluster ["Application Cluster (Containerized)"]
+      FastAPI["FastAPI ASGI App Nodes<br/>(Port 8000, Async Endpoints)"]
+      IngestWorker["Ingestion & Pipeline Engine<br/>(4 Async Worker Threads)"]
+      AuditGate["Temporal Causality Audit Gate<br/>(audit_ingestion.py)"]
+      LB --> FastAPI
+      LB --> IngestWorker
+      IngestWorker --> AuditGate
+    end
+
+    subgraph GPU_Compute_Cloud ["Cloud GPU Compute (RunPod Infrastructure)"]
+      RunPodGateway["RunPod API Gateway / Router"]
+      GPU1["Worker Pod 1: RTX 4090 (24GB VRAM)<br/>Ollama llama3.1:8b (:11434)"]
+      GPU2["Worker Pod 2: RTX 4090 (24GB VRAM)<br/>Ollama llama3.1:8b (:11434)"]
+      RunPodGateway --> GPU1
+      RunPodGateway --> GPU2
+    end
+
+    subgraph External_AI_Fallback ["External Burst Fallback"]
+      ClaudeAPI["Anthropic Claude 3.5 Haiku API<br/>(Dynamic Failover on RunPod Timeout)"]
+    end
+
+    subgraph Data_Storage_Cluster ["Managed Data & Storage Infrastructure"]
+      PGPrimary[("PostgreSQL 16 Primary Cluster<br/>- Profiles, Transits & Aspects<br/>- GIN jsonb_path_ops Indexes<br/>- pgvector (768-dim HNSW)")]
+      PGReplica[("PostgreSQL Read Replica<br/>(Sub-5ms Filter Queries)")]
+      PGPrimary -.->|Streaming Replication| PGReplica
+      LocalVec[("Embedded sqlite-vec<br/>(Local CI / Deterministic Tests)")]
+    end
+
+    IngestWorker -->|HTTP POST Payload| RunPodGateway
+    IngestWorker -.->|Burst Fallback| ClaudeAPI
+    AuditGate -->|Verified Zero-Leak Records| PGPrimary
+    FastAPI -->|Fast Containment & Similarity| PGReplica
+    FastAPI -->|Write Operations| PGPrimary`,
+  },
+  {
+    title: 'Adaptive EdTech Platform: Cloud Infrastructure & Scalable Service Topology',
+    project: 'adaptive-edtech-platform',
+    description: 'Production cloud infrastructure spanning Cloud CDN edge distribution, lightweight FastAPI web pods on Cloud Run / GKE, Google Cloud Pub/Sub with dead-letter queue isolation, autoscaled Audio/Video worker fleet with ephemeral NVMe storage, Cloud Firestore real-time state, and Cloud Storage signed CDN delivery.',
+    code: `flowchart TB
+    subgraph Edge_Delivery ["Edge & CDN Delivery Tier"]
+      ClientBrowser["Student & Tutor Browsers<br/>(React 18 + Vite SPA)"]
+      CDN["Google Cloud CDN / Firebase Hosting<br/>(Static Chunks & Edge Media Cache)"]
+      ClientBrowser -->|Load SPA Chunks| CDN
+    end
+
+    subgraph Ingress_Tier ["Ingress & API Gateway"]
+      LB["Cloud Load Balancer / Ingress Gateway<br/>(TLS Termination, JWT Auth Verification)"]
+      ClientBrowser -->|REST API Requests / Lesson Gen| LB
+    end
+
+    subgraph Web_App_Cluster ["Web Service Cluster (Cloud Run / GKE)"]
+      WebAPI["FastAPI Web Server Pods<br/>(Lightweight ASGI, Port 8001)<br/>- Non-blocking Job Offload (&lt;40ms)<br/>- Role-Based Access Control (RBAC)"]
+      LB --> WebAPI
+    end
+
+    subgraph Messaging_And_State ["Distributed State & Messaging"]
+      FirestoreDB[("Google Cloud Firestore<br/>(Real-Time Job State & Lesson Progress)")]
+      PubSub["Google Cloud Pub/Sub Broker"]
+      TopicAudio["Topic: audio-generation<br/>(with Dead Letter Queue)"]
+      TopicVideo["Topic: video-composition<br/>(with Dead Letter Queue)"]
+      PubSub --> TopicAudio
+      PubSub --> TopicVideo
+    end
+
+    subgraph Decoupled_Worker_Fleet ["Autoscaling Decoupled Worker Pods"]
+      AudioPod["AudioWorker Pods<br/>- Sarvam AI Indian TTS Integration<br/>- In-Memory Audio Splicing"]
+      VideoPod["VideoWorker Pods<br/>- Ephemeral NVMe /tmp Scratch Volumes<br/>- Subprocess Isolation & Memory Guards<br/>- Pillow Slides & FFmpeg Video Composition"]
+    end
+
+    subgraph Persistence_Storage ["Persistence & Storage Infrastructure"]
+      CloudSQL[("Cloud SQL PostgreSQL<br/>- users, features, plans, user_plans<br/>- Cumulative Expiration Stacking")]
+      MediaBucket[("Google Cloud Storage (GCS)<br/>media-bucket: Audio & Rendered MP4s<br/>- Signed URLs & CDN Streaming")]
+    end
+
+    WebAPI -->|Create Job Record / Listen Status| FirestoreDB
+    WebAPI -->|Publish Task Event| PubSub
+    WebAPI -->|Validate Entitlements| CloudSQL
+    TopicAudio -->|StreamingPull| AudioPod
+    TopicVideo -->|StreamingPull| VideoPod
+    AudioPod -->|Update State| FirestoreDB
+    VideoPod -->|Update State| FirestoreDB
+    AudioPod -->|Upload Audio Stream| MediaBucket
+    VideoPod -->|Upload Final Rendered MP4| MediaBucket
+    MediaBucket -->|Stream Media Content| CDN
+    ClientBrowser -.->|Real-time Snapshot Listener| FirestoreDB`,
+  },
 ];
 ---
 
@@ -91,9 +193,13 @@ const diagrams = [
     <h1 class="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-stone-900 dark:text-white mb-2.5">
       Architecture Diagrams & Models
     </h1>
-    <p class="text-sm sm:text-base text-stone-600 dark:text-zinc-300 max-w-3xl leading-relaxed">
+    <p class="text-sm sm:text-base text-stone-600 dark:text-zinc-300 max-w-3xl leading-relaxed mb-4">
       Interactive system architecture diagrams, state machines, and relational models harvested from active codebases.
     </p>
+    <a href="/products" class="inline-flex items-center gap-2 text-xs font-mono text-sky-700 dark:text-sky-400 hover:underline">
+      <span>Looking for full product breakdowns? View Products</span>
+      <span>→</span>
+    </a>
   </div>
 
   <div class="space-y-10">
